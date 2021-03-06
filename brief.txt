@@ -55,8 +55,7 @@
     -> nombre de pages : 
         -> page d'accueil : 
             -> tous les produits 
-        -> page d'incription 
-        -> page produit 
+        -> page d'inscription 
         -> page panier 
         -> fiche produit
         -> fiche profil : 

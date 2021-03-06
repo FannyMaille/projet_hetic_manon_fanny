@@ -15,4 +15,3 @@ require 'config/init.php';
 </head>
 
 <body>
-    <div class="container">
