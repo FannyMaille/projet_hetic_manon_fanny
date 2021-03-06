@@ -17,7 +17,7 @@
           <label for="codepostal">Code Postal :</label>
           <input type="number" name="codepostal" id="codepostal">
         </div>
-        <div class="partiesformulaire">
+        <div class="partiesformulaire deuxiemepartie">
           <label for="mdp">Mot de passe :</label>
           <input type="password" name="mdp" id="mdp">
           <label for="mail">Mail :</label>
