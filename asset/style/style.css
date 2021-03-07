@@ -42,7 +42,7 @@ header{
   position: sticky;
   display: flex;
   justify-content: center;
-  height: 10vh;
+  min-height: 10vh;
   align-items: center;
   text-transform: uppercase;
   box-shadow: 0px 0px 10px grey;
@@ -200,11 +200,12 @@ input{
 .divcivilite{
   display: flex;
   align-items: center;
+  flex-direction: column;
 }
 .btnradio{
   display: flex;
   justify-content: space-around;
-  width: 50%;
+  width: 100%;
 }
 .btnradio div{
   display: flex;
@@ -219,12 +220,22 @@ footer{
   min-height: 20vh;
   background-color: #ffd400;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.listefooter{
+  display: flex;
   justify-content: space-around;
   align-items: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  width: 100%;
 }
 footer ul{
   list-style: none;
+  padding-left: 0px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 footer ul a {
   text-decoration: none;
@@ -233,6 +244,9 @@ footer ul a {
 footer ul a:hover {
   text-decoration: none;
   color: gray;
+}
+footer h4, footer p{
+  margin-top: 8vh;
 }
 
 /*____________________Responsive_____________________________________*/
@@ -252,5 +266,22 @@ footer ul a:hover {
   }
   .formulaireconexion{
     width: 40%;
+  }
+  .divcivilite{
+    flex-direction: row;
+  }
+  .btnradio {
+    width: 50%;
+  }
+  footer ul{
+    margin-top: 2vh;
+  }
+  .listefooter{
+    flex-wrap: wrap;
+    flex-direction: initial;
+  }
+  footer p{
+    margin-bottom: 3vh;
+    margin-top: 2vh;
   }
 }

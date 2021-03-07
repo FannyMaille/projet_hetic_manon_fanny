@@ -3,7 +3,7 @@
     <?php include 'config/template/nav.php'; ?>
 </header>
   <section class="sectformulaire">
-    <h1 class="text-center mt-5 mb-5">Page de connexion</h1>
+    <h1 class="text-center mt-5 mb-5">Connexion</h1>
 
     <form class="formulaire formulaireconexion" action="" method="post">
       <label for="pseudo"></label>

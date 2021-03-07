@@ -3,7 +3,7 @@
     <?php include 'config/template/nav.php'; ?>
 </header>
 <section class="sectformulaire">
-    <h1 class="text-center mt-5 mb-5">Page d'Inscription</h1>
+    <h1 class="text-center mt-5 mb-5">Inscription</h1>
 
     <form class="formulaire formulaireinscription" action="" method="post">
       <div class="deuxparties">
