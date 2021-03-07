@@ -85,6 +85,15 @@
   flex-direction: column;
 }
 
+/*____________________footer_____________________________________*/
+.footer{
+  height: 20vh;
+  background-color: gray;
+  color: white;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 
 /*____________________Responsive_____________________________________*/
 
