@@ -8,39 +8,47 @@
     <form class="formulaire formulaireinscription" action="" method="post">
       <div class="deuxparties">
         <div class="partiesformulaire premierepartie">
-          <label for="pseudo">Pseudo :</label>
-          <input type="text" name="pseudo" id="pseudo">
-          <label for="telephone">Téléphone :</label>
-          <input type="tel" name="telephone" id="telephone">
-          <label for="numrue">Numéro de rue :</label>
-          <input type="number" name="numrue" id="numrue">
-          <label for="codepostal">Code Postal :</label>
-          <input type="number" name="codepostal" id="codepostal">
+          <label for="pseudo"></label>
+          <input type="text" name="pseudo" id="pseudo" class="filter" placeholder="Pseudo *">
+          <label for="telephone"></label>
+          <input type="tel" name="telephone" id="telephone" class="filter" placeholder="Téléphone *">
+          <label for="numrue"></label>
+          <input type="number" name="numrue" id="numrue" class="filter" placeholder="Numéro de rue *">
+          <label for="codepostal"></label>
+          <input type="number" name="codepostal" id="codepostal" class="filter" placeholder="Code Postal *">
         </div>
         <div class="partiesformulaire deuxiemepartie">
-          <label for="mdp">Mot de passe :</label>
-          <input type="password" name="mdp" id="mdp">
-          <label for="mail">Mail :</label>
-          <input type="email" name="mail" id="mail">
-          <label for="rue">Nom de rue :</label>
-          <input type="text" name="rue" id="rue">
-          <label for="ville">Ville :</label>
-          <input type="text" name="ville" id="ville">
+          <label for="mdp"></label>
+          <input type="password" name="mdp" id="mdp" class="filter" placeholder="Mot de passe *">
+          <label for="mail"></label>
+          <input type="email" name="mail" id="mail" class="filter" placeholder="Email *">
+          <label for="rue"></label>
+          <input type="text" name="rue" id="rue" class="filter" placeholder="Nom de rue *">
+          <label for="ville"></label>
+          <input type="text" name="ville" id="ville" class="filter" placeholder="Ville *">
         </div>
       </div>
-      <p>Civilité :</p>
-      <div>
-        <input type="radio" id="mme" name="mme" value="mme" checked>
-        <label for="mme">Mme</label>
-        <input type="radio" id="mr" name="mr" value="mr">
-        <label for="mr">Mr</label>
-        <input type="radio" id="autre" name="autre" value="autre">
-        <label for="autre">Autre</label>
+      <div class="divcivilite">
+        <p class="civilite">Civilité :</p>
+        <div class="btnradio">
+          <div>
+            <input type="radio" id="mme" name="civil" value="mme" checked>
+            <label for="mme">Mme</label>
+          </div>
+          <div>
+            <input type="radio" id="mr" name="civil" value="mr">
+            <label for="mr">Mr</label>
+          </div>
+          <div>
+            <input type="radio" id="autre" name="civil" value="autre">
+            <label for="autre">Autre</label>
+          </div>
+        </div>
       </div>
       <input type="submit" value="Envoyer" name="envoyer">
     </form>
 
     <a href="login.php">Déjà Inscrit ?</a>
   </section>
-<hr>
+
 <?php include 'config/template/footer.php'; ?>

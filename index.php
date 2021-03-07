@@ -13,29 +13,31 @@
     <article>
       <figure>
         <img class="articleimg" src="asset/img/herofullimage.jpg" alt="Abonnement">
-        <figcaption><h3>Premier Article</h3></figcaption>
+        <figcaption><h3>1 Article</h3></figcaption>
       </figure>
       <p>Prix</p>
       <p>Stock</p>
+      <a href="" class="btnclassique">Voir l'article</a>
     </article>
     <article>
       <figure>
         <img class="articleimg" src="asset/img/herofullimage.jpg" alt="Abonnement">
-        <figcaption><h3>Deuxième Article</h3></figcaption>
+        <figcaption><h3>2 Article</h3></figcaption>
       </figure>
       <p>Prix</p>
       <p>Stock</p>
+      <a href="" class="btnclassique">Voir l'article</a>
     </article>
     <article>
       <figure>
         <img class="articleimg" src="asset/img/herofullimage.jpg" alt="Abonnement">
-        <figcaption><h3>Troisième Article</h3></figcaption>
+        <figcaption><h3>3 Article</h3></figcaption>
       </figure>
       <p>Prix</p>
       <p>Stock</p>
+      <a href="" class="btnclassique">Voir l'article</a>
     </article>
   </div>
 </section>
 
-<hr>
 <?php include 'config/template/footer.php'; ?>

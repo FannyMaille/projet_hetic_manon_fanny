@@ -1,20 +1,20 @@
-<footer class="footer">
+<footer>
   <div>
-    <p>Pages Produits</p>
+    <h4>Pages Produits</h4>
     <ul>
-      <li>Accueil</li>
-      <li>Article 1</li>
-      <li>Article 2</li>
-      <li>Article 3</li>
+      <li><a href="index.php">Accueil</a></li>
+      <li><a href="">Article 1</a></li>
+      <li><a href="">Article 2</a></li>
+      <li><a href="">Article 3</a></li>
     </ul>
   </div>
   <div>
-    <p>Pages interractives</p>
+    <h4>Pages interractives</h4>
     <ul>
-      <li>Connexion</li>
-      <li>Login</li>
-      <li>Inscription</li>
-      <li>Pannier</li>
+      <li><a href="login.php">Connexion</a></li>
+      <li><a href="profil.php">Profil</a></li>
+      <li><a href="inscription.php">Inscription</a></li>
+      <li><a href="panier.php">Panier</a></li>
     </ul>
   </div>
   <p>© Canon 2021 - Tous droits réservés</p>
