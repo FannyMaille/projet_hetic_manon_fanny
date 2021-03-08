@@ -215,6 +215,23 @@ input{
   margin-right: 2vh;
 }
 
+/*____________________Page profil_____________________________________*/
+
+.formulaireprofil{
+  margin: 0;
+  padding: 0;
+  width: 80%;
+  max-width: 500px;
+}
+.formulaireprofil form{
+  display: flex;
+  justify-content: space-between;
+}
+.formulaireprofil li{
+  list-style: none;
+  border-bottom: 1px solid #d6d3cc;
+}
+
 /*____________________footer_____________________________________*/
 footer{
   min-height: 20vh;
@@ -255,7 +272,7 @@ footer h4, footer p{
   .partiesformulaire{
     width: 47%;
   }
-  .formulaireinscription{
+  .formulaireinscription, .formulaireprofil{
     width: 60%;
   }
   .premierepartie{
