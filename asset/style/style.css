@@ -25,6 +25,10 @@ body{
   text-decoration: none;
   border: solid 2px #ffd400;
 }
+li{
+  list-style: none;
+  border-bottom: 1px solid #d6d3cc;
+}
 
 /*____________________Header_____________________________________*/
 nav a {
@@ -227,9 +231,37 @@ input{
   display: flex;
   justify-content: space-between;
 }
-.formulaireprofil li{
-  list-style: none;
-  border-bottom: 1px solid #d6d3cc;
+
+/*____________________Page panier_____________________________________*/
+.panier-liste, .panier-total{
+  width: 80%;
+  margin: auto;
+  padding: 0;
+}
+.panier-produit{
+  display: flex;
+  flex-direction: column;
+}
+.panier-produit img{
+  width: 100%;
+  height: 20vh;
+  order: -1;
+  object-fit: cover;
+}
+.panier-quantite{
+  display: flex;
+}
+.panier-quantite *{
+  height: 40px;
+  margin-top: 20px;
+}
+.panier-quantite input{
+  width: 40px;
+}
+.panier-quantite p{
+  text-align: center;
+  line-height: 40px;
+  border: 1px solid #ffd400;
 }
 
 /*____________________footer_____________________________________*/
@@ -297,8 +329,22 @@ footer h4, footer p{
     flex-wrap: wrap;
     flex-direction: initial;
   }
+  .panier-liste, .panier-total{
+    width: 60%;
+    max-width: 700px;
+  }
+  .panier-produit{
+    flex-direction: row;
+  }
+  .panier-produit img{
+    width: 20vw;
+    max-width: 200px;
+    height: 20vw;
+    max-height: 200px;
+  }
   footer p{
     margin-bottom: 3vh;
     margin-top: 2vh;
   }
 }
+
