@@ -17,7 +17,7 @@
       </figure>
       <p>Prix</p>
       <p>Stock</p>
-      <a href="" class="btnclassique">Voir l'article</a>
+      <a href="fiche_produit.php?id=1" class="btnclassique">Voir l'article</a>
     </article>
     <article>
       <figure>
@@ -26,7 +26,7 @@
       </figure>
       <p>Prix</p>
       <p>Stock</p>
-      <a href="" class="btnclassique">Voir l'article</a>
+      <a href="fiche_produit.php?id=2" class="btnclassique">Voir l'article</a>
     </article>
     <article>
       <figure>
@@ -35,7 +35,7 @@
       </figure>
       <p>Prix</p>
       <p>Stock</p>
-      <a href="" class="btnclassique">Voir l'article</a>
+      <a href="fiche_produit.php?id=3" class="btnclassique">Voir l'article</a>
     </article>
   </div>
 </section>

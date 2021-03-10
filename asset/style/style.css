@@ -29,6 +29,10 @@ li{
   list-style: none;
   border-bottom: 1px solid #d6d3cc;
 }
+.ariane{
+  display: flex;
+  margin: 20px;
+}
 
 /*____________________Header_____________________________________*/
 nav a {
@@ -264,6 +268,28 @@ input{
   border: 1px solid #ffd400;
 }
 
+/*____________________Page produit_____________________________________*/
+.produit-header{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.main-produit-img{
+  object-fit: cover;
+  width: 100%;
+}
+.second-produit-img{
+  width: 30%;
+  height: auto;
+  object-fit: cover;
+  margin-top: 10px;
+}
+.images-produit{
+  order: -1;
+  width: 100%;
+  height: 100%;
+}
+
 /*____________________footer_____________________________________*/
 footer{
   min-height: 20vh;
@@ -341,6 +367,13 @@ footer h4, footer p{
     max-width: 200px;
     height: 20vw;
     max-height: 200px;
+  }
+  .produit-header{
+    flex-direction: row;
+  }
+  .images-produit{
+    margin-right: 20px;
+    width: 50%;
   }
   footer p{
     margin-bottom: 3vh;
