@@ -40,10 +40,12 @@ foreach ($photo AS $ligneresultphoto){
 <section class="produit-header">
     <div>
         <h1 class="text-center mt-0 mb-5"><?=$nomproduit?></h1>
-        <p class="prix"><?=$prixproduit?> €</p>
+        <p class="prix">Prix : <?=$prixproduit?> €</p>
         <p>Stock : <?=$stockproduit?></p>
+        <h2>Description</h2>
+        <p><?=$descriptionproduit?></p>
         <form action="" method="post">
-            <input type="submit" value="ajouter au panier">
+            <input type="submit" value="Ajouter au panier">
         </form>
     </div>
     <div class="images-produit">
@@ -59,11 +61,7 @@ foreach ($photo AS $ligneresultphoto){
             ?>
         </figure>
     </div>
+</section>
 
-</section>
-<section class="text-center">
-    <h1>Description</h1>
-    <p><?=$descriptionproduit?></p>
-</section>
 
 <?php include 'config/template/footer.php'; ?>
