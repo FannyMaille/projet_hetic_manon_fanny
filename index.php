@@ -15,6 +15,22 @@ foreach ($photo AS $ligneresultphoto){
     $valeurdepart = $ligneresultphoto['id_produit'];
   }
 }
+
+
+/*________Pour les élèments écrits___*/
+//On sélectionne tous les élements de la base que l'on a besoin d'afficher sur notre page d'id $id
+$req = $pdo->query('SELECT id_produit, nom_produit, description_produit, prix, stock FROM hetic21_produit');
+$produit= $req->fetchAll(PDO::FETCH_ASSOC);
+//initialisation des valeurs pour la boucle foreach
+$j=1;
+//on récupère tous les éléments et on les enregistre dans des variables que l'on va appeler plus tard dans notre html en faisant un foreach 
+foreach ($produit AS $ligneresult){
+  $nomproduit[$j]=$ligneresult['nom_produit'];
+  $prixproduit[$j]=$ligneresult['prix'];
+  $stockproduit[$j]=$ligneresult['stock'];
+  $j++;
+}
+
 ?>
 <header>
     <?php include 'config/template/nav.php'; ?>
@@ -27,33 +43,22 @@ foreach ($photo AS $ligneresultphoto){
 <section class="nosproduits">
   <h2>Nos produits</h2>
   <div class="troisarticles">
+    <!--On crée une boucle for pour afficher répeter a chaque fois la même suite d'opérations avec les bons id-->
+    <?php
+      for($k=1; $k<=count($image); $k++){
+    ?>
     <article>
       <figure>
-        <img class="articleimg" src="<?=$image[1]?>" alt="Abonnement">
-        <figcaption><h3>1 Article</h3></figcaption>
+        <img class="articleimg" src="<?=$image[$k]?>" alt="<?=$nomproduit[$k]?>">
+        <figcaption><h3><?=$nomproduit[$k]?></h3></figcaption>
       </figure>
-      <p>Prix</p>
-      <p>Stock</p>
-      <a href="fiche_produit.php?id=1" class="btnclassique">Voir l'article</a>
+      <p>Prix : <?=$prixproduit[$k]?> €</p>
+      <p>Stock : <?=$stockproduit[$k]?></p>
+      <a href="fiche_produit.php?id=<?=$k?>" class="btnclassique">Voir l'article</a>
     </article>
-    <article>
-      <figure>
-        <img class="articleimg" src="<?=$image[2]?>" alt="Abonnement">
-        <figcaption><h3>2 Article</h3></figcaption>
-      </figure>
-      <p>Prix</p>
-      <p>Stock</p>
-      <a href="fiche_produit.php?id=2" class="btnclassique">Voir l'article</a>
-    </article>
-    <article>
-      <figure>
-        <img class="articleimg" src="<?=$image[3]?>" alt="Abonnement">
-        <figcaption><h3>3 Article</h3></figcaption>
-      </figure>
-      <p>Prix</p>
-      <p>Stock</p>
-      <a href="fiche_produit.php?id=3" class="btnclassique">Voir l'article</a>
-    </article>
+    <?php
+      }
+    ?>
   </div>
 </section>
 
