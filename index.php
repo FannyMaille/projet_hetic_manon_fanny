@@ -1,4 +1,14 @@
-<?php include 'config/template/head.php'; ?>
+<?php include 'config/template/head.php'; 
+// /*________Pour les photos des produits___*/
+// $req = $pdo->querry('SELECT url_image FROM hetic21_photos_produit WHERE id_produit');
+// $photo= $req->fetchAll(PDO::FETCH_ASSOC);
+// $i=1;
+// //on récupère toutes les photos et on les enregistre dans des variables que l'on va appeler plus tard dans notre html
+// foreach ($photo AS $ligneresultphoto){
+//   $image[$i]=$ligneresultphoto['url_image'];
+//   $i++;
+// }
+?>
 <header>
     <?php include 'config/template/nav.php'; ?>
 </header>

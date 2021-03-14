@@ -11,28 +11,28 @@
                 <h2>[Nom du produit]</h2>
                 <p>[Prix]</p>
                 <form class="panier-quantite" action="" method="post">
-                    <input type="submit" name="plus" value="+"></button>
+                    <input type="submit" name="plus" value="+">
                     <p class="pr-2 pl-2">[quantite]</p>
-                    <input type="submit" name="minus" value="-"></button>
+                    <input type="submit" name="minus" value="-">
                 </form>
             </div>
-            <img src="asset/img/herofullimage.jpg">
+            <img src="asset/img/herofullimage.jpg" alt="img-produit">
         </li>
         <li class="panier-produit p-3">
             <div class="ml-3">
                 <h2>[Nom du produit]</h2>
                 <p>[Prix]</p>
                 <form class="panier-quantite" action="" method="post">
-                    <input type="submit" name="plus" value="+"></button>
+                    <input type="submit" name="plus" value="+">
                     <p class="pr-2 pl-2">[quantite]</p>
-                    <input type="submit" name="minus" value="-"></button>
+                    <input type="submit" name="minus" value="-">
                 </form>
             </div>
             <img src="asset/img/herofullimage.jpg">
         </li>
     </ul>
 
-    <div class="panier-total text-center mb-5">
+    <div class="panier-total text-center mb-5" alt="img-produit">
         <div class="d-flex justify-content-between mt-3">
             <p>Prix total :</p>
             <p>[Prix total]€</p>
