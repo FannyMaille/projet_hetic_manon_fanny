@@ -28,11 +28,11 @@
                     <input type="submit" name="minus" value="-">
                 </form>
             </div>
-            <img src="asset/img/herofullimage.jpg">
+            <img src="asset/img/herofullimage.jpg" alt="img-produit">
         </li>
     </ul>
 
-    <div class="panier-total text-center mb-5" alt="img-produit">
+    <div class="panier-total text-center mb-5">
         <div class="d-flex justify-content-between mt-3">
             <p>Prix total :</p>
             <p>[Prix total]€</p>
