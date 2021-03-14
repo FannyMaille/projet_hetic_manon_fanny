@@ -22,7 +22,7 @@
         <li>
             <form action="" method="post">
                 <div>
-                    <label for="mdp">Mot de passe :</label>
+                    <label for="new-mdp">Mot de passe :</label>
                     <input type="hidden" name="new-mdp" id="new-mdp">
                     <p>*******</p>
                 </div>

@@ -9,7 +9,7 @@ $req = $pdo->prepare('SELECT nom_produit, description_produit, prix, stock FROM 
 $req->bindValue(':id', $id);
 $req->execute();
 $produit= $req->fetchAll(PDO::FETCH_ASSOC);
-//on récupère tous les éléments et on les enregistre dans des variables que l'on va appeler plus tard dans notre html
+//on récupère tous les éléments et on les enregistre dans des variables que l'on va appeler plus tard dans notre html en faisant un foreach 
 foreach ($produit AS $ligneresult){
   $nomproduit=$ligneresult['nom_produit'];
   $descriptionproduit=$ligneresult['description_produit'];
@@ -18,12 +18,13 @@ foreach ($produit AS $ligneresult){
 }
 
 /*________Pour les photos des produits___*/
+//obligé de faire 2 connexion differente car se sont des élèments dans un autre table que la précendente
 $req = $pdo->prepare('SELECT url_image FROM hetic21_photos_produit WHERE id_produit = :id');
 $req->bindValue(':id', $id);
 $req->execute();
 $photo= $req->fetchAll(PDO::FETCH_ASSOC);
 $i=1;
-//on récupère toutes les photos et on les enregistre dans des variables que l'on va appeler plus tard dans notre html
+//on récupère toutes les photos et on les enregistre dans des variables que l'on va appeler plus tard dans notre html en faisant un foreach
 foreach ($photo AS $ligneresultphoto){
   $image[$i]=$ligneresultphoto['url_image'];
   $i++;
