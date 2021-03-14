@@ -1,15 +1,17 @@
 <?php
 
-//connexion PDO
+/*_____connexion PDO, base de donnée_____*/
+//en local
 define('HOSTNAME', 'localhost');
 define('USERNAME', 'root');
 define('PASSWORD', 'root');
 define('DATABASE', 'maillem599');
 
-//define('HOSTNAME', 'maillem599.mysql.db');
-//define('USERNAME', 'maillem599');
-//define('PASSWORD', 'VPJDk2JBvE6t');
-//define('DATABASE', 'maillem599');
+//en ligne
+// define('HOSTNAME', 'maillem599.mysql.db');
+// define('USERNAME', 'maillem599');
+// define('PASSWORD', 'VPJDk2JBvE6t');
+// define('DATABASE', 'maillem599');
 
 $dsn = "mysql:host=" . HOSTNAME . ';dbname=' . DATABASE;
 
