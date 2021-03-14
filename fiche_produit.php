@@ -35,7 +35,7 @@ foreach ($photo AS $ligneresultphoto){
 </header>
 <nav class="ariane">
     <a href="./index.php">accueil</a> 
-    <p> > Page fiche produit <?= $id ?></p>
+    <p> > Page fiche produit : <?= $nomproduit ?></p>
 </nav>
 <section class="produit-header">
     <div>
