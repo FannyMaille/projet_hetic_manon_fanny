@@ -1,5 +1,7 @@
 <?php
 
+$content = '';
+
 /*_____connexion PDO, base de donnée_____*/
 //en local
 define('HOSTNAME', 'localhost');
@@ -24,8 +26,108 @@ try{
   $e -> getMessage() . '</li></ul>');
 }
 
-//variable d'affichage etc. 
+//variable d'affichage etc. 
 
-//constantes système 
+if(isset($_POST['inscription'])){
+  extract($_POST);
 
+  if(strlen($pseudo) < 2 || strlen($pseudo) > 255){
+    header('location:../inscription.php?error=1');
+    exit();
+  }
+  if(strlen($mdp) < 8 || strlen($mdp) > 25){
+    header('location:../inscription.php?error=2');
+    exit();
+  }
+  $telCarac = explode("", $telephone);
+  foreach($telCarac as $number){
+    if(is_nan($number)){
+      header('location:../inscription.php?error=3');
+      exit();
+    }
+  }
+  if(strlen($telephone) != 10){
+    header('location:../inscription.php?error=3');
+    exit();
+  }
+  if(!filter_var($mail, FILTER_VALIDATE_EMAIL)){
+    header('location:../inscription.php?error=4');
+    exit();
+  }
+
+  // if(is_nan($numrue) || strlen(strval($numrue)) > 5){
+  //  header('location:../inscription.php?error=5');
+  //  exit();
+  // }
+
+  // if(is_nan($codepostal) || strlen(strval($codepostal)) != 5){
+  //  header('location:../inscription.php?error=6');
+  //  exit();
+  // }
+
+  $villeCarac = explode("", $ville);
+  foreach($villeCarac as $caracter){
+    if(is_int($caracter)){
+      header('location:../inscription.php?error=7');
+      exit();
+    }
+  }
+  $mdpCrypt = password_hash($mdp, PASSWORD_DEFAULT);
+
+  $queryInsert = "INSERT INTO hetic21_user (pseudo, mdp, tel, email, numero_rue, nom_rue, cp, ville, civilite)
+  VALUES (:pseudo, :mdp, :tel, :email, :numero_rue, :nom_rue, :cp, :ville, :civilite)";
+
+  $reqPrep = $pdo->prepare($queryInsert);
+  $reqPrep->execute(
+    [
+      'pseudo' => $pseudo,
+      'mdp' => $mdpCrypt,
+      'tel' => $telephone,
+      'email' => $mail,
+      'numero_rue' => $numrue,
+      'nom_rue' => $rue,
+      'cp' => $codepostal,
+      'ville' => $ville,
+      'civilite' => $civil
+    ]
+  );
+  
+
+}
+
+
+if(isset($_POST['connexion'])){
+  // rien
+}
+
+
+//constantes système 
+
+// Gestion des erreurs de connexion
+
+if(isset($_GET['error'])){
+  switch ($_GET['error']){
+    case 1:
+      $content .= 'Votre pseudo doit contenir entre 2 et 255 caractères.';
+      break;
+    case 2:
+      $content .= 'Votre mot de passe doit être compris entre 8 et 25 caractères.';
+      break;
+    case 3:
+      $content .= 'Le numéro de téléphone n\'est pas valide. Il doit être écrit sans espace et à 10 chiffres.';
+      break;
+    case 4:
+      $content .= 'L\'email est invalide.';
+      break;
+    case 5:
+      $content .= 'Le numéro de rue est invalide';
+      break;
+    case 6:
+      $content .= 'Le code postal doit contenir 5 chiffres.';
+      break;
+    case 7:
+      $content .= 'Le nom de la ville n\'est pas valide';
+      break;
+  }
+}
 require 'function.php';
