@@ -5,7 +5,7 @@
 <section class="sectformulaire">
     <h1 class="text-center mt-5 mb-5">Inscription</h1>
 
-    <form class="formulaire formulaireinscription" action="" method="post">
+    <form class="formulaire formulaireinscription" action="init.php" method="post">
       <div class="deuxparties">
         <div class="partiesformulaire premierepartie">
           <label for="pseudo"></label>
