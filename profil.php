@@ -46,8 +46,15 @@
         <li>
             <form action="init.php" method="post">
                 <div>
-                    <label for="adresse">Adresse postale :</label>
-                    <input type="text" class="hidden" name="adresse" id="adresse">
+                    <p>Adresse postale :</p>
+                    <label for="numrue" class="hidden">Numéro de rue :</label>
+                    <input type="number" class="hidden" name="numrue" id="numrue">
+                    <label for="rue" class="hidden">Nom de rue :</label>
+                    <input type="text" class="hidden" name="rue" id="rue">
+                    <label for="cp" class="hidden">Code postal :</label>
+                    <input type="number" class="hidden" name="cp" id="cp">
+                    <label for="ville" class="hidden">Ville :</label>
+                    <input type="text" class="hidden" name="ville" id="ville">
                     <p>[numrue] [nom de rue] [CP], [ville]</p>
                 </div>
                 <div>
