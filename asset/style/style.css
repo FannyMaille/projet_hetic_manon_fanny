@@ -25,10 +25,6 @@ body{
   text-decoration: none;
   border: solid 2px #ffd400;
 }
-li{
-  list-style: none;
-  border-bottom: 1px solid #d6d3cc;
-}
 .ariane{
   display: flex;
   margin: 20px;
@@ -148,7 +144,7 @@ input[type="email"]{
   border-color: #d6d3cc;
 }
 /* Personnalisation du bouton d'envoie*/
-input[type=submit]{
+input[type=submit], button{
   background-color:#ffd400;
   color: white;
   border: none;
@@ -233,9 +229,11 @@ input{
   width: 80%;
   max-width: 500px;
 }
-.formulaireprofil form{
+.formulaireprofil li{
   display: flex;
   justify-content: space-between;
+  list-style: none;
+  border-bottom: 1px solid #d6d3cc;
 }
 .hidden{
   display: none;
