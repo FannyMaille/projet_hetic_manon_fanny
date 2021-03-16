@@ -44,18 +44,18 @@ foreach ($photo AS $ligneresultphoto){
         <p>Stock : <?=$stockproduit?></p>
         <h2>Description</h2>
         <p><?=$descriptionproduit?></p>
-        <form action="" method="post">
+        <form action="init.php" method="post">
             <input type="submit" value="Ajouter au panier">
         </form>
     </div>
     <div class="images-produit">
-        <img class="main-produit-img" src="<?=$image[1]?>">
+        <img class="main-produit-img" src="<?=$image[1]?>" alt="[alt-recupere-php]">
         <figure>
             <!--On crée une boucle for pour afficher toute les photos restantes-->
             <?php
             for($j=2; $j<=count($image); $j++){
             ?>
-            <img class='second-produit-img'src="<?=$image[$j]?>">
+            <img class='second-produit-img' src="<?=$image[$j]?>" alt="[alt-recupere-php]">
             <?php
             }
             ?>
