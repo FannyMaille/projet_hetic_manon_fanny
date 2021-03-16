@@ -32,20 +32,20 @@
         <p class="civilite">Civilité :</p>
         <div class="btnradio">
           <div>
-            <input type="radio" id="mme" name="civil" value="mme" checked>
+            <input type="radio" id="mme" name="civil" value="0" checked>
             <label for="mme">Mme</label>
           </div>
           <div>
-            <input type="radio" id="mr" name="civil" value="mr">
+            <input type="radio" id="mr" name="civil" value="1">
             <label for="mr">Mr</label>
           </div>
           <div>
-            <input type="radio" id="autre" name="civil" value="autre">
+            <input type="radio" id="autre" name="civil" value="2">
             <label for="autre">Autre</label>
           </div>
         </div>
       </div>
-      <input type="submit" value="Envoyer" name="envoyer">
+      <input type="submit" value="Envoyer" name="inscription">
     </form>
 
     <a href="login.php">Déjà Inscrit ?</a>
