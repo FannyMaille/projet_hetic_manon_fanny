@@ -10,7 +10,7 @@
             <div class="ml-3">
                 <h2>[Nom du produit]</h2>
                 <p>[Prix]</p>
-                <form class="panier-quantite" action="init.php" method="post">
+                <form class="panier-quantite" action="config/init.php" method="post">
                     <input type="submit" name="plus" value="+">
                     <p class="pr-2 pl-2">[quantite]</p>
                     <input type="submit" name="minus" value="-">
@@ -25,7 +25,7 @@
             <p>Prix total :</p>
             <p>[Prix total]€</p>
         </div>
-        <form action="init.php" method='post'>
+        <form action="config/init.php" method='post'>
             <input class="w-100" type="submit" name="acheter" value="Passer à l'achat">
         </form>
     </div>

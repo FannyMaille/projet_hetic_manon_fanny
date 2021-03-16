@@ -44,7 +44,7 @@ foreach ($photo AS $ligneresultphoto){
         <p>Stock : <?=$stockproduit?></p>
         <h2>Description</h2>
         <p><?=$descriptionproduit?></p>
-        <form action="init.php" method="post">
+        <form action="config/init.php" method="post">
             <input type="submit" value="Ajouter au panier">
         </form>
     </div>

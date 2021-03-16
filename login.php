@@ -5,7 +5,7 @@
   <section class="sectformulaire">
     <h1 class="text-center mt-5 mb-5">Connexion</h1>
 
-    <form class="formulaire formulaireconexion" action="init.php" method="post">
+    <form class="formulaire formulaireconexion" action="config/init.php" method="post">
       <label for="pseudo"></label>
       <input type="text" name="pseudo" id="pseudo" class="filter" placeholder="Pseudo *">
       <input type="password" name="mdp" id="mdp" class="filter" placeholder="Mot de passe *">

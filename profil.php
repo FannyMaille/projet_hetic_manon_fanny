@@ -8,7 +8,7 @@
 
     <ul class="formulaireprofil">
         <li>
-            <form action="init.php" method="post" class="profil-pseudo">
+            <form action="config/init.php" method="post" class="profil-pseudo">
                 <label for="pseudo">Pseudo :</label>
                 <input type="text" class="hidden" name="pseudo" id="pseudo">
                 <input type="submit" class="hidden" name="modifier-pseudo" value="Valider">
@@ -19,7 +19,7 @@
             </div>
         </li>
         <li>
-            <form action="init.php" method="post" class="profil-mdp">
+            <form action="config/init.php" method="post" class="profil-mdp">
                 <label for="new-mdp">Mot de passe :</label>
                 <input type="password" class="hidden" name="new-mdp" id="new-mdp">
                 <input type="submit" class="hidden" name="modifier-mdp" value="Valider">
@@ -30,7 +30,7 @@
             </div>
         </li>
         <li>
-            <form action="init.php" method="post" class="profil-civil">
+            <form action="config/init.php" method="post" class="profil-civil">
                 <label for="civilite">Civilité :</label>
                 <input type="text" class="hidden" name="civilite" id="civilite">
                 <input type="submit" class="hidden" name="modifier-civil" value="Valider">
@@ -41,7 +41,7 @@
             </div>
         </li>
         <li>
-            <form action="init.php" method="post" class="profil-adresse">
+            <form action="config/init.php" method="post" class="profil-adresse">
                 <p>Adresse postale :</p>
                 <label for="numrue" class="hidden">Numéro de rue :</label>
                 <input type="number" class="hidden" name="numrue" id="numrue">
@@ -59,7 +59,7 @@
             </div>
         </li>
         <li>
-            <form action="init.php" method="post" class="profil-tel">
+            <form action="config/init.php" method="post" class="profil-tel">
                 <label for="tel">Numéro de téléhpone :</label>
                 <input type="tel" class="hidden" name="tel" id="tel">
                 <input type="submit" class="hidden" name="modifier-tel" value="Valider">
@@ -70,7 +70,7 @@
             </div>
         </li>
         <li>
-            <form action="init.php" method="post" class="profil-mail">
+            <form action="config/init.php" method="post" class="profil-mail">
                 <label for="mail">Adresse mail :</label>
                 <input type="email" class="hidden" name="mail" id="mail">
                 <input type="submit" class="hidden" name="modifier-mail" value="Valider">
