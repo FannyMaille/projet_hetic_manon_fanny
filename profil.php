@@ -8,10 +8,10 @@
 
     <ul class="formulaireprofil">
         <li>
-            <form action="" method="post">
+            <form action="init.php" method="post">
                 <div>
                     <label for="pseudo">Pseudo :</label>
-                    <input type="hidden" name="pseudo" id="pseudo">
+                    <input type="text" class="hidden" name="pseudo" id="pseudo">
                     <p>[pseudo]</p>
                 </div>
                 <div>
@@ -20,10 +20,10 @@
             </form>
         </li>
         <li>
-            <form action="" method="post">
+            <form action="init.php" method="post">
                 <div>
                     <label for="new-mdp">Mot de passe :</label>
-                    <input type="hidden" name="new-mdp" id="new-mdp">
+                    <input type="password" class="hidden" name="new-mdp" id="new-mdp">
                     <p>*******</p>
                 </div>
                 <div>
@@ -32,10 +32,10 @@
             </form>
         </li>
         <li>
-            <form action="" method="post">
+            <form action="init.php" method="post">
                 <div>
                     <label for="civilite">Civilité :</label>
-                    <input type="hidden" name="civilite" id="civilite">
+                    <input type="text" class="hidden" name="civilite" id="civilite">
                     <p>[sexe]</p>
                 </div>
                 <div>
@@ -44,10 +44,10 @@
             </form>
         </li>
         <li>
-            <form action="" method="post">
+            <form action="init.php" method="post">
                 <div>
                     <label for="adresse">Adresse postale :</label>
-                    <input type="hidden" name="adresse" id="adresse">
+                    <input type="text" class="hidden" name="adresse" id="adresse">
                     <p>[numrue] [nom de rue] [CP], [ville]</p>
                 </div>
                 <div>
@@ -56,10 +56,10 @@
             </form>
         </li>
         <li>
-            <form action="" method="post">
+            <form action="init.php" method="post">
                 <div>
                     <label for="tel">Numéro de téléhpone :</label>
-                    <input type="hidden" name="tel" id="tel">
+                    <input type="tel" class="hidden" name="tel" id="tel">
                     <p>[numéro de téléphone]</p>
                 </div>
                 <div>
@@ -68,10 +68,10 @@
             </form>
         </li>
         <li>
-            <form action="" method="post">
+            <form action="init.php" method="post">
                 <div>
                     <label for="mail">Adresse mail :</label>
-                    <input type="hidden" name="mail" id="mail">
+                    <input type="email" class="hidden" name="mail" id="mail">
                     <p>[adresse mail]</p>
                 </div>
                 <div>

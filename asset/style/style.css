@@ -237,6 +237,9 @@ input{
   display: flex;
   justify-content: space-between;
 }
+.hidden{
+  display: none;
+}
 
 /*____________________Page panier_____________________________________*/
 .panier-liste, .panier-total{
