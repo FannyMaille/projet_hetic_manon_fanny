@@ -4,6 +4,7 @@
 </header>
 <section class="sectformulaire">
     <h1 class="text-center mt-5 mb-5">Inscription</h1>
+    <?= $content ?>
 
     <form class="formulaire formulaireinscription" action="init.php" method="post">
       <div class="deuxparties">

@@ -98,7 +98,27 @@ if(isset($_POST['inscription'])){
 
 
 if(isset($_POST['connexion'])){
-  // rien
+  extract($_POST);
+
+  $mdpCrypt = password_hash($mdp, PASSWORD_DEFAULT);
+
+  $queryInsert = "SELECT id_user 
+  FROM hetic21_user
+  WHERE pseudo = :pseudo AND mdp = :mdp";
+
+  $reqPrep = $pdo->prepare($queryInsert);
+  $reqPrep->execute(
+    [
+      'pseudo' => $pseudo,
+      'mdp' => $mdpCrypt
+    ]
+  );
+
+  if($reqPrep == NULL){
+    header('location:../login.php?error=8');
+    exit();
+  }
+
 }
 
 
@@ -111,23 +131,26 @@ if(isset($_GET['error'])){
     case 1:
       $content .= 'Votre pseudo doit contenir entre 2 et 255 caractères.';
       break;
-    case 2:
+    case 2:
       $content .= 'Votre mot de passe doit être compris entre 8 et 25 caractères.';
       break;
-    case 3:
+    case 3:
       $content .= 'Le numéro de téléphone n\'est pas valide. Il doit être écrit sans espace et à 10 chiffres.';
       break;
-    case 4:
+    case 4:
       $content .= 'L\'email est invalide.';
       break;
-    case 5:
+    case 5:
       $content .= 'Le numéro de rue est invalide';
       break;
-    case 6:
+    case 6:
       $content .= 'Le code postal doit contenir 5 chiffres.';
       break;
-    case 7:
+    case 7:
       $content .= 'Le nom de la ville n\'est pas valide';
+      break;
+    case 8:
+      $content .= 'Le mot de passe ou l\'identifiant est incorrect';
       break;
   }
 }
