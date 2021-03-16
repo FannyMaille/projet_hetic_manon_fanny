@@ -1,4 +1,5 @@
 <?php
+session_start();
 global $pdo;
 $content = '';
 
@@ -119,6 +120,20 @@ if(isset($_POST['connexion'])){
     exit();
   };
 
+  switch($result[0]['civilite']){
+    case 0:
+      $civil = 'femme';
+      break;
+    case 1:
+      $civil = 'homme';
+      break;
+    case 2:
+      $civil = 'autre';
+      break;
+  }
+
+  $statut = $result[0]['statut'] == 0 ? 'simple membre': 'admin';
+
   $_SESSION['user']['pseudo'] = $result[0]['pseudo'];
   $_SESSION['user']['tel'] = $result[0]['tel'];
   $_SESSION['user']['email'] = $result[0]['email'];
@@ -126,10 +141,12 @@ if(isset($_POST['connexion'])){
   $_SESSION['user']['nomrue'] = $result[0]['nom_rue'];
   $_SESSION['user']['cp'] = $result[0]['cp'];
   $_SESSION['user']['ville'] = $result[0]['ville'];
-  $_SESSION['user']['civil'] = $result[0]['civilite'];
+  $_SESSION['user']['civil'] = $civil;
+  $_SESSION['user']['statut'] = $statut;
 
-  header('location:../profil.php');
-  exit();
+  var_dump($_SESSION);
+  // header('location:../profil.php');
+  // exit();
 
 }
 

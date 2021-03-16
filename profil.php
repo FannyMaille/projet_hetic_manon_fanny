@@ -4,7 +4,7 @@
 </header>
 <section class="sectformulaire">
     <h1 class="text-center mt-5">Bonjour <?= $_SESSION['user']['pseudo'] ?> !</h1>
-    <p class="text-center mb-5">Vous êtes [simple membre / admin]</p>
+    <p class="text-center mb-5">Vous êtes <?= $_SESSION['user']['statut'] ?></p>
 
     <ul class="formulaireprofil">
         <li>
@@ -12,7 +12,7 @@
                 <label for="pseudo">Pseudo :</label>
                 <input type="text" class="hidden" name="pseudo" id="pseudo">
                 <input type="submit" class="hidden" name="modifier-pseudo" value="Valider">
-                <p class="profil-element">[pseudo]</p>
+                <p class="profil-element"><?= $_SESSION['user']['pseudo'] ?></p>
             </form>
             <div>
                 <button type="submit" class="modifier-profil" value="profil-pseudo">Modifier</button>
@@ -34,7 +34,7 @@
                 <label for="civilite">Civilité :</label>
                 <input type="text" class="hidden" name="civilite" id="civilite">
                 <input type="submit" class="hidden" name="modifier-civil" value="Valider">
-                <p class="profil-element">[sexe]</p>
+                <p class="profil-element"><?= $_SESSION['user']['civil'] ?></p>
             </form>
             <div>
                 <button type="submit" class="modifier-profil" value="profil-civil">Modifier</button>    
@@ -52,7 +52,10 @@
                 <label for="ville" class="hidden">Ville :</label>
                 <input type="text" class="hidden" name="ville" id="ville">
                 <input type="submit" class="hidden" name="modifier-adresse" value="Valider">
-                <p class="profil-element">[numrue] [nom de rue] [CP], [ville]</p>
+                <p class="profil-element"><?= $_SESSION['user']['numrue'] . ' ' .
+                $_SESSION['user']['nomrue'] . ', ' . 
+                $_SESSION['user']['cp'] . ' ' .
+                $_SESSION['user']['ville'] ?></p>
             </form>
             <div>
                 <button type="submit" class="modifier-profil" value="profil-adresse">Modifier</button>    
@@ -63,7 +66,7 @@
                 <label for="tel">Numéro de téléhpone :</label>
                 <input type="tel" class="hidden" name="tel" id="tel">
                 <input type="submit" class="hidden" name="modifier-tel" value="Valider">
-                <p class="profil-element">[numéro de téléphone]</p>
+                <p class="profil-element"><?= $_SESSION['user']['tel'] ?></p>
             </form>
             <div>
                 <button type="submit" class="modifier-profil" value="profil-tel">Modifier</button>
@@ -74,13 +77,15 @@
                 <label for="mail">Adresse mail :</label>
                 <input type="email" class="hidden" name="mail" id="mail">
                 <input type="submit" class="hidden" name="modifier-mail" value="Valider">
-                <p class="profil-element">[adresse mail]</p>
+                <p class="profil-element"><?= $_SESSION['user']['email'] ?></p>
             </form>
             <div>
                 <button type="submit" class="modifier-profil" value="profil-mail">Modifier</button>
             </div>
         </li>
     </ul>
+
+    <button type="submit" value="deconnexion">Se déconnecter</button>
     
 </section>
 <?php include 'config/template/footer.php'; ?>
