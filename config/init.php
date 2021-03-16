@@ -1,6 +1,5 @@
 <?php
 global $pdo;
-
 $content = '';
 
 /*_____connexion PDO, base de donnée_____*/
@@ -29,6 +28,8 @@ try{
 
 //variable d'affichage etc. 
 
+require 'function.php';
+
 if(isset($_POST['inscription'])){
   extract($_POST);
 
@@ -40,9 +41,9 @@ if(isset($_POST['inscription'])){
     header('location:../inscription.php?error=2');
     exit();
   }
-  $telCarac = explode("", $telephone);
+  $telCarac = str_split($telephone, 1);
   foreach($telCarac as $number){
-    if(is_nan($number)){
+    if(!is_numeric($number)){
       header('location:../inscription.php?error=3');
       exit();
     }
@@ -66,7 +67,7 @@ if(isset($_POST['inscription'])){
   //  exit();
   // }
 
-  $villeCarac = explode("", $ville);
+  $villeCarac = str_split($ville, 1);
   foreach($villeCarac as $caracter){
     if(is_int($caracter)){
       header('location:../inscription.php?error=7');
@@ -99,25 +100,36 @@ if(isset($_POST['inscription'])){
 
 if(isset($_POST['connexion'])){
   extract($_POST);
-
-  $mdpCrypt = password_hash($mdp, PASSWORD_DEFAULT);
-
-  $queryInsert = "SELECT id_user 
+  
+  $querySelect = "SELECT *
   FROM hetic21_user
-  WHERE pseudo = :pseudo AND mdp = :mdp";
-
-  $reqPrep = $pdo->prepare($queryInsert);
+  WHERE pseudo = :pseudo";
+  
+  $reqPrep = $pdo->prepare($querySelect);
   $reqPrep->execute(
     [
-      'pseudo' => $pseudo,
-      'mdp' => $mdpCrypt
+      'pseudo' => $pseudo
     ]
   );
+  
+  $result = $reqPrep->fetchAll(PDO::FETCH_ASSOC);
 
-  if($reqPrep == NULL){
+  if(!password_verify($mdp, $result[0]['mdp'])){
     header('location:../login.php?error=8');
     exit();
-  }
+  };
+
+  $_SESSION['user']['pseudo'] = $result[0]['pseudo'];
+  $_SESSION['user']['tel'] = $result[0]['tel'];
+  $_SESSION['user']['email'] = $result[0]['email'];
+  $_SESSION['user']['numrue'] = $result[0]['numero_rue'];
+  $_SESSION['user']['nomrue'] = $result[0]['nom_rue'];
+  $_SESSION['user']['cp'] = $result[0]['cp'];
+  $_SESSION['user']['ville'] = $result[0]['ville'];
+  $_SESSION['user']['civil'] = $result[0]['civilite'];
+
+  header('location:../profil.php');
+  exit();
 
 }
 
@@ -154,4 +166,3 @@ if(isset($_GET['error'])){
       break;
   }
 }
-require 'function.php';

@@ -4,6 +4,7 @@
 </header>
   <section class="sectformulaire">
     <h1 class="text-center mt-5 mb-5">Connexion</h1>
+    <?= $content ?>
 
     <form class="formulaire formulaireconexion" action="config/init.php" method="post">
       <label for="pseudo"></label>

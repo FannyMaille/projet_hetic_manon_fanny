@@ -3,7 +3,7 @@
     <?php include 'config/template/nav.php'; ?>
 </header>
 <section class="sectformulaire">
-    <h1 class="text-center mt-5">Bonjour [pseudo] !</h1>
+    <h1 class="text-center mt-5">Bonjour <?= $_SESSION['user']['pseudo'] ?> !</h1>
     <p class="text-center mb-5">Vous êtes [simple membre / admin]</p>
 
     <ul class="formulaireprofil">
