@@ -94,8 +94,21 @@ if(isset($_POST['inscription'])){
       'civilite' => $civil
     ]
   );
-  
 
+  $querySelect = "SELECT *
+  FROM hetic21_user
+  WHERE pseudo = :pseudo";
+  
+  $reqPrep = $pdo->prepare($querySelect);
+  $reqPrep->execute(
+    [
+      'pseudo' => $pseudo
+    ]
+  );
+  
+  $result = $reqPrep->fetchAll(PDO::FETCH_ASSOC);
+  setSession($result);
+  
 }
 
 
@@ -120,6 +133,11 @@ if(isset($_POST['connexion'])){
     exit();
   };
 
+  setSession($result);
+
+}
+
+function setsession($result){
   switch($result[0]['civilite']){
     case 0:
       $civil = 'femme';
@@ -144,10 +162,8 @@ if(isset($_POST['connexion'])){
   $_SESSION['user']['civil'] = $civil;
   $_SESSION['user']['statut'] = $statut;
 
-  var_dump($_SESSION);
-  // header('location:../profil.php');
-  // exit();
-
+  header('location:../profil.php');
+  exit();
 }
 
 
