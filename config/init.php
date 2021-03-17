@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if(isset($_SESSION['user']) && (!isset($_GET['access']))){
+  header('location:' . $_SERVER['REQUEST_URI'] . '?access=forbidden');
+}
+
 global $pdo;
 $content = '';
 
@@ -35,43 +40,43 @@ if(isset($_POST['inscription'])){
   extract($_POST);
 
   if(strlen($pseudo) < 2 || strlen($pseudo) > 255){
-    header('location:../inscription.php?error=1');
+    header('location:../inscription.php?error=1&access=forbidden');
     exit();
   }
   if(strlen($mdp) < 8 || strlen($mdp) > 25){
-    header('location:../inscription.php?error=2');
+    header('location:../inscription.php?error=2&access=forbidden');
     exit();
   }
   $telCarac = str_split($telephone, 1);
   foreach($telCarac as $number){
     if(!is_numeric($number)){
-      header('location:../inscription.php?error=3');
+      header('location:../inscription.php?error=3&access=forbidden');
       exit();
     }
   }
   if(strlen($telephone) != 10){
-    header('location:../inscription.php?error=3');
+    header('location:../inscription.php?error=3&access=forbidden');
     exit();
   }
   if(!filter_var($mail, FILTER_VALIDATE_EMAIL)){
-    header('location:../inscription.php?error=4');
+    header('location:../inscription.php?error=4&access=forbidden');
     exit();
   }
 
   // if(is_nan($numrue) || strlen(strval($numrue)) > 5){
-  //  header('location:../inscription.php?error=5');
+  //  header('location:../inscription.php?error=5&access=forbidden');
   //  exit();
   // }
 
   // if(is_nan($codepostal) || strlen(strval($codepostal)) != 5){
-  //  header('location:../inscription.php?error=6');
+  //  header('location:../inscription.php?error=6&access=forbidden');
   //  exit();
   // }
 
   $villeCarac = str_split($ville, 1);
   foreach($villeCarac as $caracter){
     if(is_int($caracter)){
-      header('location:../inscription.php?error=7');
+      header('location:../inscription.php?error=7&access=forbidden');
       exit();
     }
   }
@@ -129,7 +134,7 @@ if(isset($_POST['connexion'])){
   $result = $reqPrep->fetchAll(PDO::FETCH_ASSOC);
 
   if(!password_verify($mdp, $result[0]['mdp'])){
-    header('location:../login.php?error=8');
+    header('location:../login.php?error=8&access=forbidden');
     exit();
   };
 
@@ -162,7 +167,7 @@ function setsession($result){
   $_SESSION['user']['civil'] = $civil;
   $_SESSION['user']['statut'] = $statut;
 
-  header('location:../profil.php');
+  header('location:../profil.php?access=authorized');
   exit();
 }
 
