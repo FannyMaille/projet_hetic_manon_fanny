@@ -85,7 +85,7 @@
         </li>
     </ul>
 
-    <button type="submit" value="deconnexion">Se déconnecter</button>
+    <a href="index.php?session=destroy">Deconnexion</a>
     
 </section>
 <?php include 'config/template/footer.php'; ?>

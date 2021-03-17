@@ -5,6 +5,12 @@ if(isset($_SESSION['user']) && (!isset($_GET['access']))){
   header('location:' . $_SERVER['REQUEST_URI'] . '?access=forbidden');
 }
 
+if(isset($_GET['session']) && $_GET['session'] == 'destroy'){
+  session_destroy();
+  header('location:index.php');
+  exit();
+}
+
 global $pdo;
 $content = '';
 
