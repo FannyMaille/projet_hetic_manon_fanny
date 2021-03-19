@@ -37,7 +37,7 @@ foreach ($produit AS $ligneresult){
 </header>
 
 <section class="hero-full-image">
-  <h1>Canon</h1>
+  <h1>Fanon</h1>
   <a href="#produits" class="btnclassique">Nos produits</a>
 </section>
 

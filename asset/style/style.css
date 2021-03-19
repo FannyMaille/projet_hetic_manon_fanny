@@ -316,6 +316,10 @@ input{
   object-fit: cover;
   margin-top: 10px;
 }
+.second-produit-img:hover{
+  cursor: pointer;
+  filter: brightness(0.4);
+}
 .images-produit{
   order: -1;
   width: 100%;
