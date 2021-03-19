@@ -1,3 +1,4 @@
+<a href="index.php" class="logo">Canon</a>
 <nav class="nav">
     <a class="nav-link" href="index.php?access=<?php if(isset($_GET['access'])){ echo $_GET['access']; } ?>">Accueil</a>
     <?php if(!isset($_SESSION['user'])){ ?>
