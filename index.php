@@ -38,9 +38,10 @@ foreach ($produit AS $ligneresult){
 
 <section class="hero-full-image">
   <h1>Canon</h1>
+  <a href="#produits" class="btnclassique">Nos produits</a>
 </section>
 
-<section class="nosproduits">
+<section id="produits" class="nosproduits">
   <h2>Nos produits</h2>
   <div class="troisarticles">
     <!--On crée une boucle for pour afficher répeter a chaque fois la même suite d'opérations avec les bons id-->
