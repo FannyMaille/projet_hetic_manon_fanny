@@ -14,23 +14,21 @@ for(let i = 0; i < modifyProfilButtons.length; i++){
 function changeProfilElement(){
   let buttonValue = this.value;
   let form = document.getElementsByClassName(buttonValue)[0];
-  let hiddenElements = form.getElementsByClassName('hidden');
-  let profilElement = form.getElementsByClassName('profil-element')[0];
-  profilElement.style.display = 'none';
 
-  for(let i = 0 ; i < hiddenElements.length ; i++){
-    hiddenElements[i].style.display = "block";
-  }
-
+  showOrHideElements(form, 'show');
   if(previousChange){
-    console.log('ok');
-    let previousHiddenElements = previousChange.getElementsByClassName('hidden');
-    let previousProfilElement = previousChange.getElementsByClassName('profil-element')[0];
-    previousProfilElement.style.display = 'block';
-    for(let i = 0 ; i < previousHiddenElements.length ; i++){
-      previousHiddenElements[i].style.display = "none";
-    }
+    showOrHideElements(previousChange, 'hide');
   }
 
   previousChange = form;
+}
+
+function showOrHideElements(form, action){
+  let hiddenElements = form.getElementsByClassName('hidden');
+  let profilElement = form.getElementsByClassName('profil-element')[0];
+  profilElement.style.display = (action == 'show') ? 'none' : 'block';
+
+  for(let i = 0 ; i < hiddenElements.length ; i++){
+    hiddenElements[i].style.display = (action == 'show') ? 'block' : 'none';
+  }
 }
