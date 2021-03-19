@@ -4,11 +4,6 @@
   src: url("/asset/font/Ruslan/Ruslan_Display.woff2") format("woff2"),
       url("/asset/font/Ruslan/Ruslan_Display.woff") format("woff");
 }
-@font-face {
-  font-family: "Russo";
-  src: url("/asset/font/Russo/russo-one-v9-latin-regular.woff2") format("woff2"),
-      url("/asset/font/Russo/russo-one-v9-latin-regular.woff") format("woff");
-}
 
 /*_____________________Général_______________________________________*/
 * {
@@ -45,12 +40,21 @@ html{
   margin: 20px;
 }
 h1,h2,h3{
-  font-family: "Russo";
+  text-transform: uppercase;
 }
 
 /*____________________Header_____________________________________*/
 nav a {
   color: black;
+}
+.logo{
+  font-family: "RuslanDisplay";
+  text-decoration: none;
+  color: #ffd400;
+  display: none;
+  position: absolute;
+  left: 70px;
+  font-size: 1.5rem;
 }
 .nav-link:hover {
   text-decoration: underline;
@@ -88,8 +92,8 @@ header{
 }
 .hero-full-image h1{
   font-size: 4.5rem;
-  font-family: "RuslanDisplay";
   text-transform: uppercase;
+  font-family: "RuslanDisplay";
 }
 .nosproduits{
   display: flex;
@@ -105,6 +109,7 @@ header{
   font-size: 1.5rem;
   text-align: center;
   padding: 0 2vw;
+  margin: 10px;
 }
 .troisarticles{
   display: flex;
@@ -121,9 +126,12 @@ header{
   align-items: center;
   border: 2px solid #ffd400;
   margin-bottom: 5vh;
+  border-radius: 10px;
+  margin: 30px;
 }
 .troisarticles img{
   width: 100%;
+  border-radius: 10px;
 }
 .troisarticles figure{
   display: flex;
@@ -131,7 +139,8 @@ header{
   align-items: center;
 }
 .troisarticles figcaption{
-  padding-top: 2vh;
+  width: 100%;
+  background-color: #ffd400;
 }
 
 /*____________________Formulaires en général_____________________________________*/
@@ -307,6 +316,10 @@ input{
   object-fit: cover;
   margin-top: 10px;
 }
+.second-produit-img:hover{
+  cursor: pointer;
+  filter: brightness(0.4);
+}
 .images-produit{
   order: -1;
   width: 100%;
@@ -350,6 +363,9 @@ footer h4, footer p{
 /*____________________Responsive_____________________________________*/
 
 @media (min-width:650px){
+  .logo{
+    display: block;
+  }
   .hero-full-image h1, .hero-full-image a{
     margin-left: 15%;
   }

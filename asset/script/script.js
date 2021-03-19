@@ -31,4 +31,20 @@ function showOrHideElements(form, action){
   for(let i = 0 ; i < hiddenElements.length ; i++){
     hiddenElements[i].style.display = (action == 'show') ? 'block' : 'none';
   }
+} 
+
+// ------------------------ ficheproduit.php
+// Get all the elements
+const miniatures = document.getElementsByClassName('second-produit-img');
+
+// Add the listeners
+for(let i = 0; i < miniatures.length; i++){
+  miniatures[i].addEventListener("click", changePhoto);
+}
+
+// functions
+function changePhoto(){
+  let image_chemin = this.src;
+  let photoprincipale = document.getElementsByClassName('main-produit-img')[0];
+  photoprincipale.src = image_chemin;
 }

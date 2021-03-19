@@ -34,8 +34,8 @@ foreach ($photo AS $ligneresultphoto){
     <?php include 'config/template/nav.php'; ?>
 </header>
 <nav class="ariane">
-    <a href="./index.php">accueil</a> 
-    <p> > Page fiche produit : <?= $nomproduit ?></p>
+    <a href="./index.php">Accueil </a> 
+    <p> > <?= $nomproduit ?></p>
 </nav>
 <section class="produit-header">
     <div>
@@ -53,9 +53,9 @@ foreach ($photo AS $ligneresultphoto){
         <figure>
             <!--On crée une boucle for pour afficher toute les photos restantes-->
             <?php
-            for($j=2; $j<=count($image); $j++){
+            for($j=1; $j<=count($image); $j++){
             ?>
-            <img class='second-produit-img' src="<?=$image[$j]?>" alt="[alt-recupere-php]">
+            <img class='second-produit-img' id="<?=$j?>" src="<?=$image[$j]?>" alt="[alt-recupere-php]">
             <?php
             }
             ?>
