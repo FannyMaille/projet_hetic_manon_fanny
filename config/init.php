@@ -1,15 +1,15 @@
 <?php
 session_start();
 
-if(isset($_SESSION['user']) && (!isset($_GET['access']))){
-  header('location:' . $_SERVER['REQUEST_URI'] . '?access=forbidden');
-}
+// if(isset($_SESSION['user']) && (!isset($_GET['access']))){
+//   header('location:' . $_SERVER['REQUEST_URI'] . '?access=forbidden');
+// }
 
-if(isset($_GET['session']) && $_GET['session'] == 'destroy'){
-  session_destroy();
-  header('location:index.php');
-  exit();
-}
+// if(isset($_GET['session']) && $_GET['session'] == 'destroy'){
+//   session_destroy();
+//   header('location:index.php');
+//   exit();
+// }
 
 global $pdo;
 $content = '';
@@ -42,6 +42,7 @@ try{
 
 require 'function.php';
 
+// traitement des données reçues de la page d'inscription
 if(isset($_POST['inscription'])){
   extract($_POST);
 
@@ -123,6 +124,7 @@ if(isset($_POST['inscription'])){
 }
 
 
+// traitement des données reçues de la page de connexion
 if(isset($_POST['connexion'])){
   extract($_POST);
   
@@ -177,6 +179,30 @@ function setsession($result){
   exit();
 }
 
+// traitement des données reçues de la page profil
+if($_SERVER["HTTP_REFERER"] == 'http://' . $_SERVER['HTTP_HOST']. '/projet_hetic_manon_fanny/profil.php?access=authorized' ||
+  $_SERVER["HTTP_REFERER"] == 'https://' . $_SERVER['HTTP_HOST']. '/projet_hetic_manon_fanny/profil.php?access=authorized' ||
+  $_SERVER["HTTP_REFERER"] == $_SERVER['HTTP_HOST']. '/projet_hetic_manon_fanny/profil.php?access=authorized'){
+  
+    extract($_POST);  
+
+    // Je t'écris mes idées :
+    // récupérer le formulaire envoyé selon un input type hidden
+    // enregistrer le formulaire dans une variable genre $key = 'pseudo'
+    // faire un switch selon $key (pseudo, mdp, adresse ...)
+    // faire le sql pour envoyer la donnée
+    // évidemment si tu as une meilleure idée tu est libre ^^ 
+    
+    // if(isset($pseudo)){
+    //   $key = $pseudo;
+    // }
+
+
+    // $elementToChange = array_key_first($_POST);
+    // var_dump($elementToChange);
+
+
+}
 
 //constantes système 
 
