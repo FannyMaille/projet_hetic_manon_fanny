@@ -1,6 +1,6 @@
 <?php
-///______________________________________CONNEXION
-//fonction qui permt de voir si quelqu'in est connecté
+///////////////////////////______________________________________CONNEXION
+//___FONCTION___fonction qui permt de voir si quelqu'in est connecté
 function connecte(){
   if(isset($_SESSION['user'])){
     return true;
@@ -9,9 +9,9 @@ function connecte(){
   }
 }
 
-///______________________________________PAGE INDEX
+///////////////////////////______________________________________PAGE INDEX
 
-/*________Pour les photos des produits___*/
+//___FONCTION___Pour les photos des produits___
 function photosproduits(){
   global $pdo;
   $req = $pdo->query('SELECT id_produit, url_image FROM hetic21_photos_produit');
@@ -32,7 +32,7 @@ function photosproduits(){
   return $image;
 }
 
-/*________Pour les élèments écrits___*/
+//___FONCTION___Pour les élèments écrits___
 function ecritproduits(){
   global $pdo;
   //On sélectionne tous les élements de la base que l'on a besoin d'afficher sur notre page d'id $id
@@ -51,9 +51,9 @@ function ecritproduits(){
 }
 
 
-///______________________________________PAGE PRODUITS
+///////////////////////////______________________________________PAGE PRODUITS
 
-/*________Pour les élèments écrits___*/
+//___FONCTION___Pour les élèments écrits___
 function ecritunproduit(){
   global $pdo;
   //On récupère l'id du produit qu'on a mis dans l'url
@@ -73,7 +73,7 @@ function ecritunproduit(){
   return $unproduit;
 }
 
-/*________Pour les photos des produits___*/
+//___FONCTION___Pour les photos des produits___
 function photosunproduit(){
   global $pdo;
   //On récupère l'id du produit qu'on a mis dans l'url
@@ -94,8 +94,9 @@ function photosunproduit(){
 
 
 
-///______________________________________PAGE INSCRIPTION
+///////////////////////////______________________________________PAGE INSCRIPTION
 
+//___FONCTION___
 // Traitement si il ya des erreurs dans le renseignement des champs
 function erreurinscription($pseudo,$mdp,$telephone,$mail,$ville){
   $content="";
@@ -132,6 +133,7 @@ function erreurinscription($pseudo,$mdp,$telephone,$mail,$ville){
   return $content;
 }
 
+//___FONCTION___
 //Function pour enregistre les informations du formulaire dans la base de donées
 function enregistrementbasededonnee($pseudo,$mdp,$telephone,$mail,$numrue, $rue, $codepostal, $ville, $civil){
   global $pdo;
@@ -180,8 +182,9 @@ function enregistrementbasededonnee($pseudo,$mdp,$telephone,$mail,$numrue, $rue,
 }
 
 
-///______________________________________PAGE LOGIN
+///////////////////////////______________________________________PAGE LOGIN
 
+//___FONCTION___
 //fonction pour vérifier si le pseudo et le mot de passe enregistré sont correctes
 function verificationlogin($pseudo,$mdp){
   global $pdo;
@@ -214,6 +217,7 @@ function verificationlogin($pseudo,$mdp){
   
 }
 
+//___FONCTION___
 //fonction qui permet d'enregitrer toutes les infoamrions de l'utilisateur dans la session
 //$result contient les informations d'enregistrement de l'utilisateur (=de la base de donnée hetic21_user )
 function setsession($result){
@@ -252,8 +256,9 @@ function setsession($result){
     exit();
   }
 
-  ///______________________________________PAGE LOGIN
+///////////////////////////______________________________________PAGE PROFIL
 
+//___FONCTION___
 // Traitement si il ya des erreurs de saisie dans le formualaire
 function changementerreur($pseudo,$telephone,$mail,$ville){
   $content="";
@@ -286,6 +291,7 @@ function changementerreur($pseudo,$telephone,$mail,$ville){
   return $content;
 }  
 
+//___FONCTION___
 //Function pour enregistre les informations du formulaire dans la base de donées
 function changementbasededonnee($id,$pseudo,$telephone,$mail,$numrue, $rue, $codepostal, $ville, $civil){
   global $pdo;
@@ -340,6 +346,60 @@ function changementbasededonnee($id,$pseudo,$telephone,$mail,$numrue, $rue, $cod
     $result = $reqPrep->fetchAll(PDO::FETCH_ASSOC);
     //On appel la fonnction setSession() pour mettre à jour les varibbales de session
     setSession($result);
+  }
+  return $erreur;
+}
+
+
+///////////////////////////______________________________________PAGE MOT DE PASSE
+
+//___FONCTION___
+//Fonction qui permet de changer son mot de passe actuel
+function changemdp($mdp_ancien, $mdp_nouveau, $id){
+  global $pdo;
+  $erreur="";
+
+  //on fait une requête qui va selectionner le mot de passe (hash) de l'utilisateur actuel enregistre dans notre bas de donnée
+  $querySelect = "SELECT mdp FROM hetic21_user WHERE id_user = :id";
+  $reqancien = $pdo->prepare($querySelect);
+  $reqancien->execute(
+    [
+      'id' => $id
+    ]
+  );
+  //On enregistre ce mot de passe dans une variable
+  $mdpCrypt= $reqancien->fetchAll(PDO::FETCH_ASSOC);
+  foreach ($mdpCrypt AS $ligne){
+    $mdpCryptBbd = $ligne['mdp'];
+  }
+
+
+  //On regarde si le mot de passe hash de la base de donnée et le mot de passe inscrit dans le formulaire par l'utilisateur ne correspondent pas
+  if(!password_verify($mdp_ancien, $mdpCryptBbd)){
+    //Si ils ne correspondent pas on enregitre une erreur et on ne va pas plus loin
+    $erreur="Mot de passe actuel incorrect";
+  }
+  //Sinon cela veut dire que le mot de passe actuel saisie est corecte
+  else{
+    // on vérifie alors que le nouveua mot de passe enregistré est bien compris entre 8 et 25 caractères
+    if(strlen($mdp_nouveau) < 8 || strlen($mdp_nouveau) > 25){
+      //Si ce n'est pas la cas on enregitre une erreur et on ne va pas plus loin
+      $erreur = 'Votre mot de passe doit être compris entre 8 et 25 caractères.</br>';
+    }
+    //Sinon cela veut dire que la saisie du nouveau mot de passe est correcte
+    else{
+      //On hash le mot de passe
+      $mdpCrypt_nouveau = password_hash($mdp_nouveau, PASSWORD_DEFAULT);
+      //On met à jour la tabe de notre base de donnée de l'utilisateur actuellement connecté avec son nouveau mot de passe
+      $queryUpdate = "UPDATE hetic21_user SET mdp = :mdp WHERE id_user = :id";
+      $reqnouveau = $pdo->prepare($queryUpdate);
+      $reqnouveau->execute(
+        [
+          'mdp' => $mdpCrypt_nouveau,
+          'id' => $id
+        ]
+      );
+    }
   }
   return $erreur;
 }

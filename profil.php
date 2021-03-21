@@ -88,9 +88,10 @@ if(isset($_POST['valider'])){
       <a class="modifier-profil btnclassique profil-element" value="hidden">Modifier</a>
       <input type="submit" class="hidden" value="Valider" name="valider">
       <a href="profil.php" class="hidden">Annuler</a>
+      <a href="mot_de_passe.php">Changer mon mot de passe</a>
     </form>
-
-    <a href="index.php?session=destroy">Déconnexion</a>
+    
+    <a href="index.php?session=destroy" class="btnclassique">Déconnexion</a>
     
 </section>
 <?php include 'config/template/footer.php'; ?>
