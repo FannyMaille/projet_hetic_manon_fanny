@@ -307,17 +307,17 @@ input{
   flex-direction: column;
   padding: 20px;
 }
-.main-produit-img{
+.main_produit_img{
   object-fit: cover;
   width: 100%;
 }
-.second-produit-img{
+.second_produit_img{
   width: 30%;
   height: auto;
   object-fit: cover;
   margin-top: 10px;
 }
-.second-produit-img:hover{
+.second_produit_img:hover{
   cursor: pointer;
   filter: brightness(0.4);
 }

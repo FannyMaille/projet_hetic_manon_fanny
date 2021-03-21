@@ -24,13 +24,13 @@ $image = photosunproduit();
         </form>
     </div>
     <div class="images-produit">
-        <img class="main-produit-img" src="<?=$image[1]?>" alt="[alt-recupere-php]">
+        <img class="main_produit_img" src="<?=$image[1]?>" alt="[alt-recupere-php]">
         <figure>
             <!--On crée une boucle for pour afficher toute les photos restantes-->
             <?php
             for($j=1; $j<=count($image); $j++){
             ?>
-            <img class='second-produit-img' id="<?=$j?>" src="<?=$image[$j]?>" alt="[alt-recupere-php]">
+              <img class='second_produit_img' id="<?=$j?>" src="<?=$image[$j]?>" alt="[alt-recupere-php]">
             <?php
             }
             ?>
@@ -38,5 +38,5 @@ $image = photosunproduit();
     </div>
 </section>
 
-
+<script src="asset/script/ficheproduit.js"></script>
 <?php include 'config/template/footer.php'; ?>

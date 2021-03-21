@@ -85,7 +85,7 @@ if(isset($_POST['valider'])){
           <p class="profil-element"><?= $_SESSION['user']['email'] ?></p>
         </li>
       </ul>
-      <a class="modifier-profil btnclassique profil-element" value="hidden">Modifier</a>
+      <a id="modifier-profil" class="btnclassique profil-element" value="hidden">Modifier</a>
       <input type="submit" class="hidden" value="Valider" name="valider">
       <a href="profil.php" class="hidden">Annuler</a>
       <a href="mot_de_passe.php">Changer mon mot de passe</a>
@@ -94,4 +94,6 @@ if(isset($_POST['valider'])){
     <a href="index.php?session=destroy" class="btnclassique">Déconnexion</a>
     
 </section>
+
+<script src="asset/script/profil.js"></script>
 <?php include 'config/template/footer.php'; ?>
