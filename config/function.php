@@ -289,42 +289,59 @@ function changementerreur($pseudo,$telephone,$mail,$ville){
 //Function pour enregistre les informations du formulaire dans la base de donées
 function changementbasededonnee($id,$pseudo,$telephone,$mail,$numrue, $rue, $codepostal, $ville, $civil){
   global $pdo;
-  // settype($id, "integer");
-  // settype($civil, "integer");
-  // settype($codepostal, "integer");
-  // settype($numrue, "integer");
+  $erreur="";
 
-  //on fait une requette pour dire dans quelle table et quelles informations on souhaite mettre à jour
-  $queryUpdate = "UPDATE hetic21_user 
-  SET pseudo = :pseudo, tel = :tel, email = :email, numero_rue = :numero_rue, nom_rue = :nom_rue, cp = :cp, ville = :ville, civilite = :civilite
-  WHERE id_user = :id";
-  $reqPrep = $pdo->prepare($queryUpdate);
-  $reqPrep->execute(
+  //on va commence par vérifier si il existe un utilisateur possédant le meme pseudo ou le même e-mail dans notre bbase de données
+  //Requete dans la tabble user pour saisir les pseudo ou e-mail qui qont similaire à ceux insrits dans le formulaire mais avec un id different de l'utilisateur actuel
+  $querySelect = "SELECT id_user FROM hetic21_user WHERE(pseudo = :pseudo OR email = :email) AND (id_user != :id) LIMIT 1";
+  $req = $pdo->prepare($querySelect);
+  $req->execute(
     [
-      'id'=> $id,
       'pseudo' => $pseudo,
-      'tel' => $telephone,
-      'email' => $mail,
-      'numero_rue' => $numrue,
-      'nom_rue' => $rue,
-      'cp' => $codepostal,
-      'ville' => $ville,
-      'civilite' => $civil
+      'id' => $id,
+      'email' => $mail
     ]
   );
-
-  //on fait une requette pour selectionner les informations que l'on souhaite récupérer
-  //C'est à dires les dernières informations que l'on vient d'enregistre juste au-dessus
-  $querySelect = "SELECT * FROM hetic21_user WHERE id_user = :id";
-  $reqPrep = $pdo->prepare($querySelect);
-  $reqPrep->execute(
-    [
-      'id' => $id
+  $dejainscrit= $req->fetchAll(PDO::FETCH_ASSOC);
+  //Si il ya au moins 1 réponse cela veut dire qu'il existe un utilisateur possédant le meme pseudo ou le même e-mail
+  //Dans ce cas on enregistre pas les données et on enregitre un message d'erreur
+  if(count($dejainscrit)>0){
+    $erreur="Un utilisateur à ce pseudo/e-mail est déja inscrit".$dejainscrit[0]['id_user'];
+  }
+  else{
+    //on fait une requette pour dire dans quelle table et quelles informations on souhaite mettre à jour
+    $queryUpdate = "UPDATE hetic21_user 
+    SET pseudo = :pseudo, tel = :tel, email = :email, numero_rue = :numero_rue, nom_rue = :nom_rue, cp = :cp, ville = :ville, civilite = :civilite
+    WHERE id_user = :id";
+    $reqPrep = $pdo->prepare($queryUpdate);
+    $reqPrep->execute(
+      [
+        'id'=> $id,
+        'pseudo' => $pseudo,
+        'tel' => $telephone,
+        'email' => $mail,
+        'numero_rue' => $numrue,
+        'nom_rue' => $rue,
+        'cp' => $codepostal,
+        'ville' => $ville,
+        'civilite' => $civil
       ]
-  );
-  $result = $reqPrep->fetchAll(PDO::FETCH_ASSOC);
-  //On appel la fonnction setSession() pour mettre à jour les varibbales de session
-  setSession($result);
+    );
+
+    //on fait une requette pour selectionner les informations que l'on souhaite récupérer
+    //C'est à dires les dernières informations que l'on vient d'enregistre juste au-dessus
+    $querySelect = "SELECT * FROM hetic21_user WHERE id_user = :id";
+    $reqPrep = $pdo->prepare($querySelect);
+    $reqPrep->execute(
+      [
+        'id' => $id
+        ]
+    );
+    $result = $reqPrep->fetchAll(PDO::FETCH_ASSOC);
+    //On appel la fonnction setSession() pour mettre à jour les varibbales de session
+    setSession($result);
+  }
+  return $erreur;
 }
 
 ?>

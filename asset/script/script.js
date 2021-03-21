@@ -28,13 +28,15 @@ function showOrHideElements(action){
 }
 
 
-// function civilChecktest(){
-//   let numciv = document.getElementById('civnum');
-//   document.getElementById('civ'+numciv).setAttribute("checked", "true");
-// }
-
-
 function civilCheck(){
+  //element qui a le N° de la civilité dans sa value
+  let numciv = document.getElementById('civnum');
+  //Check la civilité qui a comme id civ eet le numéro de civilité
+  document.getElementById('civ'+numciv.value).checked=true;
+}
+
+
+function civilCheckfanny(){
   let civilite = document.getElementsByClassName('radiocivil');
   let motcivil = document.getElementById('civnum');
   for(let i = 0; i < civilite.length; i++){

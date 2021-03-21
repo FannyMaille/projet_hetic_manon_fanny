@@ -85,7 +85,7 @@
         </li>
     </ul>
 
-    <a href="index.php?session=destroy">Deconnexion</a>
+    <a href="profil.php?session=destroy">Deconnexion</a>
     
 </section>
 <?php include 'config/template/footer.php'; ?>

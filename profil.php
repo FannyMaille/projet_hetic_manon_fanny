@@ -20,7 +20,7 @@ if(isset($_POST['valider'])){
   //Si il n'y a pas eu d'erreur dans la saisie des informations dans le formulaire alors on va pouvoir enregistrer les données dans la base de donnée
   if($erreur == ""){
     //On met a jour la base de donnée et les variables session
-    changementbasededonnee($_SESSION['user']['id'],$pseudo,$tel,$mail,$numrue, $rue, $cp, $ville, $civil);
+    $erreur = changementbasededonnee($_SESSION['user']['id'],$pseudo,$tel,$mail,$numrue, $rue, $cp, $ville, $civil);
   }
 }
 
