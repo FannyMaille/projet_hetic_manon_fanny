@@ -1,8 +1,8 @@
 /* ______________________________POLICES_______________________________*/
 @font-face {
   font-family: "RuslanDisplay";
-  src: url("/asset/font/ruslan/ruslan_display.woff2") format("woff2"),
-      url("/asset/font/ruslan/ruslan_display.woff") format("woff");
+  src: url("../font/ruslan/ruslan_display.woff2") format("woff2"),
+      url("../font/ruslan/ruslan_display.woff") format("woff");
 }
 
 /*_____________________Général_______________________________________*/
