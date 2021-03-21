@@ -28,4 +28,13 @@ try{
   $e -> getMessage() . '</li></ul>');
 }
 
+
+///______________________________________DECONNEXION
+//Pour déconnecter l'utilisateur
+if(isset($_GET['session']) && $_GET['session'] == 'destroy'){
+  session_destroy();
+  header('location:index.php');
+  exit();
+}
+
 ?>
