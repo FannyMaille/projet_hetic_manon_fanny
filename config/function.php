@@ -221,10 +221,10 @@ function setsession($result){
     //Ici pour afficheer un contenu compréhensible à l'utilisateur on faiit afficher le texte qui correspond au numéro enregistré
     switch($result[0]['civilite']){
       case 0:
-        $civil = 'Femme';
+        $civil = 'Madame';
         break;
       case 1:
-        $civil = 'Homme';
+        $civil = 'Monsieur';
         break;
       case 2:
         $civil = 'Autre';
@@ -243,6 +243,7 @@ function setsession($result){
     $_SESSION['user']['nomrue'] = $result[0]['nom_rue'];
     $_SESSION['user']['cp'] = $result[0]['cp'];
     $_SESSION['user']['ville'] = $result[0]['ville'];
+    $_SESSION['user']['civilnombre'] = $result[0]['civilite'];
     $_SESSION['user']['civil'] = $civil;
     $_SESSION['user']['statut'] = $statut;
 

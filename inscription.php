@@ -5,6 +5,12 @@ include 'config/template/head.php';
 $erreur="";
 $backgroud="";
 
+//si l'utilisateur est pas conneté il ne peut pas acceder à cette page il est donc rediriger vers la page login
+if(connecte()){
+  header("location:profil.php");
+  die();
+}
+
 //Si on envoie le formulaire on va vérifier quelques informations
 if(isset($_POST['inscription'])){
   extract($_POST);

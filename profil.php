@@ -42,22 +42,22 @@ if(isset($_POST['valider'])){
         </li>
         <li>
           <p>Civilité :</p>
-          <!-- <input type="text" class="hidden" name="civilite" id="civilite" value="<?= $_SESSION['user']['civil'] ?>"> -->
           <div class="btnradio" >
             <div>
-              <input type="radio" class="hidden" id="mme" name="civil" value="0" checked>
+              <input type="radio" class="radiocivil hidden" id="civ0" name="civil" value="0">
               <label for="mme" class="hidden">Mme</label>
             </div>
             <div>
-              <input type="radio" class="hidden" id="mr" name="civil" value="1">
+              <input type="radio" class="radiocivil hidden" id="civ1" name="civil" value="1">
               <label for="mr" class="hidden">Mr</label>
             </div>
             <div>
-              <input type="radio" class="hidden" id="autre" name="civil" value="2">
+              <input type="radio" class="radiocivil hidden" id="civ2" name="civil" value="2">
               <label for="autre" class="hidden">Autre</label>
             </div>
         </div>
-          <p class="profil-element"><?= $_SESSION['user']['civil'] ?></p>
+          <input type="hidden" id="civnum" value="<?=$_SESSION['user']['civilnombre']?>"></input>
+          <p class="profil-element" id="motcivil"><?= $_SESSION['user']['civil'] ?></p>
         </li>
         <li>
           <p>Adresse postale :</p>

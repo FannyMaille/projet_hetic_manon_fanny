@@ -9,6 +9,7 @@ modifyProfilButtons[0].addEventListener("click", changeProfilElement);
 
 // functions
 function changeProfilElement(){
+  civilCheck();
   showOrHideElements('show');
   if(previousChange){
     showOrHideElements(previousChange, 'hide');
@@ -24,7 +25,26 @@ function showOrHideElements(action){
   for(let i = 0 ; i < hiddenElements.length ; i++){
     hiddenElements[i].style.display = (action == 'show') ? 'block' : 'none';
   }
-} 
+}
+
+
+// function civilChecktest(){
+//   let numciv = document.getElementById('civnum');
+//   document.getElementById('civ'+numciv).setAttribute("checked", "true");
+// }
+
+
+function civilCheck(){
+  let civilite = document.getElementsByClassName('radiocivil');
+  let motcivil = document.getElementById('civnum');
+  for(let i = 0; i < civilite.length; i++){
+    if(motcivil.value == civilite[i].value){
+      civilite[i].setAttribute("checked", "true");
+      break;
+    }
+  }
+}
+
 
 // ------------------------ ficheproduit.php
 // Get all the elements

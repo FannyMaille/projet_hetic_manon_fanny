@@ -5,6 +5,13 @@ include 'config/template/head.php';
 $content=""; 
 $backgroud="";
 
+//si l'utilisateur est pas conneté il ne peut pas acceder à cette page il est donc rediriger vers la page login
+if(connecte()){
+  header("location:profil.php");
+  die();
+}
+
+
 if(isset($_POST['connexion'])){
   extract($_POST);
   if(!verificationlogin($pseudo,$mdp)){
