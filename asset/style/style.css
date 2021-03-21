@@ -1,8 +1,8 @@
 /* ______________________________POLICES_______________________________*/
 @font-face {
   font-family: "RuslanDisplay";
-  src: url("/asset/font/Ruslan/Ruslan_Display.woff2") format("woff2"),
-      url("/asset/font/Ruslan/Ruslan_Display.woff") format("woff");
+  src: url("/asset/font/ruslan/ruslan_display.woff2") format("woff2"),
+      url("/asset/font/ruslan/ruslan_display.woff") format("woff");
 }
 
 /*_____________________Général_______________________________________*/
@@ -260,6 +260,7 @@ input{
 }
 .formulaireprofil li{
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   list-style: none;
   border-bottom: 1px solid #d6d3cc;
@@ -375,7 +376,7 @@ footer h4, footer p{
   .partiesformulaire{
     width: 47%;
   }
-  .formulaireinscription, .formulaireprofil{
+  .formulaireinscription{
     width: 60%;
   }
   .premierepartie{

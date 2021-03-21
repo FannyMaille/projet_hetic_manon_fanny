@@ -1,12 +1,41 @@
-<?php include 'config/template/head.php'; ?>
+<?php 
+include 'config/template/head.php';
+
+//Définition des variables contenent les erreurs comme étant vide au départ
+$erreur="";
+$backgroud="";
+
+//Si on envoie le formulaire on va vérifier quelques informations
+if(isset($_POST['inscription'])){
+  extract($_POST);
+  //On vérififie que toute les informations renseignées dans le formulaire n'on pas d'erreurs
+  //Si il y a des erreurs un texte informatif est enregistré indiquant l'erreur
+  $erreur=erreurinscription($pseudo,$mdp,$telephone,$mail,$ville);
+  //Pour afficher les erreurs en rouge
+  $backgroud = 'style="background:tomato;padding:2%"';
+  //Si il n'y a pas eu d'erreur dans la saisie des informations dans le formulaire alors on va pouvoir enregistrer les données dans la base de donnée
+  if($erreur == ""){
+    //On vérifie que aucun autre avec le même pseudo ou le mail e-mail s'est déja inscrit
+    $erreur=enregistrementbasededonnee($pseudo,$mdp,$telephone,$mail,$numrue, $rue, $codepostal, $ville, $civil);
+    //Si l'enregistrement s'est bien passé on redirige vers la page profil
+    if($erreur == ""){
+      header("location:profil.php");
+    }
+  }
+}
+?>
+
+
+
+
 <header>
     <?php include 'config/template/nav.php'; ?>
 </header>
 <section class="sectformulaire">
     <h1 class="text-center mt-5 mb-5">Inscription</h1>
-    <?= $content ?>
+    <div <?=$backgroud?>><?=$erreur?></div>
 
-    <form class="formulaire formulaireinscription" action="config/init.php" method="post">
+    <form class="formulaire formulaireinscription" action="inscription.php" method="post">
       <div class="deuxparties">
         <div class="partiesformulaire premierepartie">
           <label for="pseudo"></label>
