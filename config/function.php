@@ -9,6 +9,20 @@ function connecte(){
   }
 }
 
+///////////////////////////______________________________________PANIER
+//___FONCTION___fonction qui permet de voir si le panier est vide ou non
+function panierexiste(){
+  if(isset($_SESSION['panier'])){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+// user.id, user.nom....
+// panier[0].id, panier[0].qte, panier[0].prix...
+
+
 ///////////////////////////______________________________________PAGE INDEX
 
 //___FONCTION___Pour les photos des produits___
@@ -178,11 +192,13 @@ function enregistrementbasededonnee($pseudo,$mdp,$telephone,$mail,$numrue, $rue,
         'civilite' => $civil
       ]);
     }
+  // On connecte directement à la page profil
+  verificationlogin($pseudo,$mdp);
   return $erreur;
 }
 
 
-///////////////////////////______________________________________PAGE LOGIN
+///////////////////////////______________________________________PAGE CONNEXION
 
 //___FONCTION___
 //fonction pour vérifier si le pseudo et le mot de passe enregistré sont correctes

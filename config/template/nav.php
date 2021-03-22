@@ -6,5 +6,8 @@
     <?php }else{ ?>  
       <a class="nav-link" href="login.php">Connexion</a>
     <?php } ?> 
-    <a class="nav-link" href="panier.php">Panier</a>
+    <a class="nav-link panier" href="panier.php">
+      Panier
+      <span>0</span>
+    </a>
 </nav>

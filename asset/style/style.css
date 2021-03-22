@@ -47,6 +47,21 @@ h1,h2,h3{
 nav a {
   color: black;
 }
+.panier{
+  display: flex;
+}
+nav a span {
+  min-width: 20px;
+  height: 20px;
+  margin: 0 3px;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffd400;
+  border-radius: 50%;
+  font-size: 0.7rem;
+}
 .logo{
   font-family: "RuslanDisplay";
   text-decoration: none;
