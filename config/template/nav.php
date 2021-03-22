@@ -1,3 +1,8 @@
+<?php
+$quantite=panierquantite();
+?>
+
+
 <a href="index.php" class="logo">Fanon</a>
 <nav class="nav">
     <a class="nav-link" href="index.php">Accueil</a>
@@ -8,6 +13,6 @@
     <?php } ?> 
     <a class="nav-link panier" href="panier.php">
       Panier
-      <span>0</span>
+      <span><?= $quantite ?></span>
     </a>
 </nav>

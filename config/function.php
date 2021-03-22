@@ -10,17 +10,29 @@ function connecte(){
 }
 
 ///////////////////////////______________________________________PANIER
-//___FONCTION___fonction qui permet de voir si le panier est vide ou non
-function panierexiste(){
-  if(isset($_SESSION['panier'])){
-    return true;
-  }else{
-    return false;
+//___FONCTION___fonction qui permet de voir la quantité d'articles dans le panier
+function panierquantite(){
+  //On regarde si le tableau panier session est cré ou non
+  if(!isset($_SESSION['panier'])){
+    //Si il n'est pas cré auccun produit n'a été selectionné donc le nb de prodiut est de 0
+    $nombreProduits = 0;
   }
+  //Sinon cela veut dire qu'il y a des produis selectionnés
+  else{
+    //On va parcourir le tableau et récupérre la quantité indiqué dans chauque id des produits
+    $nombreProduits=0;
+    foreach($_SESSION['panier'] AS $idproduit){
+      $quantite= $idproduit['quantite'];
+      $nombreProduits= $nombreProduits + $quantite;
+    }
+  }
+  //On retourne le nombre de produits
+  return $nombreProduits;
 }
 
 // user.id, user.nom....
 // panier[0].id, panier[0].qte, panier[0].prix...
+
 
 
 ///////////////////////////______________________________________PAGE INDEX
@@ -68,10 +80,8 @@ function ecritproduits(){
 ///////////////////////////______________________________________PAGE PRODUITS
 
 //___FONCTION___Pour les élèments écrits___
-function ecritunproduit(){
+function ecritunproduit($id){
   global $pdo;
-  //On récupère l'id du produit qu'on a mis dans l'url
-  $id = $_GET['id'];
   //On sélectionne tous les élements de la base que l'on a besoin d'afficher sur notre page d'id $id
   $req = $pdo->prepare('SELECT nom_produit, description_produit, prix, stock FROM hetic21_produit WHERE id_produit = :id');
   $req->bindValue(':id', $id);
@@ -87,11 +97,34 @@ function ecritunproduit(){
   return $unproduit;
 }
 
+//Pour enregistrer les valeurs dans la session pour le panier
+function setProduit($unproduit, $image, $id){
+  //Si le produit slectionné n'a jamais été slectionné au paravant on enregistre toutes ses information
+  if(!isset($_SESSION['panier'][$id])){
+    $_SESSION['panier'][$id]['nom']= $unproduit['nom'];
+    $_SESSION['panier'][$id]['description']= $unproduit['description'];
+    $_SESSION['panier'][$id]['prix']= $unproduit['prix'];
+    $_SESSION['panier'][$id]['stockactuel']= $unproduit['stock'];
+    $_SESSION['panier'][$id]['quantite']= 1;
+    $_SESSION['panier'][$id]['photo']= $image[1];
+    //on enregistre un texte pour le 1er enregistrement
+    $action="Votre produit a été ajouté au panier";
+  }
+  //Si le produit a deja été slectionné on change simplement la quantité
+  else{
+    $_SESSION['panier'][$id]['quantite']++;
+    //on enregistre un autre texte si ce n'est pas le 1er enregistrement
+    $action="Votre produit a été ajouté au panier (".$_SESSION['panier'][$id]['quantite']." ".$_SESSION['panier'][$id]['nom']." au panier)";
+  }
+  //on retourne le texte d'information pour l'utilisateur
+  return $action;
+}
+
+
+
 //___FONCTION___Pour les photos des produits___
-function photosunproduit(){
+function photosunproduit($id){
   global $pdo;
-  //On récupère l'id du produit qu'on a mis dans l'url
-  $id = $_GET['id'];
   //obligé de faire 2 connexion differente car se sont des élèments dans un autre table que la précendente
   $req = $pdo->prepare('SELECT url_image FROM hetic21_photos_produit WHERE id_produit = :id');
   $req->bindValue(':id', $id);

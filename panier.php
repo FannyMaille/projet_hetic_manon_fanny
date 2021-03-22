@@ -1,23 +1,34 @@
-<?php include 'config/template/head.php'; ?>
+<?php include 'config/template/head.php'; 
+
+
+$quantite=panierquantite();
+
+?>
 <header>
     <?php include 'config/template/nav.php'; ?>
 </header>
 <section>
     <h1 class="text-center mt-5 mb-5">Page panier</h1>
 
+    <section>
+      <p>Votre panier est vide</p>
+    </section>
+
     <ul class="panier-liste">
+      <?php foreach($_SESSION['panier'] AS $idproduit){?>
         <li class="panier-produit p-3">
             <div class="ml-3">
-                <h2>[Nom du produit]</h2>
-                <p>[Prix]</p>
+                <h2><?= $idproduit['nom'] ?></h2>
+                <p><?= $idproduit['prix'] ?> €</p>
                 <form class="panier-quantite" action="config/init.php" method="post">
                     <input type="submit" name="plus" value="+">
-                    <p class="pr-2 pl-2">[quantite]</p>
+                    <p class="pr-2 pl-2"><?= $idproduit['quantite'] ?></p>
                     <input type="submit" name="minus" value="-">
                 </form>
             </div>
-            <img src="asset/img/herofullimage.jpg" alt="img-produit">
+            <img src="<?= $idproduit['photo']?>" alt="img-produit">
         </li>
+      <?php } ?>
     </ul>
 
     <div class="panier-total text-center mb-5">

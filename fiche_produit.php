@@ -1,10 +1,27 @@
 
 <?php include 'config/template/head.php';
- 
-$unproduit = ecritunproduit();
-$image = photosunproduit();
+
+//On récupère l'id du produit qu'on a mis dans l'url
+$id = $_GET['id'];
+
+//Définition des variables contenent les erreurs comme étant vide au départ
+$content="";
+$backgroud="";
+
+//On appel une fonction qui nous retourne sous forme de tableau la liste des informations écrite du produit concerné
+$unproduit = ecritunproduit($id);
+//On appel une fonction qui nous retourne sous forme de tableau la liste des photos du produit concerné
+$image = photosunproduit($id);
+
+//On regarde si quelqu'un a cliqué sur le btn ajouter au panier
+if(isset($_POST['ajout_panier'])){
+  //On enregistre la session avec les informations du produit et on affiche un messag pour informer l'utilisateur
+  $content= setProduit($unproduit, $image, $id);
+  $backgroud="style='background:chartreuse;padding:2%'";
+}
 
 ?>
+
 <header>
     <?php include 'config/template/nav.php'; ?>
 </header>
@@ -19,8 +36,9 @@ $image = photosunproduit();
         <p>Stock : <?=$unproduit['stock']?></p>
         <h2>Description</h2>
         <p><?=$unproduit['description']?></p>
-        <form action="config/init.php" method="post">
-            <input type="submit" value="Ajouter au panier">
+        <form action="fiche_produit.php?id=<?=$id?>" method="post">
+          <div <?=$backgroud?>><?=$content?></div>
+          <input type="submit" value="Ajouter au panier" name="ajout_panier">
         </form>
     </div>
     <div class="images-produit">
