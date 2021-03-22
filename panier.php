@@ -1,7 +1,12 @@
 <?php include 'config/template/head.php'; 
 
-
-$quantite=panierquantite();
+//Si le panier est videon ne vient pas sur cette page
+if(panierquantite()==0){
+  header("location:paniervide.php");
+  die();
+}
+//On enregistre le prix total de tous les articles
+$prixtotal=montantpanier();
 
 ?>
 <header>
@@ -9,10 +14,6 @@ $quantite=panierquantite();
 </header>
 <section>
     <h1 class="text-center mt-5 mb-5">Page panier</h1>
-
-    <section>
-      <p>Votre panier est vide</p>
-    </section>
 
     <ul class="panier-liste">
       <?php foreach($_SESSION['panier'] AS $idproduit){?>
@@ -34,7 +35,7 @@ $quantite=panierquantite();
     <div class="panier-total text-center mb-5">
         <div class="d-flex justify-content-between mt-3">
             <p>Prix total :</p>
-            <p>[Prix total]€</p>
+            <p><?= $prixtotal ?> €</p>
         </div>
         <form action="config/init.php" method='post'>
             <input class="w-100" type="submit" name="acheter" value="Passer à l'achat">

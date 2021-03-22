@@ -29,6 +29,15 @@ function panierquantite(){
   //On retourne le nombre de produits
   return $nombreProduits;
 }
+//___FONCTION___fonction qui permet de voir le montant total du panier
+function montantpanier(){
+  $prixtotal =0;
+  foreach($_SESSION['panier'] AS $idproduit){
+  $prixtotal = $prixtotal+ ($idproduit['quantite']*$idproduit['prix']);
+  }
+  return $prixtotal;
+}
+
 
 // user.id, user.nom....
 // panier[0].id, panier[0].qte, panier[0].prix...

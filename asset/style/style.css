@@ -315,6 +315,13 @@ input{
   line-height: 40px;
   border: 1px solid #ffd400;
 }
+.paniervide{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 50vh;
+  justify-content: center;
+}
 
 /*____________________Page produit_____________________________________*/
 .produit-header{
