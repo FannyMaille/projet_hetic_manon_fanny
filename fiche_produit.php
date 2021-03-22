@@ -17,7 +17,16 @@ $image = photosunproduit($id);
 if(isset($_POST['ajout_panier'])){
   //On enregistre la session avec les informations du produit et on affiche un messag pour informer l'utilisateur
   $content= setProduit($unproduit, $image, $id);
-  $backgroud="style='background:chartreuse;padding:2%'";
+  //Si le message d'info n'est pas celui de l'erreur alors le fond du message d'information sera vert
+  //Donc si il ya du stock =succes
+  if($content!="Il n'y a plus de stock, votre produit ne peut être ajouter au panier"){
+    $backgroud="style='background:chartreuse;padding:2%'";
+  }
+  //Si le message d'erreur est celui de l'erreur alors le fond du message d'information sera vert
+  //Donc si il ya du plus de stock =echec
+  else{
+    $backgroud="style='background:tomato;padding:2%'";
+  }
 }
 
 ?>

@@ -12,7 +12,7 @@ $prixtotal=montantpanier();
 <header>
     <?php include 'config/template/nav.php'; ?>
 </header>
-<section>
+<section class="sectionpanier">
     <h1 class="text-center mt-5 mb-5">Page panier</h1>
 
     <ul class="panier-liste">
@@ -21,11 +21,12 @@ $prixtotal=montantpanier();
             <div class="ml-3">
                 <h2><?= $idproduit['nom'] ?></h2>
                 <p><?= $idproduit['prix'] ?> €</p>
-                <form class="panier-quantite" action="config/init.php" method="post">
-                    <input type="submit" name="plus" value="+">
+                  <div class="panier-quantite">
+                    <input type="submit" name="plus" value="+" class="quantitemodif">
                     <p class="pr-2 pl-2"><?= $idproduit['quantite'] ?></p>
-                    <input type="submit" name="minus" value="-">
-                </form>
+                    <input type="submit" name="minus" value="-" class="quantitemodif">
+                    <input type="submit" name="Supprimer" value="supprimer" class="supression_produit">
+                  </div>
             </div>
             <img src="<?= $idproduit['photo']?>" alt="img-produit">
         </li>

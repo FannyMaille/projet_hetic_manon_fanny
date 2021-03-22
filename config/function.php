@@ -110,20 +110,31 @@ function ecritunproduit($id){
 function setProduit($unproduit, $image, $id){
   //Si le produit slectionné n'a jamais été slectionné au paravant on enregistre toutes ses information
   if(!isset($_SESSION['panier'][$id])){
-    $_SESSION['panier'][$id]['nom']= $unproduit['nom'];
-    $_SESSION['panier'][$id]['description']= $unproduit['description'];
-    $_SESSION['panier'][$id]['prix']= $unproduit['prix'];
-    $_SESSION['panier'][$id]['stockactuel']= $unproduit['stock'];
-    $_SESSION['panier'][$id]['quantite']= 1;
-    $_SESSION['panier'][$id]['photo']= $image[1];
-    //on enregistre un texte pour le 1er enregistrement
-    $action="Votre produit a été ajouté au panier";
+    //on vérifie s'il y a du stock
+    if($unproduit['stock']>0){
+      $_SESSION['panier'][$id]['nom']= $unproduit['nom'];
+      $_SESSION['panier'][$id]['description']= $unproduit['description'];
+      $_SESSION['panier'][$id]['prix']= $unproduit['prix'];
+      $_SESSION['panier'][$id]['stockactuel']= $unproduit['stock'];
+      $_SESSION['panier'][$id]['quantite']= 1;
+      $_SESSION['panier'][$id]['photo']= $image[1];
+      //on enregistre un texte pour le 1er enregistrement
+      $action="Votre produit a été ajouté au panier";
+    }
+    else{
+      $action="Il n'y a plus de stock, votre produit ne peut être ajouter au panier";
+    }
   }
   //Si le produit a deja été slectionné on change simplement la quantité
   else{
-    $_SESSION['panier'][$id]['quantite']++;
-    //on enregistre un autre texte si ce n'est pas le 1er enregistrement
-    $action="Votre produit a été ajouté au panier (".$_SESSION['panier'][$id]['quantite']." ".$_SESSION['panier'][$id]['nom']." au panier)";
+    if(($unproduit['stock']-$_SESSION['panier'][$id]['quantite'])>0){
+      $_SESSION['panier'][$id]['quantite']++;
+      //on enregistre un autre texte si ce n'est pas le 1er enregistrement
+      $action="Votre produit a été ajouté au panier (".$_SESSION['panier'][$id]['quantite']." ".$_SESSION['panier'][$id]['nom']." au panier)";
+    }
+    else{
+      $action="Il n'y a plus de stock, votre produit ne peut être ajouter au panier";
+    }
   }
   //on retourne le texte d'information pour l'utilisateur
   return $action;
