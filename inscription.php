@@ -16,7 +16,7 @@ if(isset($_POST['inscription'])){
   extract($_POST);
   //On vérififie que toute les informations renseignées dans le formulaire n'on pas d'erreurs
   //Si il y a des erreurs un texte informatif est enregistré indiquant l'erreur
-  $erreur=erreurinscription($pseudo,$mdp,$telephone,$mail,$ville);
+  $erreur=erreurinscription($pseudo,$mdp,$mdpconfirmation,$telephone,$mail,$ville);
   //Pour afficher les erreurs en rouge
   $backgroud = 'style="background:tomato;padding:2%"';
   //Si il n'y a pas eu d'erreur dans la saisie des informations dans le formulaire alors on va pouvoir enregistrer les données dans la base de donnée
@@ -52,35 +52,38 @@ if(isset($_POST['inscription'])){
           <input type="number" name="numrue" id="numrue" class="filter" placeholder="Numéro de rue *">
           <label for="codepostal"></label>
           <input type="number" name="codepostal" id="codepostal" class="filter" placeholder="Code Postal *">
+          <label for="ville"></label>
+          <input type="text" name="ville" id="ville" class="filter" placeholder="Ville *">
         </div>
         <div class="partiesformulaire deuxiemepartie">
           <label for="mdp"></label>
           <input type="password" name="mdp" id="mdp" class="filter" placeholder="Mot de passe *">
+          <label for="mdpconfirmation"></label>
+          <input type="password" name="mdpconfirmation" id="mdpconfirmation" class="filter" placeholder="Confirmation du mot de passe *">
           <label for="mail"></label>
           <input type="email" name="mail" id="mail" class="filter" placeholder="Email *">
           <label for="rue"></label>
           <input type="text" name="rue" id="rue" class="filter" placeholder="Nom de rue *">
-          <label for="ville"></label>
-          <input type="text" name="ville" id="ville" class="filter" placeholder="Ville *">
-        </div>
-      </div>
-      <div class="divcivilite">
-        <p class="civilite">Civilité :</p>
-        <div class="btnradio">
-          <div>
-            <input type="radio" id="mme" name="civil" value="0" checked>
-            <label for="mme">Mme</label>
-          </div>
-          <div>
-            <input type="radio" id="mr" name="civil" value="1">
-            <label for="mr">Mr</label>
-          </div>
-          <div>
-            <input type="radio" id="autre" name="civil" value="2">
-            <label for="autre">Autre</label>
+          <div class="divcivilite">
+          <p class="civilite">Civilité :</p>
+          <div class="btnradio">
+            <div>
+              <input type="radio" id="mme" name="civil" value="0" checked>
+              <label for="mme">Mme</label>
+            </div>
+            <div>
+              <input type="radio" id="mr" name="civil" value="1">
+              <label for="mr">Mr</label>
+            </div>
+            <div>
+              <input type="radio" id="autre" name="civil" value="2">
+              <label for="autre">Autre</label>
+            </div>
           </div>
         </div>
+        </div>
       </div>
+
       <input type="submit" value="Envoyer" name="inscription">
     </form>
 

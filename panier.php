@@ -28,7 +28,7 @@ $prixtotal=montantpanier();
                     <input type="submit" name="Supprimer" value="supprimer" class="supression_produit">
                   </div>
             </div>
-            <img src="<?= $idproduit['photo']?>" alt="img-produit">
+            <img src="<?= $idproduit['photo']?>" alt="<?= $idproduit['nom']?>">
         </li>
       <?php } ?>
     </ul>
