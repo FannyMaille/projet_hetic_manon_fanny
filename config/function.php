@@ -169,17 +169,22 @@ function photosunproduit($id){
 function erreurinscription($pseudo,$mdp,$mdpconfirmation,$telephone,$mail,$ville){
   $content="";
   // on vérifie que le pseudo enregistré est bbien compris entre 2 et 255 caractères
-  if(strlen($pseudo) < 2 || strlen($pseudo) > 255){
-    $content .= 'Votre pseudo doit contenir entre 2 et 255 caractères.</br>';
+  // if(strlen($pseudo) < 2 || strlen($pseudo) > 255){
+  //   $content .= 'Votre pseudo doit contenir entre 2 et 255 caractères.</br>';
+  // }
+  if (1 !== preg_match('~^[a-zA-Z0-9_-]{3,20}$~', $pseudo)){
+    $content .= 'Votre pseudo doit ne peut contenir que des minuscules, majuscules, - et chiffre (les espaces ou carctètes spéciaux ne sont pas autorisés).</br>';
+    $content .= 'Votre pseudo doit contenir entre 3 et 20 caractères.</br>';
   }
   // on vérifie que le mot de passe enregistré est bien compris entre 10 et 20 caractères, 
-  if (1 !== preg_match('~^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[$%?!.{10,20}$~', $mdp)) {
+  if (1 !== preg_match('~^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[$%?!]).{10,20}$~', $mdp)) {
     $content .= 'Votre mot de passe doit contenir au minimum une majuscule, une minuscule, un chiffre et un carctère spéciale ($%?!).</br>';
-  }
-  // on vérifie que le mot de passe enregistré est bien compris entre 8 et 25 caractères
-  if(strlen($mdp) < 10 || strlen($mdp) > 20){
     $content .= 'Votre mot de passe doit être compris entre 10 et 20 caractères.</br>';
   }
+  // on vérifie que le mot de passe enregistré est bien compris entre 8 et 25 caractères
+  // if(strlen($mdp) < 10 || strlen($mdp) > 20){
+  //   $content .= 'Votre mot de passe doit être compris entre 10 et 20 caractères.</br>';
+  // }
   // 1 chiffre; 1 lettre minuscule, 1 lettre majuscule , 1 caractère spécial [$%?!], entre 10 et 20 caractères 
   // on vérifie que le mot de passe inscrit et le mot de passe de confirmation sont les mêmes
   if($mdp!=$mdpconfirmation){
