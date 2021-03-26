@@ -172,9 +172,9 @@ function erreurinscription($pseudo,$mdp,$mdpconfirmation,$telephone,$mail,$ville
   // if(strlen($pseudo) < 2 || strlen($pseudo) > 255){
   //   $content .= 'Votre pseudo doit contenir entre 2 et 255 caractères.</br>';
   // }
-  if (1 !== preg_match('~^[a-zA-Z0-9_-]{3,20}$~', $pseudo)){
+  if (1 !== preg_match('~^[a-zA-Z0-9- _-]{2,20}$~', $pseudo)){
     $content .= 'Votre pseudo doit ne peut contenir que des minuscules, majuscules, - et chiffre (les espaces ou carctètes spéciaux ne sont pas autorisés).</br>';
-    $content .= 'Votre pseudo doit contenir entre 3 et 20 caractères.</br>';
+    $content .= 'Votre pseudo doit contenir entre 2 et 20 caractères.</br>';
   }
   // on vérifie que le mot de passe enregistré est bien compris entre 10 et 20 caractères, 
   if (1 !== preg_match('~^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[$%?!]).{10,20}$~', $mdp)) {
@@ -185,7 +185,6 @@ function erreurinscription($pseudo,$mdp,$mdpconfirmation,$telephone,$mail,$ville
   // if(strlen($mdp) < 10 || strlen($mdp) > 20){
   //   $content .= 'Votre mot de passe doit être compris entre 10 et 20 caractères.</br>';
   // }
-  // 1 chiffre; 1 lettre minuscule, 1 lettre majuscule , 1 caractère spécial [$%?!], entre 10 et 20 caractères 
   // on vérifie que le mot de passe inscrit et le mot de passe de confirmation sont les mêmes
   if($mdp!=$mdpconfirmation){
     $content .= 'Votre mot de passe et sa confirmation ne correspondent pas.</br>';
@@ -198,20 +197,27 @@ function erreurinscription($pseudo,$mdp,$mdpconfirmation,$telephone,$mail,$ville
     }
   }
   // on vérifie que le téléphone enregistré est bien composé que de 10 chiffres
-  if(strlen($telephone) != 10){
+  if (1 !== preg_match('~^[\+]?[(]?[0-9]{3}[)]?[0-9]{3}?[0-9]{4,6}$~', $telephone)) {
     $content .= 'Le numéro de téléphone n\'est pas valide. Il doit être contenir 10 chiffres.</br>';
   }
+  // if(strlen($telephone) != 10){
+  //   $content .= 'Le numéro de téléphone n\'est pas valide. Il doit être contenir 10 chiffres.</br>';
+  // }
   // on vérifie que l'e-mail enregistré est bien valide
   if(!filter_var($mail, FILTER_VALIDATE_EMAIL)){
     $content .= 'L\'email est invalide.</br>';
   }
   // on vérifie que le nom de la ville enregistré est composé que de lettres
-  $villeCarac = str_split($ville, 1);
-  foreach($villeCarac as $caracter){
-    if(is_int($caracter)){
-      $content .= 'Le nom de la ville n\'est pas valide</br>';
-    }
+  // ^[a-zA-Z- _-]{3,30}$
+  if (1 !== preg_match('~^[a-zA-Z- _-]{3,30}$~', $ville)) {
+    $content .= 'Le nom de la ville n\'est pas valide. Les chiffres et les caractères spéciaux ne sont pas acceptés.</br>';
   }
+  // $villeCarac = str_split($ville, 1);
+  // foreach($villeCarac as $caracter){
+  //   if(is_int($caracter)){
+  //     $content .= 'Le nom de la ville n\'est pas valide</br>';
+  //   }
+  // }
   return $content;
 }
 
