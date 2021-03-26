@@ -25,21 +25,14 @@ if(isset($_POST['valider'])){
 }
 
 //Si on envoie le formulaire de l'admin
-if(isset($_POST['changer-stock'])){
+if(isset($_POST['changerstock'])){
   extract($_POST);
-  // //On vérififie que toute les informations renseignées dans le formulaire n'on pas d'erreurs
-  // //Si il y a des erreurs un texte informatif est enregistré indiquant l'erreur
-  // $erreur=changementerreur($pseudo,$tel,$mail,$ville);
-  // //Pour afficher les erreurs en rouge
-  // $backgroud = 'style="background:tomato;padding:2%"';
-  // //Si il n'y a pas eu d'erreur dans la saisie des informations dans le formulaire alors on va pouvoir enregistrer les données dans la base de donnée
-  // if($erreur == ""){
-  //   //On met a jour la base de donnée et les variables session
-  //   $erreur = changementbasededonnee($_SESSION['user']['id'],$pseudo,$tel,$mail,$numrue, $rue, $cp, $ville, $civil);
-  // }
+  var_dump(intval($idproduit), intval($stock));
+  changestock(intval($idproduit), intval($stock));
 }
 
 // Liste des produits récupérés pour l'admin
+$image = photosproduits();
 $produits = ecritproduits();
 
 ?>
@@ -109,16 +102,19 @@ $produits = ecritproduits();
       <a href="mot_de_passe.php">Changer mon mot de passe</a>
     </form>
 
-    <?php if($_SESSION['user']['statut'] === 1){ ?>
-      <form action="profil.php" method="post">
-        <?php foreach ($produits as $key => $value) { ?>
+    <?php if($_SESSION['user']['statut'] === 'admin'){ ?>
+      <?php for($k=1; $k<=count($image); $k++){ ?>
+        <form action="profil.php" method="post">
           <!-- // boucle des produits -->
-          <label><?php $key['nom'] ?></label>
-          <input type="number" name="stock<?php $key['id'] ?>" placeholder="<?php $key['stock'] ?>">
-        <?php } ?>
-        <input type="submit" name="changer-stock">
+          <label>Nouveau stock pour : <?php echo $produits['nom'][$k] ?></label>
+          <p>(Stock actuel : <?php echo $produits['stock'][$k] ?>)</p>
+          <input type="number" name="stock">
+          <input type="hidden" name="idproduit" value="<?php echo $produits['id'][$k] ?>">
+          <br> 
+        <!-- NE PAS OUBLIER D'ENLEVER LE BR ET DE GERER CA EN CSS -->
+        <input type="submit" name="changerstock" value="Changer les stocks">
       </form>
-
+      <?php } ?>
     <?php } ?>
     
     <a href="index.php?session=destroy" class="btnclassique">Déconnexion</a>

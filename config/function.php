@@ -433,25 +433,17 @@ function changementbasededonnee($id,$pseudo,$telephone,$mail,$numrue, $rue, $cod
 //___FONCTION___
 //Function pour changer le stock par l'admin
 
-function changestock($produitsAChanger, $newStock){
+function changestock($produitAChanger, $newStock){
   global $pdo;
-  $k = 0;
-  foreach ($produitsAChanger as $produitUnique => $value) {
-    $querySelect = "INSERT INTO hetic21_produit (stock) 
-    VALUES (:stock) 
-    WHERE id_produit = :id";
-    $reqPrep = $pdo->prepare($querySelect);
-    $reqPrep->execute(
-      [
-        'stock' => $newStock,
-        'id' => $newStock[$k]
-      ]
-    );
-    $k++;
-  }
-  
-  $result = $reqPrep->fetchAll(PDO::FETCH_ASSOC);
-
+  $querySelect = "UPDATE hetic21_produit SET stock = :stock
+  WHERE id_produit = :id";
+  $reqPrep = $pdo->prepare($querySelect);
+  $reqPrep->execute(
+    [
+      'stock' => $newStock,
+      'id' => $produitAChanger
+    ]
+  );
 }
 
 ///////////////////////////______________________________________PAGE MOT DE PASSE
