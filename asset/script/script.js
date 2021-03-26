@@ -1,18 +1,19 @@
 "use strict";
 
 // ------------------------ Profil.php
+const stockForm = document.getElementsByClassName('stock-form')[0];
+
 // functions
 function changeProfilElement(){
-  civilCheck();
-  showOrHideElements('show');
-  if(previousChange){
-    showOrHideElements(previousChange, 'hide');
+  if(this.parentNode != stockForm){
+    civilCheck();
   }
+  showOrHideElements(this.parentNode, 'show');
 }
 
-function showOrHideElements(action){
-  let hiddenElements = document.getElementsByClassName('hidden');
-  let profilElement = document.getElementsByClassName('profil-element');
+function showOrHideElements(form, action){
+  let hiddenElements = form.getElementsByClassName('hidden');
+  let profilElement = form.getElementsByClassName('profil-element');
   for(let i = 0; i < profilElement.length; i++){
     profilElement[i].style.display = (action == 'show') ? 'none' : 'block';
   }

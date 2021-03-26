@@ -289,6 +289,19 @@ input{
 .hidden{
   display: none;
 }
+.admin-profil-part{
+  margin-top: 30px;
+  width: 100%;
+}
+.article-profil-parent{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.admin-produit{
+  width: 30%;
+  border: 1px solid black;
+}
 
 /*____________________Page panier_____________________________________*/
 .panier-liste, .panier-total{

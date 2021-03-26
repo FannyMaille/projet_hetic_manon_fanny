@@ -102,19 +102,26 @@ $produits = ecritproduits();
     </form>
 
     <?php if($_SESSION['user']['statut'] === 'admin'){ ?>
-      <?php for($k=1; $k<=count($image); $k++){ ?>
-        <form action="profil.php" method="post">
-          <!-- // boucle des produits -->
-          <label>Nouveau stock pour : <?php echo $produits['nom'][$k] ?></label>
-          <p>(Stock actuel : <?php echo $produits['stock'][$k] ?>)</p>
-          <input type="number" name="stock">
-          <input type="hidden" name="idproduit" value="<?php echo $produits['id'][$k] ?>">
-          <br> 
-        <!-- NE PAS OUBLIER D'ENLEVER LE BR ET DE GERER CA EN CSS -->
-        <input type="submit" name="changerstock" value="Changer les stocks">
-      </form>
+    <section class="admin-profil-part">
+      <h2>Gérer les stocks</h2>
+      <div class="article-profil-parent">
+      
+        <?php for($k=1; $k<=count($image); $k++){ ?>
+        <article class="admin-produit">
+          <form action="profil.php" method="post" class="stock-form">
+            <!-- // boucle des produits -->
+            <label><?php echo $produits['nom'][$k] ?></label>
+            <p>Stock actuel : <?php echo $produits['stock'][$k] ?></p>
+            <input type="number" name="stock" class="hidden">
+            <input type="hidden" name="idproduit" value="<?php echo $produits['id'][$k] ?>">
+            <input type="submit" name="changerstock" value="Changer les stocks" class='hidden'>
+            <a class="modify-stock">Modifier</a>
+        </form>
+      </article>
       <?php } ?>
-    <?php } ?>
+      <?php } ?>
+      </div>
+    </section>
     
     <a href="index.php?session=destroy" class="btnclassique">Déconnexion</a>
     
