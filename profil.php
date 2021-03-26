@@ -27,7 +27,6 @@ if(isset($_POST['valider'])){
 //Si on envoie le formulaire de l'admin
 if(isset($_POST['changerstock'])){
   extract($_POST);
-  var_dump(intval($idproduit), intval($stock));
   changestock(intval($idproduit), intval($stock));
 }
 
