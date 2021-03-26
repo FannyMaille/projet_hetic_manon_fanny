@@ -24,6 +24,24 @@ if(isset($_POST['valider'])){
   }
 }
 
+//Si on envoie le formulaire de l'admin
+if(isset($_POST['changer-stock'])){
+  extract($_POST);
+  // //On vérififie que toute les informations renseignées dans le formulaire n'on pas d'erreurs
+  // //Si il y a des erreurs un texte informatif est enregistré indiquant l'erreur
+  // $erreur=changementerreur($pseudo,$tel,$mail,$ville);
+  // //Pour afficher les erreurs en rouge
+  // $backgroud = 'style="background:tomato;padding:2%"';
+  // //Si il n'y a pas eu d'erreur dans la saisie des informations dans le formulaire alors on va pouvoir enregistrer les données dans la base de donnée
+  // if($erreur == ""){
+  //   //On met a jour la base de donnée et les variables session
+  //   $erreur = changementbasededonnee($_SESSION['user']['id'],$pseudo,$tel,$mail,$numrue, $rue, $cp, $ville, $civil);
+  // }
+}
+
+// Liste des produits récupérés pour l'admin
+$produits = ecritproduits();
+
 ?>
 <header>
     <?php include 'config/template/nav.php'; ?>
@@ -90,6 +108,18 @@ if(isset($_POST['valider'])){
       <a href="profil.php" class="hidden">Annuler</a>
       <a href="mot_de_passe.php">Changer mon mot de passe</a>
     </form>
+
+    <?php if($_SESSION['user']['statut'] === 1){ ?>
+      <form action="profil.php" method="post">
+        <?php foreach ($produits as $key => $value) { ?>
+          <!-- // boucle des produits -->
+          <label><?php $key['nom'] ?></label>
+          <input type="number" name="stock<?php $key['id'] ?>" placeholder="<?php $key['stock'] ?>">
+        <?php } ?>
+        <input type="submit" name="changer-stock">
+      </form>
+
+    <?php } ?>
     
     <a href="index.php?session=destroy" class="btnclassique">Déconnexion</a>
     
