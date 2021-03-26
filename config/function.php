@@ -172,6 +172,10 @@ function erreurinscription($pseudo,$mdp,$mdpconfirmation,$telephone,$mail,$ville
   if(strlen($pseudo) < 2 || strlen($pseudo) > 255){
     $content .= 'Votre pseudo doit contenir entre 2 et 255 caractères.</br>';
   }
+  // on vérifie que le mot de passe enregistré est bien compris entre 10 et 20 caractères, 
+  if (1 !== preg_match('~^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[$%?!.{10,20}$~', $mdp)) {
+    $content .= 'Votre mot de passe doit contenir au minimum une majuscule, une minuscule, un chiffre et un carctère spéciale ($%?!).</br>';
+  }
   // on vérifie que le mot de passe enregistré est bien compris entre 8 et 25 caractères
   if(strlen($mdp) < 10 || strlen($mdp) > 20){
     $content .= 'Votre mot de passe doit être compris entre 10 et 20 caractères.</br>';
