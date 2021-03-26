@@ -57,7 +57,7 @@ if(isset($_POST['inscription'])){
         </div>
         <div class="partiesformulaire deuxiemepartie">
           <label for="mdp"></label>
-          <input type="password" name="mdp" id="mdp" class="filter" placeholder="Mot de passe *">
+          <input type="password" name="mdp" id="mdp" class="filter" placeholder="Mot de passe (entre 10 et 20 caractères) *">
           <label for="mdpconfirmation"></label>
           <input type="password" name="mdpconfirmation" id="mdpconfirmation" class="filter" placeholder="Confirmation du mot de passe *">
           <label for="mail"></label>
