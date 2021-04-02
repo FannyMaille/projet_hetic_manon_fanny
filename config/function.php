@@ -143,7 +143,9 @@ function setProduit($unproduit, $image, $id){
       $_SESSION['panier'][$id]['prix']= $unproduit[0]['prix'];
       $_SESSION['panier'][$id]['stockactuel']= $unproduit[0]['stock'];
       $_SESSION['panier'][$id]['quantite']= 1;
-      $_SESSION['panier'][$id]['photo']= $image[0];
+      if(isset($image)){
+        $_SESSION['panier'][$id]['photo']= $image[0];
+      }
       //on enregistre un texte pour le 1er enregistrement
       $action="Votre produit a été ajouté au panier";
     }
