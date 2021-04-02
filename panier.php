@@ -35,13 +35,13 @@ if(isset($_GET['moins'])){
 }
 if(isset($_GET['plus'])){
   if(isset($_SESSION['panier'][$_GET['plus']])){
-  $qterreur=plus($_GET['plus']);
-    if($qterreur="Il n'y a pas assez de stock"){
-      $backgroudqt="style='background:tomato;padding:2%'";
+    $resultat=plus($_GET['plus']);
+    if($resultat==false){
+      $prixtotal=montantpanier();
     }
     else{
-      $prixtotal=montantpanier();
-      $backgroudqt="style='background:chartreuse;padding:2%'";
+      $qterreur="Il n'y a pas assez de stock";
+      $backgroudqt="style='background:tomato;padding:2%'";
     }
   }
   else{

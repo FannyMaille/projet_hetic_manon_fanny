@@ -39,12 +39,13 @@ function montantpanier(){
 }
 //___FONCTION___fonction qui permet d'augmenter la quantité
 function plus($id){
+  $erreur="";
   if($_SESSION['panier'][$id]['stockactuel']>$_SESSION['panier'][$id]['quantite']){
     $_SESSION['panier'][$id]['quantite'] = $_SESSION['panier'][$id]['quantite'] +1;
-    $erreur="Il y a du stock";
+    $erreur=false;
   }
   else{
-    $erreur="Il n'y a pas assez de stock";
+    $erreur=true;
   }
   return $erreur;
 }
