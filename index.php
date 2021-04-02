@@ -24,6 +24,8 @@ $produit = ecritproduits(false);
       <figure>
         <?php if(isset($image[$k])){ ?>
         <img class="articleimg" src="<?=$image[$k]?>" alt="<?=$produit[$k]['nom_produit']?>">
+        <?php } else{ ?>
+        <img class="articleimg" src="asset/img/produits/no-pic.png" alt="no-picture-available-for-product">
         <?php } ?>
         <figcaption><h3><?=$produit[$k]['nom_produit']?></h3></figcaption>
       </figure>
