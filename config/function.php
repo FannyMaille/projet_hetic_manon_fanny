@@ -37,6 +37,32 @@ function montantpanier(){
   }
   return $prixtotal;
 }
+//___FONCTION___fonction qui permet d'augmenter la quantité
+function plus($id){
+  if($_SESSION['panier'][$id]['stockactuel']>$_SESSION['panier'][$id]['quantite']){
+    $_SESSION['panier'][$id]['quantite'] = $_SESSION['panier'][$id]['quantite'] +1;
+    $erreur="Il y a du stock";
+  }
+  else{
+    $erreur="Il n'y a pas assez de stock";
+  }
+  return $erreur;
+}
+//___FONCTION___fonction qui permet de diminuer la quantité
+function moins($id){
+  $_SESSION['panier'][$id]['quantite'] = $_SESSION['panier'][$id]['quantite'] -1;
+  if($_SESSION['panier'][$id]['quantite'] ==0){
+    supprimerpanier($id);
+  }
+}
+//___FONCTION___fonction qui permet de supprimer le produit
+function supprimerpanier($id){
+  unset($_SESSION['panier'][$id]);
+  if(!$_SESSION['panier']){
+    header("location:paniervide.php");
+    die();
+  }
+}
 
 
 // user.id, user.nom....
@@ -110,13 +136,14 @@ function setProduit($unproduit, $image, $id){
   //Si le produit slectionné n'a jamais été slectionné au paravant on enregistre toutes ses information
   if(!isset($_SESSION['panier'][$id])){
     //on vérifie s'il y a du stock
-    if($unproduit['stock']>0){
-      $_SESSION['panier'][$id]['nom']= $unproduit['nom'];
-      $_SESSION['panier'][$id]['description']= $unproduit['description'];
-      $_SESSION['panier'][$id]['prix']= $unproduit['prix'];
-      $_SESSION['panier'][$id]['stockactuel']= $unproduit['stock'];
+    if($unproduit[0]['stock']>0){
+      $_SESSION['panier'][$id]['id']= $id;
+      $_SESSION['panier'][$id]['nom']= $unproduit[0]['nom_produit'];
+      $_SESSION['panier'][$id]['description']= $unproduit[0]['description_produit'];
+      $_SESSION['panier'][$id]['prix']= $unproduit[0]['prix'];
+      $_SESSION['panier'][$id]['stockactuel']= $unproduit[0]['stock'];
       $_SESSION['panier'][$id]['quantite']= 1;
-      $_SESSION['panier'][$id]['photo']= $image[1];
+      $_SESSION['panier'][$id]['photo']= $image[0];
       //on enregistre un texte pour le 1er enregistrement
       $action="Votre produit a été ajouté au panier";
     }
@@ -126,7 +153,7 @@ function setProduit($unproduit, $image, $id){
   }
   //Si le produit a deja été slectionné on change simplement la quantité
   else{
-    if(($unproduit['stock']-$_SESSION['panier'][$id]['quantite'])>0){
+    if(($unproduit[0]['stock']-$_SESSION['panier'][$id]['quantite'])>0){
       $_SESSION['panier'][$id]['quantite']++;
       //on enregistre un autre texte si ce n'est pas le 1er enregistrement
       $action="Votre produit a été ajouté au panier (".$_SESSION['panier'][$id]['quantite']." ".$_SESSION['panier'][$id]['nom']." au panier)";

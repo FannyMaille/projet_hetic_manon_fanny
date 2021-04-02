@@ -8,24 +8,67 @@ if(panierquantite()==0){
 //On enregistre le prix total de tous les articles
 $prixtotal=montantpanier();
 
+$urlerreur="";
+$backgroudurl="";
+$backgroudqt="";
+$qterreur="";
+
+if(isset($_GET['supprimer'])){
+  if(isset($_SESSION['panier'][$_GET['supprimer']])){
+  supprimerpanier($_GET['supprimer']);
+  $prixtotal=montantpanier();
+  }
+  else{
+    $urlerreur="Merci de ne pas toucher à l'url";
+    $backgroudurl="style='background:tomato;padding:2%'";
+  }
+}
+if(isset($_GET['moins'])){
+  if(isset($_SESSION['panier'][$_GET['moins']])){
+  moins($_GET['moins']);
+  $prixtotal=montantpanier();
+  }
+  else{
+    $urlerreur="Merci de ne pas toucher à l'url";
+    $backgroudurl="style='background:tomato;padding:2%'";
+  }
+}
+if(isset($_GET['plus'])){
+  if(isset($_SESSION['panier'][$_GET['plus']])){
+  $qterreur=plus($_GET['plus']);
+    if($qterreur="Il n'y a pas assez de stock"){
+      $backgroudqt="style='background:tomato;padding:2%'";
+    }
+    else{
+      $prixtotal=montantpanier();
+      $backgroudqt="style='background:chartreuse;padding:2%'";
+    }
+  }
+  else{
+    $urlerreur="Merci de ne pas toucher à l'url";
+    $backgroudurl="style='background:tomato;padding:2%'";
+  }
+}
+
 ?>
 <header>
     <?php include 'config/template/nav.php'; ?>
 </header>
 <section class="sectionpanier">
     <h1 class="text-center mt-5 mb-5">Page panier</h1>
-
+    <div <?=$backgroudurl?>><?=$urlerreur?></div>
     <ul class="panier-liste">
       <?php foreach($_SESSION['panier'] AS $idproduit){?>
-        <li class="panier-produit p-3">
+        <li class="panier-produit p-3 <?= $idproduit['nom'] ?>">
             <div class="ml-3">
                 <h2><?= $idproduit['nom'] ?></h2>
                 <p><?= $idproduit['prix'] ?> €</p>
+                <div <?=$backgroudqt?>><?=$qterreur?></div>
                   <div class="panier-quantite">
-                    <input type="submit" name="plus" value="+" class="quantitemodif">
+                  <a href="panier.php?plus=<?=$idproduit['id']?>" class="quantitemodif">+</a>
                     <p class="pr-2 pl-2"><?= $idproduit['quantite'] ?></p>
-                    <input type="submit" name="minus" value="-" class="quantitemodif">
-                    <input type="submit" name="Supprimer" value="supprimer" class="supression_produit">
+                    <a href="panier.php?moins=<?=$idproduit['id']?>" class="quantitemodif">-</a>
+                    <a href="panier.php?supprimer=<?=$idproduit['id']?>" class="supression_produit">Supprimer</a>
                   </div>
             </div>
             <img src="<?= $idproduit['photo']?>" alt="<?= $idproduit['nom']?>">
