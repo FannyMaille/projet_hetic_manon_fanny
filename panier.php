@@ -40,7 +40,7 @@ if(isset($_GET['plus'])){
       $prixtotal=montantpanier();
     }
     else{
-      $qterreur="Il n'y a pas assez de stock";
+      $qterreur="Il n'y a pas assez de stock pour le produit : ".$_SESSION['panier'][$_GET['plus']]['nom'];
       $backgroudqt="style='background:tomato;padding:2%'";
     }
   }
@@ -57,18 +57,18 @@ if(isset($_GET['plus'])){
 <section class="sectionpanier">
     <h1 class="text-center mt-5 mb-5">Page panier</h1>
     <div <?=$backgroudurl?>><?=$urlerreur?></div>
+    <div <?=$backgroudqt?>><?=$qterreur?></div>
     <ul class="panier-liste">
       <?php foreach($_SESSION['panier'] AS $idproduit){?>
         <li class="panier-produit p-3 <?= $idproduit['nom'] ?>">
             <div class="ml-3">
                 <h2><?= $idproduit['nom'] ?></h2>
                 <p><?= $idproduit['prix'] ?> €</p>
-                <div <?=$backgroudqt?>><?=$qterreur?></div>
                   <div class="panier-quantite">
                   <a href="panier.php?plus=<?=$idproduit['id']?>" class="quantitemodif">+</a>
                     <p class="pr-2 pl-2"><?= $idproduit['quantite'] ?></p>
                     <a href="panier.php?moins=<?=$idproduit['id']?>" class="quantitemodif">-</a>
-                    <a href="panier.php?supprimer=<?=$idproduit['id']?>" class="supression_produit">Supprimer</a>
+                    <a href="panier.php?supprimer=<?=$idproduit['id']?>" class="supression_produit btnclassique">Supprimer</a>
                   </div>
             </div>
             <img src="<?= $idproduit['photo']?>" alt="<?= $idproduit['nom']?>">
