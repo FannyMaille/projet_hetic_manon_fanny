@@ -2,13 +2,18 @@
 
 // ------------------------ Profil.php
 const stockForm = document.getElementsByClassName('stock-form')[0];
+let previousElem;
 
 // functions
 function changeProfilElement(){
   if(this.parentNode != stockForm){
     civilCheck();
   }
+  if(previousElem){
+    showOrHideElements(previousElem, 'hide');
+  }
   showOrHideElements(this.parentNode, 'show');
+  
 }
 
 function showOrHideElements(form, action){
@@ -20,6 +25,7 @@ function showOrHideElements(form, action){
   for(let i = 0 ; i < hiddenElements.length ; i++){
     hiddenElements[i].style.display = (action == 'show') ? 'block' : 'none';
   }
+  previousElem = form;
 }
 
 function civilCheck(){

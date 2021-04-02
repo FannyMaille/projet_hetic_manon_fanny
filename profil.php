@@ -71,18 +71,18 @@ $produits = ecritproduits(false);
         </li>
         <li>
           <p>Adresse postale :</p>
-                <label for="numrue" class="hidden">Numéro de rue :</label>
-                <input type="number" class="hidden" name="numrue" id="numrue" value="<?= $_SESSION['user']['numrue'] ?>">
-                <label for="rue" class="hidden">Nom de rue :</label>
-                <input type="text" class="hidden" name="rue" id="rue" value="<?= $_SESSION['user']['nomrue'] ?>">
-                <label for="cp" class="hidden">Code postal :</label>
-                <input type="number" class="hidden" name="cp" id="cp" value="<?= $_SESSION['user']['cp'] ?>">
-                <label for="ville" class="hidden">Ville :</label>
-                <input type="text" class="hidden" name="ville" id="ville" value="<?= $_SESSION['user']['ville'] ?>">
-                <p class="profil-element"><?= $_SESSION['user']['numrue'] . ' ' .
-                $_SESSION['user']['nomrue'] . ', ' . 
-                $_SESSION['user']['cp'] . ' ' .
-                $_SESSION['user']['ville'] ?></p>
+          <label for="numrue" class="hidden">Numéro de rue :</label>
+          <input type="number" class="hidden" name="numrue" id="numrue" value="<?= $_SESSION['user']['numrue'] ?>">
+          <label for="rue" class="hidden">Nom de rue :</label>
+          <input type="text" class="hidden" name="rue" id="rue" value="<?= $_SESSION['user']['nomrue'] ?>">
+          <label for="cp" class="hidden">Code postal :</label>
+          <input type="number" class="hidden" name="cp" id="cp" value="<?= $_SESSION['user']['cp'] ?>">
+          <label for="ville" class="hidden">Ville :</label>
+          <input type="text" class="hidden" name="ville" id="ville" value="<?= $_SESSION['user']['ville'] ?>">
+          <p class="profil-element"><?= $_SESSION['user']['numrue'] . ' ' .
+          $_SESSION['user']['nomrue'] . ', ' . 
+          $_SESSION['user']['cp'] . ' ' .
+          $_SESSION['user']['ville'] ?></p>
         </li>
         <li>
           <label for="tel">Numéro de téléhpone :</label>
@@ -124,6 +124,10 @@ $produits = ecritproduits(false);
     </section>
     
     <a href="index.php?session=destroy" class="btnclassique">Déconnexion</a>
+
+    <!-- //https://www.w3schools.com/howto/howto_js_filter_lists.asp 
+    if willing to make a search bar if multiple products -->
+
     
 </section>
 
