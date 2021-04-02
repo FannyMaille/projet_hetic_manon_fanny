@@ -87,7 +87,7 @@ if(isset($_POST['inscription'])){
       <input type="submit" value="Envoyer" name="inscription">
     </form>
 
-    <a href="login.php">Déjà Inscrit ?</a>
+    <a href="login.php" class="alink">Déjà Inscrit ?</a>
   </section>
 
 <?php include 'config/template/footer.php'; ?>

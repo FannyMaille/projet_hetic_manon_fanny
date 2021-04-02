@@ -37,7 +37,7 @@ if(isset($_POST['connexion'])){
       <input type="submit" value="Envoyer" name="connexion">
     </form>
 
-    <a href="inscription.php">Pas Inscrit ? Inscrivez vous</a>
+    <a href="inscription.php alink">Pas Inscrit ? Inscrivez vous</a>
   </section>
 
 <?php include 'config/template/footer.php'; ?>

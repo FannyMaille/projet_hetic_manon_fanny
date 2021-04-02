@@ -95,10 +95,10 @@ $produits = ecritproduits(false);
           <p class="profil-element"><?= $_SESSION['user']['email'] ?></p>
         </li>
       </ul>
-      <a id="modifier-profil" class="btnclassique profil-element" value="hidden">Modifier</a>
+      <a id="modifier-profil" class="btnclassique alink profil-element" value="hidden">Modifier</a>
       <input type="submit" class="hidden" value="Valider" name="valider">
       <a href="profil.php" class="hidden">Annuler</a>
-      <a href="mot_de_passe.php">Changer mon mot de passe</a>
+      <a href="mot_de_passe.php" class="alink">Changer mon mot de passe</a>
     </form>
 
     <?php if($_SESSION['user']['statut'] === 'admin'){ ?>

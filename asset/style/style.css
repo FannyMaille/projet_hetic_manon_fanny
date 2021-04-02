@@ -234,9 +234,12 @@ input{
   margin-top: 20px;
   height: 40px;
 }
-.sectformulaire a{
+.sectformulaire .alink{
   margin-top: 2vh;
   margin-bottom: 10vh;
+}
+.undo-modify{
+  margin-bottom: 10px;
 }
 
 /*____________________Page inscription_____________________________________*/
