@@ -64,6 +64,7 @@ function photosproduits($id){
   //initialisation des valeurs pour la boucle foreach
   $i=0;
   $valeurdepart=0;
+  $image=[];
   //boucle foreacch pour parcourir tout le tableau récupéré de la base de données
   
     //si l'identifiant du produit est different du précendent il s'agit d'un nouveau produit donc on enregistre la première photo du produit dans notre tableau

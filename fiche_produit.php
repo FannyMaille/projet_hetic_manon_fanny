@@ -51,6 +51,7 @@ if(isset($_POST['ajout_panier'])){
         </form>
     </div>
     <div class="images-produit">
+        <?php if(isset($image[0])){ ?>
         <img class="main_produit_img" src="<?=$image[0]?>" alt="[alt-recupere-php]">
         <figure>
             <!--On crée une boucle for pour afficher toute les photos restantes-->
@@ -62,6 +63,7 @@ if(isset($_POST['ajout_panier'])){
             }
             ?>
         </figure>
+        <?php } ?>
     </div>
 </section>
 
