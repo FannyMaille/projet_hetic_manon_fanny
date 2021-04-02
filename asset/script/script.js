@@ -13,6 +13,10 @@ function changeProfilElement(){
     showOrHideElements(previousElem, 'hide');
   }
   showOrHideElements(this.parentNode, 'show');
+
+  if(this.classList.contains('undo-modify')){
+    showOrHideElements(this.parentNode, 'hide');
+  }
   
 }
 

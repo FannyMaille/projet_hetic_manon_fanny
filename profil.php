@@ -115,7 +115,8 @@ $produits = ecritproduits(false);
             <input type="number" name="stock" class="hidden">
             <input type="hidden" name="idproduit" value="<?php echo $produits[$k]['id_produit'] ?>">
             <input type="submit" name="changerstock" value="Changer les stocks" class='hidden'>
-            <a class="modify-stock">Modifier</a>
+            <a class="hidden undo-modify">Annuler</a>
+            <a class="modify-stock profil-element">Modifier</a>
         </form>
       </article>
       <?php } ?>
