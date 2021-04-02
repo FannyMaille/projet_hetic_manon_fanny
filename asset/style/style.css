@@ -346,11 +346,23 @@ input{
 }
 .quantitemodif{
   width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffd400;
+  color: white;
+}
+.quantitemodif:hover{
+  color: #ffd400;
+  background-color: white;
+  text-decoration: none;
+  border: 1px solid #ffd400;
 }
 .panier-quantite p{
   text-align: center;
   line-height: 40px;
   border: 1px solid #ffd400;
+  width: 40px;
 }
 .sectionpanier{
   display: flex;
