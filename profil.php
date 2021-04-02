@@ -103,7 +103,7 @@ $produits = ecritproduits(false);
 
     <?php if($_SESSION['user']['statut'] === 'admin'){ ?>
     <section class="admin-profil-part">
-      <h2>Gérer les stocks</h2>
+      <h2 class="admin-titles">Gérer les stocks</h2>
       <div class="article-profil-parent">
       
         <?php for($k=0; $k<count($produits); $k++){ ?>
@@ -117,12 +117,30 @@ $produits = ecritproduits(false);
             <input type="submit" name="changerstock" value="Changer les stocks" class='hidden'>
             <a class="hidden undo-modify">Annuler</a>
             <a class="modify-stock profil-element">Modifier</a>
-        </form>
-      </article>
-      <?php } ?>
-      <?php } ?>
+          </form>
+        </article>
+        <?php } ?>
       </div>
     </section>
+
+    <section>
+      <h2 class="admin-titles">Ajouter un nouveau produit</h2>
+      <form action="profil.php" method="post" class="add-produit-form">
+        <label for="nouveau-produit-nom">Nom du produit :</label>
+        <input id="nouveau-produit-nom" type="text" name="nouveau-produit-nom" required>
+        <label for="nouveau-produit-stock">Stock :</label>
+        <input id="nouveau-produit-stock" type="number" name="nouveau-produit-stock" required>
+        <label for="nouveau-produit-prix">Prix :</label>
+        <input id="nouveau-produit-prix" type="float" name="nouveau-produit-prix" required>
+        <label for="nouveau-produit-desc">Description du produit :</label>
+        <textarea id="nouveau-produit-desc" required></textarea>
+        <label for="nouveau-produit-pic">Les images :</label>
+        <input id="nouveau-produit-pic" type="file" name="nouveau-produit-pic">
+        <input type="submit" name="add-new-produit" value="Ajouter le produit">
+      </form>
+    </section>
+    <?php } ?>
+
     
     <a href="index.php?session=destroy" class="btnclassique">Déconnexion</a>
 

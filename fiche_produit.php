@@ -63,6 +63,8 @@ if(isset($_POST['ajout_panier'])){
             }
             ?>
         </figure>
+        <?php } else{ ?>
+        <img class="main_produit_img" src="asset/img/produits/no-pic.png" alt="no-picture-available-for-product">
         <?php } ?>
     </div>
 </section>
