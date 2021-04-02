@@ -13,37 +13,58 @@ $backgroudurl="";
 $backgroudqt="";
 $qterreur="";
 
+//On vérifie qu'il y ait supprimer dans l'url
 if(isset($_GET['supprimer'])){
+  //On vérifie qu'il y a un produit avec l'id demande enregistre dans session[panier]
+  //C'est pour éviter que quelqu'un tape n'importe que dans l'url et qu'une eerreur appraraise
   if(isset($_SESSION['panier'][$_GET['supprimer']])){
-  supprimerpanier($_GET['supprimer']);
-  $prixtotal=montantpanier();
+    //On appel la fonction supprimerpanier avec l'id du produit en question en paramètre
+    supprimerpanier($_GET['supprimer']);
+    //on remet à jour le montant total
+    $prixtotal=montantpanier();
   }
   else{
+    //si elle n'existe pas c'est que quelqu'un a modifié l'url alors on affiche une erreur
     $urlerreur="Merci de ne pas toucher à l'url";
     $backgroudurl="style='background:tomato;padding:2%'";
   }
 }
+//On vérifie qu'il y ait moins dans l'url
 if(isset($_GET['moins'])){
+  //On vérifie qu'il y a un produit avec l'id demande enregistre dans session[panier]
+  //C'est pour éviter que quelqu'un tape n'importe que dans l'url et qu'une eerreur appraraise
   if(isset($_SESSION['panier'][$_GET['moins']])){
-  moins($_GET['moins']);
-  $prixtotal=montantpanier();
+    //On appel la fonction moins avec l'id du produit en question en paramètre
+    moins($_GET['moins']);
+    //on remet à jour le montant total
+    $prixtotal=montantpanier();
   }
+  //si elle n'existe pas c'est que quelqu'un a modifié l'url alors on affiche une erreur
   else{
     $urlerreur="Merci de ne pas toucher à l'url";
     $backgroudurl="style='background:tomato;padding:2%'";
   }
 }
+//On vérifie qu'il y ait plus dans l'url
 if(isset($_GET['plus'])){
+  //On vérifie qu'il y a un produit avec l'id demande enregistre dans session[panier]
+  //C'est pour éviter que quelqu'un tape n'importe que dans l'url et qu'une eerreur appraraise
   if(isset($_SESSION['panier'][$_GET['plus']])){
+    //On appel la fonction plus avec l'id du produit en question en paramètre
     $resultat=plus($_GET['plus']);
+    //Si la fonction n'a rencontré aucune erreur => le nombre de produit demandé est inferieur au stock donc on peut ajouter ce produit au panier
     if($resultat==false){
+      //on remet à jour le montant total
       $prixtotal=montantpanier();
     }
+    //Sinon cela veut dire qu'il n'y a pas assez de stock donc qu'on ne peut pas ajouter ce produit au panier
     else{
+      //On affiche un message d'errur pour informer l'utilisateur
       $qterreur="Il n'y a pas assez de stock pour le produit : ".$_SESSION['panier'][$_GET['plus']]['nom'];
       $backgroudqt="style='background:tomato;padding:2%'";
     }
   }
+  //si elle n'existe pas c'est que quelqu'un a modifié l'url alors on affiche une erreur
   else{
     $urlerreur="Merci de ne pas toucher à l'url";
     $backgroudurl="style='background:tomato;padding:2%'";

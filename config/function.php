@@ -189,28 +189,14 @@ function erreurinscription($pseudo,$mdp,$mdpconfirmation,$telephone,$mail,$ville
     $content .= 'Votre mot de passe doit contenir au minimum une majuscule, une minuscule, un chiffre et un carctère spéciale ($%?!).</br>';
     $content .= 'Votre mot de passe doit être compris entre 10 et 20 caractères.</br>';
   }
-  // on vérifie que le mot de passe enregistré est bien compris entre 8 et 25 caractères
-  // if(strlen($mdp) < 10 || strlen($mdp) > 20){
-  //   $content .= 'Votre mot de passe doit être compris entre 10 et 20 caractères.</br>';
-  // }
   // on vérifie que le mot de passe inscrit et le mot de passe de confirmation sont les mêmes
   if($mdp!=$mdpconfirmation){
     $content .= 'Votre mot de passe et sa confirmation ne correspondent pas.</br>';
   }
-  // on vérifie que le téléphone enregistré est bien composé que de chiffres
-  // $telCarac = str_split($telephone, 1);
-  // foreach($telCarac as $number){
-  //   if(!is_numeric($number)){
-  //     $content .= 'Le numéro de téléphone n\'est pas valide. Il doit être écrit que des chiffres sans espaces.</br>';
-  //   }
-  // }
   // on vérifie que le téléphone enregistré est bien composé que de 10 chiffres
   if (1 !== preg_match('~^[\+]?[(]?[0-9]{3}[)]?[0-9]{3}?[0-9]{4,6}$~', $telephone)) {
     $content .= 'Le numéro de téléphone n\'est pas valide. Il doit être contenir 10 chiffres.</br>';
   }
-  // if(strlen($telephone) != 10){
-  //   $content .= 'Le numéro de téléphone n\'est pas valide. Il doit être contenir 10 chiffres.</br>';
-  // }
   // on vérifie que l'e-mail enregistré est bien valide
   if(!filter_var($mail, FILTER_VALIDATE_EMAIL)){
     $content .= 'L\'email est invalide.</br>';
@@ -220,12 +206,6 @@ function erreurinscription($pseudo,$mdp,$mdpconfirmation,$telephone,$mail,$ville
   if (1 !== preg_match('~^[a-zA-Z- _-]{3,30}$~', $ville)) {
     $content .= 'Le nom de la ville n\'est pas valide. Les chiffres et les caractères spéciaux ne sont pas acceptés.</br>';
   }
-  // $villeCarac = str_split($ville, 1);
-  // foreach($villeCarac as $caracter){
-  //   if(is_int($caracter)){
-  //     $content .= 'Le nom de la ville n\'est pas valide</br>';
-  //   }
-  // }
   return $content;
 }
 
