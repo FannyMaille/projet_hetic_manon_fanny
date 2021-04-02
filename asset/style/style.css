@@ -179,7 +179,9 @@ input[type="text"],
 input[type="password"], 
 input[type="tel"],
 input[type="number"],
-input[type="email"]{
+input[type="email"],
+input[type="float"],
+textarea{
   padding-left: 15px;
   border-radius: 0;
   border-width: 1px;
@@ -305,8 +307,18 @@ input{
   justify-content: space-around;
 }
 .admin-produit{
-  width: 30%;
+  width: 100%;
   border: 1px solid black;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+.add-produit-form{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+}
+.admin-titles{
+  margin: 50px 0 20px 0;
 }
 
 /*____________________Page panier_____________________________________*/
@@ -423,6 +435,9 @@ footer h4, footer p{
 /*____________________Responsive_____________________________________*/
 
 @media (min-width:650px){
+  .admin-produit{
+    width: 30%;
+  }
   .logo{
     display: block;
   }
