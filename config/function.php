@@ -47,65 +47,62 @@ function montantpanier(){
 ///////////////////////////______________________________________PAGE INDEX
 
 //___FONCTION___Pour les photos des produits___
-function photosproduits(){
+function photosproduits($id){
   global $pdo;
-  $req = $pdo->query('SELECT id_produit, url_image FROM hetic21_photos_produit');
+  $id++;
+
+  if($id === false){
+    $req = $pdo->query('SELECT id_produit, url_image FROM hetic21_photos_produit');
+  } else {
+    $req = $pdo->prepare('SELECT url_image FROM hetic21_photos_produit WHERE id_produit = :id');
+    $req->bindValue(':id', $id);
+    $req->execute();
+  }
+  
   $photo= $req->fetchAll(PDO::FETCH_ASSOC);
+  
   //initialisation des valeurs pour la boucle foreach
-  $i=1;
+  $i=0;
   $valeurdepart=0;
-  //boucle froeacch pour parcourir tout le tableau récupéré de la base de données
-  foreach ($photo AS $ligneresultphoto){
+  //boucle foreacch pour parcourir tout le tableau récupéré de la base de données
+  
     //si l'identifiant du produit est different du précendent il s'agit d'un nouveau produit donc on enregistre la première photo du produit dans notre tableau
     //l'indice de notre tableau coorespond a l'id du produit
-    if ($ligneresultphoto['id_produit'] != $valeurdepart){
+  if($id === false){
+    foreach ($photo AS $ligneresultphoto){
+      if ($ligneresultphoto['id_produit'] != $valeurdepart){
+        $image[$i]=$ligneresultphoto['url_image'];
+        $i++;
+        $valeurdepart = $ligneresultphoto['id_produit'];
+      }
+    }
+  } else {
+    foreach ($photo AS $ligneresultphoto){
       $image[$i]=$ligneresultphoto['url_image'];
       $i++;
-      $valeurdepart = $ligneresultphoto['id_produit'];
     }
   }
   return $image;
 }
 
 //___FONCTION___Pour les élèments écrits___
-function ecritproduits(){
+function ecritproduits($id){
   global $pdo;
-  //On sélectionne tous les élements de la base que l'on a besoin d'afficher sur notre page d'id $id
-  $req = $pdo->query('SELECT id_produit, nom_produit, description_produit, prix, stock FROM hetic21_produit');
-  $produit= $req->fetchAll(PDO::FETCH_ASSOC);
-  //initial sation des valeurs pour la boucle foreach
-  $j=1;
-  //on récupère tous les éléments et on les enregistre dans des variables que l'on va appeler plus tard dans notre html en faisant un foreach 
-  foreach ($produit AS $ligneresult){
-    $produit['nom'][$j]=$ligneresult['nom_produit'];
-    $produit['prix'][$j]=$ligneresult['prix'];
-    $produit['stock'][$j]=$ligneresult['stock'];
-    $produit['id'][$j]=$ligneresult['id_produit'];
-    $j++;
+  $id++;
+  if($id === false){
+    //On sélectionne tous les élements de la base que l'on a besoin d'afficher sur notre page d'id $id
+    $req = $pdo->query('SELECT id_produit, nom_produit, description_produit, prix, stock FROM hetic21_produit');
+  } else{
+    $req = $pdo->prepare('SELECT nom_produit, description_produit, prix, stock FROM hetic21_produit WHERE id_produit = :id');
+    $req->bindValue(':id', $id);
+    $req->execute();
   }
+  $produit = $req->fetchAll(PDO::FETCH_ASSOC);
   return $produit;
 }
 
 
 ///////////////////////////______________________________________PAGE PRODUITS
-
-//___FONCTION___Pour les élèments écrits___
-function ecritunproduit($id){
-  global $pdo;
-  //On sélectionne tous les élements de la base que l'on a besoin d'afficher sur notre page d'id $id
-  $req = $pdo->prepare('SELECT nom_produit, description_produit, prix, stock FROM hetic21_produit WHERE id_produit = :id');
-  $req->bindValue(':id', $id);
-  $req->execute();
-  $unproduit= $req->fetchAll(PDO::FETCH_ASSOC);
-  //on récupère tous les éléments et on les enregistre dans des variables que l'on va appeler plus tard dans notre html en faisant un foreach 
-  foreach ($unproduit AS $ligneresult){
-    $unproduit['nom']=$ligneresult['nom_produit'];
-    $unproduit['description']=$ligneresult['description_produit'];
-    $unproduit['prix']=$ligneresult['prix'];
-    $unproduit['stock']=$ligneresult['stock'];
-  }
-  return $unproduit;
-}
 
 //Pour enregistrer les valeurs dans la session pour le panier
 function setProduit($unproduit, $image, $id){
@@ -140,26 +137,6 @@ function setProduit($unproduit, $image, $id){
   //on retourne le texte d'information pour l'utilisateur
   return $action;
 }
-
-
-
-//___FONCTION___Pour les photos des produits___
-function photosunproduit($id){
-  global $pdo;
-  //obligé de faire 2 connexion differente car se sont des élèments dans un autre table que la précendente
-  $req = $pdo->prepare('SELECT url_image FROM hetic21_photos_produit WHERE id_produit = :id');
-  $req->bindValue(':id', $id);
-  $req->execute();
-  $photo= $req->fetchAll(PDO::FETCH_ASSOC);
-  $i=1;
-  //on récupère toutes les photos et on les enregistre dans des variables que l'on va appeler plus tard dans notre html en faisant un foreach
-  foreach ($photo AS $ligneresultphoto){
-    $image[$i]=$ligneresultphoto['url_image'];
-    $i++;
-  }
-  return $image;
-}
-
 
 
 ///////////////////////////______________________________________PAGE INSCRIPTION

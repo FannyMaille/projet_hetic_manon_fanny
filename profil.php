@@ -31,8 +31,8 @@ if(isset($_POST['changerstock'])){
 }
 
 // Liste des produits récupérés pour l'admin
-$image = photosproduits();
-$produits = ecritproduits();
+$image = photosproduits(false);
+$produits = ecritproduits(false);
 
 ?>
 <header>
@@ -106,14 +106,14 @@ $produits = ecritproduits();
       <h2>Gérer les stocks</h2>
       <div class="article-profil-parent">
       
-        <?php for($k=1; $k<=count($image); $k++){ ?>
+        <?php for($k=0; $k<count($produits); $k++){ ?>
         <article class="admin-produit">
           <form action="profil.php" method="post" class="stock-form">
             <!-- // boucle des produits -->
-            <label><?php echo $produits['nom'][$k] ?></label>
-            <p>Stock actuel : <?php echo $produits['stock'][$k] ?></p>
+            <label><?php echo $produits[$k]['nom_produit'] ?></label>
+            <p>Stock actuel : <?php echo $produits[$k]['stock'] ?></p>
             <input type="number" name="stock" class="hidden">
-            <input type="hidden" name="idproduit" value="<?php echo $produits['id'][$k] ?>">
+            <input type="hidden" name="idproduit" value="<?php echo $produits[$k]['id_produit'] ?>">
             <input type="submit" name="changerstock" value="Changer les stocks" class='hidden'>
             <a class="modify-stock">Modifier</a>
         </form>
