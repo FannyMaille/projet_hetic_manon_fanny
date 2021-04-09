@@ -34,6 +34,70 @@ if(isset($_POST['changerstock'])){
 $image = photosproduits(false);
 $produits = ecritproduits(false);
 
+if(isset($_POST['add-new-produit'])){
+  extract($_POST);
+  addNewProduct($nouveaunom, $nouveaudesc, $nouveauprix, $nouveaustock);
+
+  $produits = ecritproduits(false);
+  $newProduct = end($produits);
+
+  $newProductId = $newProduct['id_produit'];
+
+  mkdir('asset/img/produits/produit' . $newProductId);
+  
+  // télécharger l'image
+  $uploaddir = 'asset/img/produits/produit' . $newProductId . '/';
+
+  if(isset($_FILES)){
+  
+    foreach($_FILES as $file){
+      $uploadfile = $uploaddir . basename($file['name']);
+      move_uploaded_file($file['tmp_name'], $uploadfile);
+      addPictures($uploadfile, $newProductId);
+    }
+  }
+
+}
+
+function addNewProduct($nom, $description, $prix, $stock){
+  global $pdo;
+  $erreur="";
+
+  $queryInsert = "INSERT INTO hetic21_produit (nom_produit, description_produit, prix, stock)
+  VALUES (:nom, :descrip, :prix, :stock)";
+
+  $req = $pdo->prepare($queryInsert);
+  $req->execute(
+    [
+      'nom' => $nom,
+      'descrip' => $description,
+      'prix' => $prix,
+      'stock' => $stock
+    ]
+  );
+  return $erreur;
+}
+
+function addPictures($file, $newProductId){
+  global $pdo;
+  $erreur="";
+
+  if($file != ''){
+    $queryInsertPics = "INSERT INTO hetic21_photos_produit (url_image, id_produit)
+    VALUES (:urlimage, :id)";
+
+    $req = $pdo->prepare($queryInsertPics);
+    $req->execute(
+      [
+        'urlimage' => $file,
+        'id' => $newProductId
+      ]
+    );
+  }
+  
+  return $erreur;
+}
+
 ?>
 <header>
     <?php include 'config/template/nav.php'; ?>
@@ -125,17 +189,22 @@ $produits = ecritproduits(false);
 
     <section>
       <h2 class="admin-titles">Ajouter un nouveau produit</h2>
-      <form action="profil.php" method="post" class="add-produit-form">
-        <label for="nouveau-produit-nom">Nom du produit :</label>
-        <input id="nouveau-produit-nom" type="text" name="nouveau-produit-nom" required>
-        <label for="nouveau-produit-stock">Stock :</label>
-        <input id="nouveau-produit-stock" type="number" name="nouveau-produit-stock" required>
-        <label for="nouveau-produit-prix">Prix :</label>
-        <input id="nouveau-produit-prix" type="float" name="nouveau-produit-prix" required>
-        <label for="nouveau-produit-desc">Description du produit :</label>
-        <textarea id="nouveau-produit-desc" required></textarea>
-        <label for="nouveau-produit-pic">Les images :</label>
-        <input id="nouveau-produit-pic" type="file" name="nouveau-produit-pic">
+      <form enctype="multipart/form-data" action="profil.php" method="post" class="add-produit-form">
+        <label for="nouveaunom">Nom du produit :</label>
+        <input id="nouveaunom" type="text" name="nouveaunom">
+        <label for="nouveaustock">Stock :</label>
+        <input id="nouveaustock" type="number" name="nouveaustock">
+        <label for="nouveauprix">Prix :</label>
+        <input id="nouveauprix" type="float" name="nouveauprix">
+        <label for="nouveaudesc">Description du produit :</label>
+        <textarea id="nouveaudesc" name='nouveaudesc'></textarea>
+        <!-- Drag and drop des images -->
+        <div>
+          <div class="drop-space">
+            <div id="image-preview"></div>
+          </div>
+        </div>
+        
         <input type="submit" name="add-new-produit" value="Ajouter le produit">
       </form>
     </section>

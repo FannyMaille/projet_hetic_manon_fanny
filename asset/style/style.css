@@ -320,6 +320,11 @@ input{
 .admin-titles{
   margin: 50px 0 20px 0;
 }
+.drop-space{
+  width: 100%;
+  height: 200px;
+  background-color: beige;
+}
 
 /*____________________Page panier_____________________________________*/
 .panier-liste, .panier-total{
