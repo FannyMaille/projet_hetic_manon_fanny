@@ -1,6 +1,10 @@
 <?php
 session_start();
 global $pdo;
+
+global $ModeTrace;
+
+$ModeTrace=1;
 require 'function.php';
 
 

@@ -35,6 +35,11 @@ function montantpanier(){
   foreach($_SESSION['panier'] AS $idproduit){
   $prixtotal = $prixtotal+ ($idproduit['quantite']*$idproduit['prix']);
   }
+  if(isset($_SESSION['user'])){
+    $commandeencours=recupereIDcommandeBDD($_SESSION['user']['id']);
+    //Ajout du contenu de SESSION[panier] dans la base de donnée
+    montantcommande($commandeencours, $_SESSION['user']['id']);
+  }
   return $prixtotal;
 }
 //___FONCTION___fonction qui permet d'augmenter la quantité
@@ -42,6 +47,11 @@ function plus($id){
   $erreur="";
   if($_SESSION['panier'][$id]['stockactuel']>$_SESSION['panier'][$id]['quantite']){
     $_SESSION['panier'][$id]['quantite'] = $_SESSION['panier'][$id]['quantite'] +1;
+    if(isset($_SESSION['user'])){
+      $commandeencours=recupereIDcommandeBDD($_SESSION['user']['id']);
+      //Ajout du contenu de SESSION[panier] dans la base de donnée
+      miseajourUneLigneCommandeBDD($commandeencours, $id);
+    }
     $erreur=false;
   }
   else{
@@ -52,6 +62,11 @@ function plus($id){
 //___FONCTION___fonction qui permet de diminuer la quantité
 function moins($id){
   $_SESSION['panier'][$id]['quantite'] = $_SESSION['panier'][$id]['quantite'] -1;
+  if(isset($_SESSION['user'])){
+    $commandeencours=recupereIDcommandeBDD($_SESSION['user']['id']);
+    //Ajout du contenu de SESSION[panier] dans la base de donnée
+    miseajourUneLigneCommandeBDD($commandeencours, $id);
+  }
   if($_SESSION['panier'][$id]['quantite'] ==0){
     supprimerpanier($id);
   }
@@ -59,10 +74,59 @@ function moins($id){
 //___FONCTION___fonction qui permet de supprimer le produit
 function supprimerpanier($id){
   unset($_SESSION['panier'][$id]);
+  if(isset($_SESSION['user'])){
+    $commandeencours=recupereIDcommandeBDD($_SESSION['user']['id']);
+    //Ajout du contenu de SESSION[panier] dans la base de donnée
+    supprimerligneBDDcommande($commandeencours, $id);
+  }
   if(!$_SESSION['panier']){
     header("location:paniervide.php");
     die();
   }
+}
+
+//___FONCTION___
+function supprimerligneBDDcommande($commandeencours, $id){
+  global $pdo;
+
+  $queryInssert = "DELETE FROM hetic21_ligne_commande WHERE id_commande = :id_commande AND id_produit = :idproduit";
+  $reqins = $pdo->prepare($queryInssert);
+  $reqins->execute(
+    [
+      'id_commande' => $commandeencours[0]['id_commande'],
+      'idproduit'=> $id
+    ]
+  );
+}
+
+//FUNCTION
+function montantcommande($commandeencours, $userid){
+  global $pdo;
+  $total=0;
+
+  $querySelect = "SELECT quantite, prix FROM hetic21_ligne_commande WHERE id_commande = :idcommande";
+  $reqsel = $pdo->prepare($querySelect);
+  $reqsel->execute(
+    [
+      'idcommande' => $commandeencours[0]['id_commande']
+    ]
+  );
+  $prixquantite= $reqsel->fetchAll(PDO::FETCH_ASSOC);
+  foreach($prixquantite AS $soustotal){
+    $total=$total+($soustotal['quantite']*$soustotal['prix']);
+  }
+
+  //On mets à jour la quantité et le prix actuel du produit selectionné
+  $queryUpdate = "UPDATE hetic21_commande SET total_commande = :total WHERE id_commande = :idcommande AND id_user = :iduser";
+  $reqPrep = $pdo->prepare($queryUpdate);
+  $reqPrep->execute(
+    [
+      'total' => $total,
+      'idcommande' => $commandeencours[0]['id_commande'],
+      'iduser' => $userid
+    ]
+  );
+
 }
 
 
@@ -98,6 +162,15 @@ function infosproduits($id){
 
 //Pour enregistrer les valeurs dans la session pour le panier
 function setProduit($unproduit, $id){
+  if(isset($_SESSION['user'])){
+    $commandeencours=recupereIDcommandeBDD($_SESSION['user']['id']);
+    if(count($commandeencours)==0){
+      //On crée une nouvelle ligne dans hetic21_commande
+      creationCommandeBDD($_SESSION['user']['id']);
+      //On récupère l'id_commande de la ligne que l'on vient de crer
+      $commandeencours=recupereIDcommandeBDD($_SESSION['user']['id']);
+    }
+  }
   //Si le produit slectionné n'a jamais été slectionné au paravant on enregistre toutes ses informationi
   if(!isset($_SESSION['panier'][$id])){
     //on vérifie s'il y a du stock
@@ -108,11 +181,17 @@ function setProduit($unproduit, $id){
       $_SESSION['panier'][$id]['prix']= $unproduit[0]['prix'];
       $_SESSION['panier'][$id]['stockactuel']= $unproduit[0]['stock'];
       $_SESSION['panier'][$id]['quantite']= 1;
-      if(isset($unproduit[0]['nom_produit'])){
-        $_SESSION['panier'][$id]['photo']= $unproduit[0]['nom_produit'];
+      if(isset($unproduit[0]['url_image'])){
+        $_SESSION['panier'][$id]['photo']= $unproduit[0]['url_image'];
       }
       //on enregistre un texte pour le 1er enregistrement
       $action="Votre produit a été ajouté au panier";
+
+      if(isset($_SESSION['user'])){
+        //Ajout du contenu de SESSION[panier] dans la base de donnée
+        ajouterUneLigneCommandeBDD($commandeencours,$id);
+      }
+
     }
     else{
       $action="Il n'y a plus de stock, votre produit ne peut être ajouter au panier";
@@ -122,6 +201,12 @@ function setProduit($unproduit, $id){
   else{
     if(($unproduit[0]['stock']-$_SESSION['panier'][$id]['quantite'])>0){
       $_SESSION['panier'][$id]['quantite']++;
+
+      if(isset($_SESSION['user'])){
+        //Ajout du contenu de SESSION[panier] dans la base de donnée
+        miseajourUneLigneCommandeBDD($commandeencours, $id);
+      }
+
       //on enregistre un autre texte si ce n'est pas le 1er enregistrement
       $action="Votre produit a été ajouté au panier (".$_SESSION['panier'][$id]['quantite']." ".$_SESSION['panier'][$id]['nom']." au panier)";
     }
@@ -129,8 +214,47 @@ function setProduit($unproduit, $id){
       $action="Il n'y a plus de stock, votre produit ne peut être ajouter au panier";
     }
   }
+  if(isset($_SESSION['user'])){
+    $commandeencours=recupereIDcommandeBDD($_SESSION['user']['id']);
+    //Ajout du contenu de SESSION[panier] dans la base de donnée
+    montantcommande($commandeencours, $_SESSION['user']['id']);
+  }
   //on retourne le texte d'information pour l'utilisateur
   return $action;
+}
+
+//___FONCTION___
+function ajouterUneLigneCommandeBDD($commandeencours,$id){
+  global $pdo;
+
+  //On ajoute une ligne/produit dans la table commande ligne
+  $queryInssert = "INSERT INTO hetic21_ligne_commande(id_commande, id_produit, quantite, prix) VALUES (:id_commande, :idproduit, :quantite, :prix)";
+  $reqins = $pdo->prepare($queryInssert);
+  $reqins->execute(
+    [
+      'id_commande' => $commandeencours[0]['id_commande'],
+      'idproduit'=> $id,
+      'quantite'=> $_SESSION['panier'][$id]['quantite'],
+      'prix'=> $_SESSION['panier'][$id]['prix']
+    ]
+  );
+
+}
+//___FONCTION___
+function miseajourUneLigneCommandeBDD($commandeencours,$id){
+  global $pdo;
+
+  //On mets à jour la quantité et le prix actuel du produit selectionné
+  $queryUpdate = "UPDATE hetic21_ligne_commande SET quantite = :quantite, prix = :prix WHERE id_produit = :id AND id_commande = :id_commande";
+  $reqPrep = $pdo->prepare($queryUpdate);
+  $reqPrep->execute(
+    [
+      'quantite'=> $_SESSION['panier'][$id]['quantite'],
+      'prix'=> $_SESSION['panier'][$id]['prix'],
+      'id'=> $id,
+      'id_commande' => $commandeencours[0]['id_commande']
+    ]
+  );
 }
 
 
@@ -374,12 +498,11 @@ function recupererIdProduitLigneCommandeBDD($commandeencours){
 function TraceDebug($Info){
 global $ModeTrace;
 if ($ModeTrace==1){
-  print_r($Info."\n");
+  print_r($Info);
 }
 
   
 };
-
 
 //___FONCTION___
 //function pour ajouter/mettre à jour les produits dans la base de donée
@@ -390,7 +513,6 @@ function ajouterLigneCommandeBDD($commandeencours){
   
   //on parcours tout nos produits présents dans SESSION[panier] pour pouvoir les ajouter/mettre à jour dans la BDD
   foreach($_SESSION['panier'] AS $key){
-    TraceDebug($key['id']);
     //On initialise notre variable de doublon à false
     $doublon=false;
     //On parcours maintenant tous les id_produits présents dans notre tableau idproduitbdd
@@ -416,13 +538,14 @@ function ajouterLigneCommandeBDD($commandeencours){
       $anciennequantite= $req->fetch(PDO::FETCH_ASSOC);
 
       //On mets à jour la quantité et le prix actuel du produit selectionné
-      $queryUpdate = "UPDATE hetic21_ligne_commande SET quantite = :quantite, prix = :prix WHERE id_produit = :id";
+      $queryUpdate = "UPDATE hetic21_ligne_commande SET quantite = :quantite, prix = :prix WHERE id_produit = :id AND id_commande = :id_commande";
       $reqPrep = $pdo->prepare($queryUpdate);
       $reqPrep->execute(
         [
-          'quantite'=> $anciennequantite[0] + $key['quantite'],
+          'quantite'=> $anciennequantite['quantite'] + $key['quantite'],
           'prix'=> $key['prix'],
-          'id'=> $key['id']
+          'id'=> $key['id'],
+          'id_commande' => $commandeencours[0]['id_commande']
         ]
       );
     }
@@ -632,49 +755,110 @@ function changemdp($mdp_ancien, $mdp_nouveau, $id){
 
 
 ///////////////////////////______________________________________PAGE PAYEMENT
+//___FONCTION___
 function payement(){
   global $pdo;
-  //J'enregistre le jour et l'heure à laquelle l'utilisateur a fait sa commande 
-  global $date; 
-  $date = date('d-m-y h:i');
   //Si l'utilisateur n'est pas connecté on ne va pas plus loin
-  if(isset($_SESSION["user"]['id'])){;
-    //On va faire la requette ci-dessous pour tous les produits que l'on a dans notre panier
-    foreach($_SESSION["panier"] AS $idproduit){
-      $queryIsert = "INSERT INTO hetic21_commande(quantite_commande, id_user, id_produit, datecommande) VALUES (:quantite, :iduser, :idproduit, :datec)";
-      $reqinsert = $pdo->prepare($queryIsert);
-      $reqinsert->execute(
-        [
-          'quantite' => $idproduit['quantite'],
-          'iduser' => $_SESSION["user"]['id'],
-          'idproduit' => $idproduit['id'],
-          'datec' => $date
+  if(isset($_SESSION["user"]['id'])){
+    $commandeencours = recupereIDcommandeBDD($_SESSION["user"]['id']);
+    //On récupère tous ce dont on a besoin pour informer le recap de la commande passée
+    $querySelect = "SELECT LCD.id_produit,PD.nom_produit, PD.description_produit, PD.prix, PD.stock, LCD.quantite
+      FROM hetic21_ligne_commande AS LCD 
+          INNER JOIN hetic21_produit AS PD ON(LCD.id_produit=PD.id_produit)
+          INNER JOIN hetic21_commande AS C ON(C.id_commande=LCD.id_commande)
+      WHERE C.id_commande = :idcommande AND C.id_user = :iduser";
+    $req = $pdo->prepare($querySelect);
+    $req->execute(
+      [
+        'idcommande'=> $commandeencours[0]['id_commande'],
+        'iduser' => $_SESSION["user"]['id']
+      ]
+    );
+    $commaneeffectueee= $req->fetchAll(PDO::FETCH_ASSOC);
 
+    //On mets à jour le type dans la table commande pour informer que cettte commande à été réglée
+    $queryUpdate = "UPDATE hetic21_commande SET type = 1 WHERE id_commande = :idcommande AND id_user = :iduser";
+    $reqPrep = $pdo->prepare($queryUpdate);
+    $reqPrep->execute(
+      [
+        'idcommande' => $commandeencours[0]['id_commande'],
+        'iduser' => $_SESSION["user"]['id']
+      ]
+    );
+
+    //Update des stock de chaque produit à diminuer
+    foreach($commaneeffectueee as $produit){
+      //On mets à jour les stocks dans la table produit
+      $queryUpdate = "UPDATE hetic21_produit SET stock = :stock WHERE id_produit = :idproduit";
+      $reqPrep = $pdo->prepare($queryUpdate);
+      $reqPrep->execute(
+        [
+          'stock' =>  $produit['stock'] - $produit['quantite'],
+          'idproduit' => $produit['id_produit']
         ]
       );
     }
-    //une fois tout enregistre dans la base de donnée on suprimme la session panier 
-    session_unset($_SESSION["panier"]);
+
+    unset($_SESSION['panier']);
+    return $commaneeffectueee;
   }
   else{
-    header("location:connexion.php");
+    header("location:login.php");
     die();
   }
 }
-function affichepayement(){
+
+//___FONCTION___
+function montantfinal(){
   global $pdo;
-  global $date;
-   //Je selctionne ce que j'ai dans ma base de donnée pour pouvoir l'afficher
-   $querySelect = "SELECT * FROM hetic21_commande WHERE datecommande = :datec";
-   $req = $pdo->prepare($querySelect);
-   $req->execute(
-     [
-       'datec' => $date
-     ]
-   );
-  //On enregistre toutes ce valeurs dans un tableau
-  $commande= $req->fetchAll(PDO::FETCH_ASSOC);
-  return $commande;
+  if(isset($_SESSION["user"]['id'])){
+    $commandeencours = recupereIDcommandeBDD($_SESSION["user"]['id']);
+    montantcommande($commandeencours, $_SESSION["user"]['id']);
+    //On mets récupère le montnant total enregistré dans la bdd
+    $querySelect = "SELECT total_commande FROM hetic21_commande WHERE id_commande = :idcommande AND id_user = :iduser";
+    $reqSec = $pdo->prepare($querySelect);
+    $reqSec->execute(
+      [
+        'idcommande' => $commandeencours[0]['id_commande'],
+        'iduser' => $_SESSION["user"]['id']
+      ]
+    );
+    $totalfinal = $reqSec->fetch(PDO::FETCH_ASSOC);
+    return $totalfinal;
+  }
 }
+
+//___FONCTION___
+// function personnecommande(){
+//   global $pdo;
+//   if(isset($_SESSION["user"]['id'])){
+//     $commandeencours = recupereIDcommandeBDD($_SESSION["user"]['id']);
+//     montantcommande($commandeencours, $_SESSION["user"]['id']);
+//     //On mets récupère le montnant total enregistré dans la bdd
+//     $querySelect = "SELECT pseudo, numero_rue, nom_rue, cp, ville, email, tel FROM hetic21_user WHERE id_user = :iduser";
+//     $reqSec = $pdo->prepare($querySelect);
+//     $reqSec->execute(
+//       [
+//         'iduser' => $_SESSION["user"]['id']
+//       ]
+//     );
+//     $usercommande = $reqSec->fetchAll(PDO::FETCH_ASSOC);
+
+//     //Update les infos du client
+//     foreach($usercommande as $userinfos){
+//       $queryUpdate = "UPDATE hetic21_commande SET nom = :pseudo, adresse = :adresse WHERE id_commande = :idcommande AND id_user = :iduser"  ;
+//       $reqPrep = $pdo->prepare($queryUpdate);
+//       $reqPrep->execute(
+//         [
+//           'nom' =>  $userinfos['pseudo'],
+//           'adresse' => $userinfos['numero_rue'].' '.$userinfos['nom_rue'].' '.$userinfos['cp'].' '.$userinfos['ville'],
+//           'idcommande' => $commandeencours[0]['id_commande'],
+//           'iduser' => $_SESSION["user"]['id']
+//         ]
+//       );
+//     }
+//     return $usercommande;
+//   }
+// }
 
 ?>
