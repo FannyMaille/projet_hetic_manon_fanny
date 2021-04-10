@@ -8,15 +8,14 @@ $id = $_GET['id'];
 $content="";
 $backgroud="";
 
-//On appel une fonction qui nous retourne sous forme de tableau la liste des informations écrite du produit concerné
-$unproduit = ecritproduits($id);
-//On appel une fonction qui nous retourne sous forme de tableau la liste des photos du produit concerné
-$image = photosproduits($id);
+//On appel une fonction qui nous retourne sous forme de tableau la liste des informations du produit concerné
+$unproduit = infosproduits($id);
+
 
 //On regarde si quelqu'un a cliqué sur le btn ajouter au panier
 if(isset($_POST['ajout_panier'])){
   //On enregistre la session avec les informations du produit et on affiche un messag pour informer l'utilisateur
-  $content= setProduit($unproduit, $image, $id);
+  $content= setProduit($unproduit, $id);
   //Si le message d'info n'est pas celui de l'erreur alors le fond du message d'information sera vert
   //Donc si il ya du stock =succes
   if($content!="Il n'y a plus de stock, votre produit ne peut être ajouter au panier"){
@@ -51,14 +50,14 @@ if(isset($_POST['ajout_panier'])){
         </form>
     </div>
     <div class="images-produit">
-        <?php if(isset($image[0])){ ?>
-        <img class="main_produit_img" src="<?=$image[0]?>" alt="[alt-recupere-php]">
+        <?php if(isset($unproduit[0]['url_image'])){ ?>
+        <img class="main_produit_img" src="<?=$unproduit[0]['url_image']?>" alt="<?=$unproduit[0]['nom_produit']?>">
         <figure>
             <!--On crée une boucle for pour afficher toute les photos restantes-->
             <?php
-            for($j=0; $j<count($image); $j++){
+            for($j=0; $j<count($unproduit); $j++){
             ?>
-              <img class='second_produit_img' id="<?=$j?>" src="<?=$image[$j]?>" alt="[alt-recupere-php]">
+              <img class='second_produit_img' id="<?=$j?>" src="<?=$unproduit[$j]['url_image']?>" alt="<?=$unproduit[0]['nom_produit']?>">
             <?php
             }
             ?>

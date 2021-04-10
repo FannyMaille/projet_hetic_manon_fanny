@@ -71,6 +71,11 @@ if(isset($_GET['plus'])){
   }
 }
 
+
+if(isset($_POST["acheter"])){
+  // payement();
+}
+
 ?>
 <header>
     <?php include 'config/template/nav.php'; ?>
@@ -102,7 +107,7 @@ if(isset($_GET['plus'])){
             <p>Prix total :</p>
             <p><?= $prixtotal ?> €</p>
         </div>
-        <form action="config/init.php" method='post'>
+        <form action="payement.php" method='post'>
             <input class="w-100" type="submit" name="acheter" value="Passer à l'achat">
         </form>
     </div>

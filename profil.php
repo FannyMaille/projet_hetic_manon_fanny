@@ -31,14 +31,13 @@ if(isset($_POST['changerstock'])){
 }
 
 // Liste des produits récupérés pour l'admin
-$image = photosproduits(false);
-$produits = ecritproduits(false);
+$produits = infosproduits(0);
 
 if(isset($_POST['add-new-produit'])){
   extract($_POST);
   addNewProduct($nouveaunom, $nouveaudesc, $nouveauprix, $nouveaustock);
 
-  $produits = ecritproduits(false);
+  $produits = infosproduits(0);
   $newProduct = end($produits);
 
   $newProductId = $newProduct['id_produit'];

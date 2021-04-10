@@ -1,6 +1,5 @@
 <?php
-$produit = ecritproduits(false);
-$image = photosproduits(false);
+$produit = infosproduits(0);
 
 $quantite=panierquantite();
 if($quantite==0){
@@ -18,7 +17,7 @@ if($quantite==0){
         <?php
           for($k=0; $k<count($produit); $k++){
         ?>
-        <li><a href="fiche_produit.php?id=<?=$k?>"><?=$produit[$k]['nom_produit']?></a></li>
+        <li><a href="fiche_produit.php?id=<?=$produit[$k]['id_produit']?>"><?=$produit[$k]['nom_produit']?></a></li>
         <?php
           }
         ?>

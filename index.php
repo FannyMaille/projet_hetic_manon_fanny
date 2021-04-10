@@ -1,7 +1,6 @@
 <?php include 'config/template/head.php'; 
 
-// $image = photosproduits(false);
-$produit = ecritproduits(false);
+$produit = infosproduits(0);
 
 ?>
 <header>
@@ -19,12 +18,11 @@ $produit = ecritproduits(false);
     <!--On crée une boucle for pour afficher répeter a chaque fois la même suite d'opérations avec les bons id-->
     <?php
       for($k=0; $k<count($produit); $k++){
-      $image = photosproduits($produit[$k]['id_produit']);
     ?>
     <article>
       <figure>
-        <?php if(isset($image) AND !empty($image)){ ?>
-        <img class="articleimg" src="<?=$image[0]?>" alt="<?=$produit[$k]['nom_produit']?>">
+        <?php if(isset($produit[$k]['url_image'])){ ?>
+        <img class="articleimg" src="<?=$produit[$k]['url_image']?>" alt="<?=$produit[$k]['nom_produit']?>">
         <?php } else{ ?>
         <img class="articleimg" src="asset/img/produits/no-pic.png" alt="no-picture-available-for-product">
         <?php } ?>
