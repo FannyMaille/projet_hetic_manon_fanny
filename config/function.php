@@ -143,11 +143,11 @@ function infosproduits($id){
     //On sélectionne tous les élements de la base que l'on a besoin d'afficher sur notre page d'id $id
     $req = $pdo->query('SELECT prod.id_produit, prod.nom_produit, prod.description_produit, prod.prix, prod.stock, ptprod.url_image
     FROM hetic21_produit AS prod
-      INNER JOIN hetic21_photos_produit AS ptprod ON(prod.id_produit=ptprod.id_produit AND ptprod.principal=1)');
+    LEFT JOIN hetic21_photos_produit AS ptprod ON(prod.id_produit=ptprod.id_produit AND ptprod.principal=1)');
   } else{
     $req = $pdo->prepare('SELECT prod.nom_produit, prod.description_produit, prod.prix, prod.stock, ptprod.url_image
     FROM hetic21_produit AS prod
-      INNER JOIN hetic21_photos_produit AS ptprod ON(prod.id_produit=ptprod.id_produit)
+    LEFT JOIN hetic21_photos_produit AS ptprod ON(prod.id_produit=ptprod.id_produit)
     WHERE prod.id_produit = :id');
     $req->bindValue(':id', $id);
     $req->execute();
