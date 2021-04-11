@@ -698,6 +698,49 @@ function changestock($produitAChanger, $newStock){
   );
 }
 
+//___FONCTION___
+// ajouter un nouveau produit
+function addNewProduct($nom, $description, $prix, $stock){
+  global $pdo;
+  $erreur="";
+
+  $queryInsert = "INSERT INTO hetic21_produit (nom_produit, description_produit, prix, stock)
+  VALUES (:nom, :descrip, :prix, :stock)";
+
+  $req = $pdo->prepare($queryInsert);
+  $req->execute(
+    [
+      'nom' => $nom,
+      'descrip' => $description,
+      'prix' => $prix,
+      'stock' => $stock
+    ]
+  );
+  return $erreur;
+}
+
+// ajouter les images du nouveau produit
+function addPictures($file, $newProductId){
+  global $pdo;
+  $erreur="";
+
+  if($file != ''){
+    $queryInsertPics = "INSERT INTO hetic21_photos_produit (url_image, id_produit)
+    VALUES (:urlimage, :id)";
+
+    $req = $pdo->prepare($queryInsertPics);
+    $req->execute(
+      [
+        'urlimage' => $file,
+        'id' => $newProductId
+      ]
+    );
+  }
+  
+  return $erreur;
+}
+
+
 ///////////////////////////______________________________________PAGE MOT DE PASSE
 
 //___FONCTION___

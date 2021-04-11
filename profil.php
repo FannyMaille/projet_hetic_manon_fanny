@@ -58,45 +58,6 @@ if(isset($_POST['add-new-produit'])){
 
 }
 
-function addNewProduct($nom, $description, $prix, $stock){
-  global $pdo;
-  $erreur="";
-
-  $queryInsert = "INSERT INTO hetic21_produit (nom_produit, description_produit, prix, stock)
-  VALUES (:nom, :descrip, :prix, :stock)";
-
-  $req = $pdo->prepare($queryInsert);
-  $req->execute(
-    [
-      'nom' => $nom,
-      'descrip' => $description,
-      'prix' => $prix,
-      'stock' => $stock
-    ]
-  );
-  return $erreur;
-}
-
-function addPictures($file, $newProductId){
-  global $pdo;
-  $erreur="";
-
-  if($file != ''){
-    $queryInsertPics = "INSERT INTO hetic21_photos_produit (url_image, id_produit)
-    VALUES (:urlimage, :id)";
-
-    $req = $pdo->prepare($queryInsertPics);
-    $req->execute(
-      [
-        'urlimage' => $file,
-        'id' => $newProductId
-      ]
-    );
-  }
-  
-  return $erreur;
-}
-
 ?>
 <header>
     <?php include 'config/template/nav.php'; ?>
