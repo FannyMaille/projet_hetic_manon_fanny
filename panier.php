@@ -71,6 +71,7 @@ if(isset($_GET['plus'])){
   }
 }
 
+$idcommande=recupereIDcommandeBDD($_SESSION['user']['id']);
 
 if(isset($_POST["acheter"])){
   // payement();
@@ -107,7 +108,7 @@ if(isset($_POST["acheter"])){
             <p>Prix total :</p>
             <p><?= $prixtotal ?> €</p>
         </div>
-        <form action="payement.php" method='post'>
+        <form action="payement.php?id=<?=$idcommande[0]['id_commande']?>" method='post'>
             <input class="w-100" type="submit" name="acheter" value="Passer à l'achat">
         </form>
     </div>

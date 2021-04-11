@@ -103,7 +103,6 @@ function supprimerligneBDDcommande($commandeencours, $id){
 function montantcommande($commandeencours, $userid){
   global $pdo;
   $total=0;
-
   $querySelect = "SELECT quantite, prix FROM hetic21_ligne_commande WHERE id_commande = :idcommande";
   $reqsel = $pdo->prepare($querySelect);
   $reqsel->execute(
@@ -756,11 +755,10 @@ function changemdp($mdp_ancien, $mdp_nouveau, $id){
 
 ///////////////////////////______________________________________PAGE PAYEMENT
 //___FONCTION___
-function payement(){
+function payement($idcommande){
   global $pdo;
   //Si l'utilisateur n'est pas connecté on ne va pas plus loin
   if(isset($_SESSION["user"]['id'])){
-    $commandeencours = recupereIDcommandeBDD($_SESSION["user"]['id']);
     //On récupère tous ce dont on a besoin pour informer le recap de la commande passée
     $querySelect = "SELECT LCD.id_produit,PD.nom_produit, PD.description_produit, PD.prix, PD.stock, LCD.quantite
       FROM hetic21_ligne_commande AS LCD 
@@ -770,7 +768,7 @@ function payement(){
     $req = $pdo->prepare($querySelect);
     $req->execute(
       [
-        'idcommande'=> $commandeencours[0]['id_commande'],
+        'idcommande'=> $idcommande,
         'iduser' => $_SESSION["user"]['id']
       ]
     );
@@ -781,7 +779,7 @@ function payement(){
     $reqPrep = $pdo->prepare($queryUpdate);
     $reqPrep->execute(
       [
-        'idcommande' => $commandeencours[0]['id_commande'],
+        'idcommande' => $idcommande,
         'iduser' => $_SESSION["user"]['id']
       ]
     );
@@ -809,17 +807,15 @@ function payement(){
 }
 
 //___FONCTION___
-function montantfinal(){
+function montantfinal($idcommande){
   global $pdo;
   if(isset($_SESSION["user"]['id'])){
-    $commandeencours = recupereIDcommandeBDD($_SESSION["user"]['id']);
-    montantcommande($commandeencours, $_SESSION["user"]['id']);
     //On mets récupère le montnant total enregistré dans la bdd
     $querySelect = "SELECT total_commande FROM hetic21_commande WHERE id_commande = :idcommande AND id_user = :iduser";
     $reqSec = $pdo->prepare($querySelect);
     $reqSec->execute(
       [
-        'idcommande' => $commandeencours[0]['id_commande'],
+        'idcommande' => $idcommande,
         'iduser' => $_SESSION["user"]['id']
       ]
     );
@@ -829,36 +825,34 @@ function montantfinal(){
 }
 
 //___FONCTION___
-// function personnecommande(){
-//   global $pdo;
-//   if(isset($_SESSION["user"]['id'])){
-//     $commandeencours = recupereIDcommandeBDD($_SESSION["user"]['id']);
-//     montantcommande($commandeencours, $_SESSION["user"]['id']);
-//     //On mets récupère le montnant total enregistré dans la bdd
-//     $querySelect = "SELECT pseudo, numero_rue, nom_rue, cp, ville, email, tel FROM hetic21_user WHERE id_user = :iduser";
-//     $reqSec = $pdo->prepare($querySelect);
-//     $reqSec->execute(
-//       [
-//         'iduser' => $_SESSION["user"]['id']
-//       ]
-//     );
-//     $usercommande = $reqSec->fetchAll(PDO::FETCH_ASSOC);
+function personnecommande($idcommande){
+  global $pdo;
+  if(isset($_SESSION["user"]['id'])){
+    //On mets récupère le montnant total enregistré dans la bdd
+    $querySelect = "SELECT pseudo, numero_rue, nom_rue, cp, ville, email, tel FROM hetic21_user WHERE id_user = :iduser";
+    $reqSec = $pdo->prepare($querySelect);
+    $reqSec->execute(
+      [
+        'iduser' => $_SESSION["user"]['id']
+      ]
+    );
+    $usercommande = $reqSec->fetchAll(PDO::FETCH_ASSOC);
 
-//     //Update les infos du client
-//     foreach($usercommande as $userinfos){
-//       $queryUpdate = "UPDATE hetic21_commande SET nom = :pseudo, adresse = :adresse WHERE id_commande = :idcommande AND id_user = :iduser"  ;
-//       $reqPrep = $pdo->prepare($queryUpdate);
-//       $reqPrep->execute(
-//         [
-//           'nom' =>  $userinfos['pseudo'],
-//           'adresse' => $userinfos['numero_rue'].' '.$userinfos['nom_rue'].' '.$userinfos['cp'].' '.$userinfos['ville'],
-//           'idcommande' => $commandeencours[0]['id_commande'],
-//           'iduser' => $_SESSION["user"]['id']
-//         ]
-//       );
-//     }
-//     return $usercommande;
-//   }
-// }
+    //Update les infos du client
+    foreach($usercommande as $userinfos){
+      $queryUpdate = "UPDATE hetic21_commande SET nom = :pseudo, adresse = :adresse WHERE id_commande = :idcommande AND id_user = :iduser"  ;
+      $reqPrep = $pdo->prepare($queryUpdate);
+      $reqPrep->execute(
+        [
+          'pseudo' =>  $userinfos['pseudo'],
+          'adresse' => $userinfos['numero_rue'].' '.$userinfos['nom_rue'].' '.$userinfos['cp'].' '.$userinfos['ville'],
+          'idcommande' => $idcommande,
+          'iduser' => $_SESSION["user"]['id']
+        ]
+      );
+    }
+    return $usercommande;
+  }
+}
 
 ?>

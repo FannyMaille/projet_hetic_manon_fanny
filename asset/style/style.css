@@ -449,6 +449,28 @@ footer h4, footer p{
   margin-top: 8vh;
 }
 
+/*___________________Page paiment_____________________________________*/
+.sectionpayment{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.sectionpayment h1{
+  width: 100%;
+}
+.sectionpayment section{
+  border: 1px solid;
+  padding: 5vh;
+  margin-bottom: 10vh;
+}
+.produitpayement{
+  display: flex;
+  flex-wrap: wrap;
+}
+.produitpayement .soustotal{
+  width: 100%;
+}
+
 /*____________________Responsive_____________________________________*/
 
 @media (min-width:650px){
