@@ -159,6 +159,23 @@ function infosproduits($id){
 
 ///////////////////////////______________________________________PAGE PRODUITS
 
+//___FONCTION___
+//Pour verifier l'id_produit deonné dans l'url
+function verifurlficheproduit($id){
+  global $pdo;
+  //On selectionne l'id_produit dans la tabble produit ou normalemeent celui-ci est egal à celui dans l'url
+  $querySelect = "SELECT id_produit FROM hetic21_produit WHERE id_produit = :idproduit";
+  $reqsel = $pdo->prepare($querySelect);
+  $reqsel->execute(
+    [
+      'idproduit' => $id
+    ]
+  );
+  $existeid= $reqsel->fetch(PDO::FETCH_ASSOC);
+  //On retourne le tableau contennant l'id_produit
+  return $existeid;
+}
+
 //Pour enregistrer les valeurs dans la session pour le panier
 function setProduit($unproduit, $id){
   if(isset($_SESSION['user'])){
