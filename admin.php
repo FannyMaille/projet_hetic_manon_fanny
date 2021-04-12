@@ -47,8 +47,6 @@ if(isset($_POST['add-new-produit'])){
 <header>
     <?php include 'config/template/nav.php'; ?>
 </header>
-
-<?php if($_SESSION['user']['statut'] === 'admin'){ ?>
     <section class="admin-profil-part">
       <h2 class="admin-titles">Gérer les stocks</h2>
       <div class="article-profil-parent">
@@ -92,7 +90,6 @@ if(isset($_POST['add-new-produit'])){
         <input type="submit" name="add-new-produit" value="Ajouter le produit">
       </form>
     </section>
-    <?php } ?>
 
     
     <a href="index.php?session=destroy" class="btnclassique">Déconnexion</a>
