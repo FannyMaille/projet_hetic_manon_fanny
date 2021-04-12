@@ -1,10 +1,5 @@
 <?php
 $quantite=panierquantite();
-if($quantite==0){
-  $lien="paniervide.php";
-}else{
-  $lien="panier.php";
-}
 ?>
 
 
@@ -18,7 +13,7 @@ if($quantite==0){
     <?php } }else{ ?>  
       <a class="nav-link" href="login.php">Connexion</a>
     <?php } ?> 
-    <a class="nav-link panier" href="<?= $lien ?>">
+    <a class="nav-link panier" href="panier.php">
       Panier
       <span><?= $quantite ?></span>
     </a>
