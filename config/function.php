@@ -702,14 +702,16 @@ function changementbasededonnee($id,$pseudo,$telephone,$mail,$numrue, $rue, $cod
 //___FONCTION___
 //Function pour changer le stock par l'admin
 
-function changestock($produitAChanger, $newStock){
+function changeProduit($produitAChanger, $newStock, $newPrix, $newNom){
   global $pdo;
-  $querySelect = "UPDATE hetic21_produit SET stock = :stock
+  $querySelect = "UPDATE hetic21_produit SET stock = :stock, nom_produit = :nom, prix = :prix
   WHERE id_produit = :id";
   $reqPrep = $pdo->prepare($querySelect);
   $reqPrep->execute(
     [
       'stock' => $newStock,
+      'nom' => $newNom,
+      'prix' => $newPrix,
       'id' => $produitAChanger
     ]
   );
