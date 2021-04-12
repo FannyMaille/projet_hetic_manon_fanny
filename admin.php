@@ -10,28 +10,40 @@ if(!connecte()){
   die();
 }
 
+
 //Si on envoie le formulaire de l'admin
 if(isset($_POST['modifierproduit'])){
   extract($_POST);
-  changeProduit(intval($idproduit), intval($stock), $prix, $nomproduit);
+  $desc= "";
+  $erreur=erreurProduit($nomproduit, $desc, $prix, $stock);
+  //Si il n'y a pas eu d'erreur dans la saisie des informations dans le formulaire alors on va pouvoir enregistrer les données dans la base de donnée
+  if($erreur == ""){
+    changeProduit(intval($idproduit), intval($stock), $prix, $nomproduit);
+  }
+}
+
+if(isset($_POST['add-new-produit'])){
+  extract($_POST);
+  $erreur=""; 
+  $erreur=erreurProduit($nouveaunom, $nouveaudesc, $nouveauprix, $nouveaustock);
+  $backgroud = 'style="background:tomato;padding:2%"';
+  //Si il n'y a pas eu d'erreur dans la saisie des informations dans le formulaire alors on va pouvoir enregistrer les données dans la base de donnée
+  if($erreur == ""){
+    addNewProduct($nouveaunom, $nouveaudesc, $nouveauprix, $nouveaustock);
+
+    // create the directory and save the images
+    $produits = infosproduits(0);
+    $newProduct = end($produits);
+    $newProductId = $newProduct['id_produit'];
+    $files = $_FILES;
+
+    createDirForImages($newProductId, $files);
+  }
+  
 }
 
 // Liste des produits récupérés pour l'admin
 $produits = infosproduits(0);
-
-if(isset($_POST['add-new-produit'])){
-  extract($_POST);
-  addNewProduct($nouveaunom, $nouveaudesc, $nouveauprix, $nouveaustock);
-
-
-  // create the directory and save the images
-  $produits = infosproduits(0);
-  $newProduct = end($produits);
-  $newProductId = $newProduct['id_produit'];
-  $files = $_FILES;
-
-  createDirForImages($newProductId, $files);
-}
 
 ?>
 
@@ -59,7 +71,7 @@ if(isset($_POST['add-new-produit'])){
               <input type="float" name="prix" class="hidden input-produit" value="<?php echo $produits[$k]['prix'] ?>">
             </div>
             <input type="hidden" name="idproduit" value="<?php echo $produits[$k]['id_produit'] ?>">
-            <input type="submit" name="modifierproduit" value="Changer les stocks" class='hidden'>
+            <input type="submit" name="modifierproduit" value="Modifier le produit" class='hidden'>
             <a class="hidden undo-modify">Annuler</a>
             <a class="modify-stock profil-element">Modifier</a>
           </form>

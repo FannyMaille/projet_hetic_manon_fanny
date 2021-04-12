@@ -805,6 +805,25 @@ function addPicture($file, $newProductId, $main){
   return $erreur;
 }
 
+//___FONCTION___
+// Traitement si il ya des erreurs dans le renseignement des champs
+function erreurProduit($nom, $desc, $prix, $stock){
+  $content="";
+  if (1 !== preg_match('~^[a-zA-ZÀ-ÿ0-9- _-]{2,50}$~', $nom)){
+    $content .= 'Le nom du produit n\'est pas valide. Il ne doit comprendre que des lettres, chiffres, espace, trait d\'union ou underscore.</br>';
+  }
+  if (1 !== preg_match('~^[a-zA-ZÀ-ÿ0-9- .,()%-]{0,5000}$~', $desc)){
+    $content .= 'La description du produit ne peut comprendre que les caractères spéciaux suivants : . , (  ) % -.</br>';
+  }
+  if (1 !== preg_match('~^[0-9,.]{1,11}$~', $prix)) {
+    $content .= 'Le prix doit être un nombre.</br>';
+  }
+  if (1 !== preg_match('~^[0-9]{1,10}$~', $stock)) {
+    $content .= 'Le stock doit être un nombre entier.</br>';
+  }
+  return $content;
+}
+
 ///////////////////////////______________________________________PAGE MOT DE PASSE
 
 //___FONCTION___
