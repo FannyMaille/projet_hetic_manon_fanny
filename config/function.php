@@ -720,28 +720,6 @@ function addNewProduct($nom, $description, $prix, $stock){
 }
 
 //___FONCTION___
-// ajouter les images du nouveau produit
-function addPictures($file, $newProductId){
-  global $pdo;
-  $erreur="";
-
-  if($file != ''){
-    $queryInsertPics = "INSERT INTO hetic21_photos_produit (url_image, id_produit)
-    VALUES (:urlimage, :id)";
-
-    $req = $pdo->prepare($queryInsertPics);
-    $req->execute(
-      [
-        'urlimage' => $file,
-        'id' => $newProductId
-      ]
-    );
-  }
-  
-  return $erreur;
-}
-
-//___FONCTION___
 // ajouter un dossier pour les images du nouveau produit
 function createDirForImages($newProductId, $files){
   mkdir('asset/img/produits/produit' . $newProductId);
@@ -754,11 +732,39 @@ function createDirForImages($newProductId, $files){
     foreach($files as $file){
       $uploadfile = $uploaddir . basename($file['name']);
       move_uploaded_file($file['tmp_name'], $uploadfile);
-      addPictures($uploadfile, $newProductId);
+      if($files['image-url-0'] === $file){
+        addPicture($uploadfile, $newProductId, true);
+      }
+      addPicture($uploadfile, $newProductId, false);
     }
   }
 }
 
+//___FONCTION___
+// ajouter les images du nouveau produit
+function addPicture($file, $newProductId, $main){
+  global $pdo;
+  $erreur="";
+
+  if($file != ''){
+    if($main == true){
+      $queryInsertPics = "INSERT INTO hetic21_photos_produit (url_image, id_produit, principal)
+      VALUES (:urlimage, :id, 1)";
+    } else{
+      $queryInsertPics = "INSERT INTO hetic21_photos_produit (url_image, id_produit)
+      VALUES (:urlimage, :id)";
+    }
+  
+    $req = $pdo->prepare($queryInsertPics);
+    $req->execute(
+      [
+        'urlimage' => $file,
+        'id' => $newProductId
+      ]
+    );
+  }  
+  return $erreur;
+}
 
 ///////////////////////////______________________________________PAGE MOT DE PASSE
 

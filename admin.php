@@ -22,6 +22,8 @@ if(isset($_POST['add-new-produit'])){
   extract($_POST);
   addNewProduct($nouveaunom, $nouveaudesc, $nouveauprix, $nouveaustock);
 
+
+  // create the directory and save the images
   $produits = infosproduits(0);
   $newProduct = end($produits);
   $newProductId = $newProduct['id_produit'];
