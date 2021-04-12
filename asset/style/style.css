@@ -75,6 +75,9 @@ nav a span {
   text-decoration: underline;
   color: #ffd400;
 }
+.logout-icon{
+  vertical-align: baseline;
+}
 .nav-link:active {
   text-decoration: underline;
   color: #ffd400;
