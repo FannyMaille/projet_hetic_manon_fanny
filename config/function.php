@@ -287,7 +287,7 @@ function miseajourUneLigneCommandeBDD($commandeencours,$id){
 function erreurinscription($pseudo,$mdp,$mdpconfirmation,$telephone,$mail,$ville,$codepostal,$numrue,$rue){
   $content="";
   // on vérifie que le pseudo enregistré est bbien compris entre 2 et 255 caractères
-  verifMdpIdentifiant($pseudo, $mdp, $content);
+  $content = verifMdpIdentifiant($pseudo, $mdp, $content);
   // on vérifie que le mot de passe inscrit et le mot de passe de confirmation sont les mêmes
   if($mdp!=$mdpconfirmation){
     $content .= 'Votre mot de passe et sa confirmation ne correspondent pas.</br>';
