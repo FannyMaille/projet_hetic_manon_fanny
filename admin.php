@@ -11,6 +11,12 @@ if(!connecte()){
 }
 
 
+// Si on supprime un produit
+if(isset($_POST['supprimerproduit'])){
+  extract($_POST);
+  deleteProduct($idproduit);
+}
+
 //Si on envoie le formulaire de l'admin
 if(isset($_POST['modifierproduit'])){
   extract($_POST);
@@ -74,6 +80,10 @@ $produits = infosproduits(0);
             <input type="submit" name="modifierproduit" value="Modifier le produit" class='hidden'>
             <a class="hidden undo-modify">Annuler</a>
             <a class="modify-stock profil-element">Modifier</a>
+          </form>
+          <form action="admin.php" method="post" class="delete-form">
+            <input type="hidden" name="idproduit" value="<?php echo $produits[$k]['id_produit'] ?>">
+            <input type="submit" value="Supprimer" class="btnclassique" name='supprimerproduit'>
           </form>
         </article>
         <?php } ?>

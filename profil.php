@@ -92,8 +92,6 @@ if(isset($_POST['valider'])){
       <a href="mot_de_passe.php" class="alink">Changer mon mot de passe</a>
     </form>
 
-    <a href="index.php?session=destroy" class="btnclassique">Déconnexion</a>
-
     
 </section>
 

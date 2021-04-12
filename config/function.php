@@ -806,6 +806,43 @@ function addPicture($file, $newProductId, $main){
 }
 
 //___FONCTION___
+// supprimer un produit
+function deleteProduct($id){
+  global $pdo;
+  $queryDelete = "DELETE FROM hetic21_photos_produit WHERE id_produit = :id";
+  $req = $pdo->prepare($queryDelete);
+  $req->execute(
+    [
+      'id' => $id
+    ]
+  );
+  $queryDeleteProduit = "DELETE FROM hetic21_produit WHERE id_produit = :id";
+  $req2 = $pdo->prepare($queryDeleteProduit);
+  $req2->execute(
+    [
+      'id' => $id
+    ]
+  );
+
+
+  // Supprimer toutes les images
+  $dir = 'asset/img/produits/produit' . $id;
+  $openDir = opendir($dir);
+  $files = readdir($openDir);
+
+  while ($files = readdir($openDir)){
+    if($files != '.' && $files != '..'){
+      chmod($dir . '/' . $files, 0777);
+      unlink("$dir/$files");  
+    }
+  }
+  closedir($openDir);
+  
+  // Supprimer le dossier
+  rmdir($dir);
+}
+
+//___FONCTION___
 // Traitement si il ya des erreurs dans le renseignement des champs
 function erreurProduit($nom, $desc, $prix, $stock){
   $content="";
