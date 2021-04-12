@@ -86,7 +86,7 @@ function supprimerpanier($id){
     supprimerligneBDDcommande($commandeencours, $id);
   }
   if(!$_SESSION['panier']){
-    header("location:paniervide.php");
+    header("location:panier.php");
     die();
   }
 }

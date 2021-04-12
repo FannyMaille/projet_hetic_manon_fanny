@@ -1,8 +1,10 @@
 <?php include 'config/template/head.php'; 
 suppsessioncommane();
+
 if(!panierquantite()==0){
   //On enregistre le prix total de tous les articles
   $prixtotal=montantpanier();
+  TraceDebug($prixtotal);
 
   $urlerreur="";
   $backgroudurl="";
@@ -59,7 +61,7 @@ if(!panierquantite()==0){
       //Sinon cela veut dire qu'il n'y a pas assez de stock donc qu'on ne peut pas ajouter ce produit au panier
       else{
         //On affiche un message d'errur pour informer l'utilisateur
-        $qterreur="Il n'y a pas assez de stock pour le produit : ".$_SESSION['panier'][$_GET['plus']]['nom'];
+        $qterreur="Il n'y a pas assez de stock pour le produit : ".$_SESSION['panier'][$idplus]['nom'];
         $backgroudqt="style='background:tomato;padding:2%'";
       }
     }
@@ -70,7 +72,7 @@ if(!panierquantite()==0){
     }
   }
   if(isset($_SESSION['user']['id'])){
-    $idcommandearray=recupereIDcommandeBDD($_SESSION['user']['id']);
+    $idcommandearray=recupereIDcommandeBDD($_SESSION['user'][$idplus]);
     $idcommande=$idcommandearray[0]['id_commande'];
   }else{
     $idcommande="";
