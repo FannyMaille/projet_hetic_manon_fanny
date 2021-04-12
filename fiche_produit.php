@@ -1,6 +1,6 @@
 
 <?php include 'config/template/head.php';
-
+suppsessioncommane();
 //On récupère l'id du produit qu'on a mis dans l'url
 $idurl = $_GET['id'];
 $id= preg_replace('~\D~', '', $idurl);

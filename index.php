@@ -1,5 +1,5 @@
 <?php include 'config/template/head.php'; 
-
+suppsessioncommane();
 $produit = infosproduits(0);
 
 ?>
