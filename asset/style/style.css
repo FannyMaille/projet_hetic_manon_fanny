@@ -294,6 +294,7 @@ input{
 .hidden{
   display: none;
 }
+/*____________________Page Admin_______________________________________*/
 .admin-profil-part{
   margin-top: 30px;
   width: 100%;
@@ -324,6 +325,31 @@ input{
   width: 100%;
   height: 200px;
   background-color: beige;
+  margin-top: 20px;
+}
+.drag-n-drop-text{
+  text-align: center;
+}
+.img-drop{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.img-drop-more{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.image-view{
+  height: 150px;
+}
+.add-new-product-section{
+  width: 90%;
+  margin: auto;
+}
+.image-preview{
+  display: flex;
+  justify-content: space-around;
 }
 
 /*____________________Page panier_____________________________________*/
@@ -534,9 +560,16 @@ footer h4, footer p{
     margin-right: 20px;
     width: 50%;
   }
+  .add-new-product-section{
+    width: 70%;
+  }
   footer p{
     margin-bottom: 3vh;
     margin-top: 2vh;
   }
 }
-
+@media (min-width: 1000px){
+  .add-new-product-section{
+    width: 50%;
+  }
+}
