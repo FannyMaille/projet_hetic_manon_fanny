@@ -1,4 +1,5 @@
 <?php include 'config/template/head.php'; 
+suppsessioncommane();
 //Définition des variables contenent les erreurs comme étant vide au départ
 $erreur="";
 $backgroud="";

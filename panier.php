@@ -1,5 +1,5 @@
 <?php include 'config/template/head.php'; 
-
+suppsessioncommane();
 if(!panierquantite()==0){
   //On enregistre le prix total de tous les articles
   $prixtotal=montantpanier();
@@ -113,8 +113,9 @@ if(!panierquantite()==0){
               <p>Prix total :</p>
               <p><?= $prixtotal ?> €</p>
           </div>
-          <form action="payement.php?id=idcommande<?=$idcommande?>" method='post'>
+          <form action="payement.php" method='post'>
               <input class="w-100" type="submit" name="acheter" value="Passer à l'achat">
+              <input name="idcommande" value="<?=$idcommande?>" class="hidden">
           </form>
       </div>
     <?php }?>

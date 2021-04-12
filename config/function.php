@@ -8,6 +8,12 @@ function connecte(){
     return false;
   }
 }
+//___FONCTION___fonction qui permet de supprimeer la session commande si elle existe
+function suppsessioncommane(){
+  if(isset($_SESSION['commande'])){
+    unset($_SESSION['commande']);
+  }
+}
 
 ///////////////////////////______________________________________PANIER
 //___FONCTION___fonction qui permet de voir la quantité d'articles dans le panier

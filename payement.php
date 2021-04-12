@@ -1,6 +1,12 @@
-<?php include 'config/template/head.php'; 
-$idcommandurl =$_GET['id'];
-$idcommande=preg_replace('~\D~', '', $idcommandurl);
+<?php include 'config/template/head.php';
+if(!isset($_SESSION['commande'])){
+  $idcommandepost=$_POST['idcommande'];
+  $_SESSION['commande'] = $idcommandepost;
+  $idcommande = $_SESSION['commande'];
+}else{
+  $idcommande = $_SESSION['commande'];
+}
+
 $prixtotal=montantfinal($idcommande);
 $commande=payement($idcommande);
 $usercommande =personnecommande($idcommande);
