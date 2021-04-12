@@ -4,7 +4,6 @@ suppsessioncommane();
 if(!panierquantite()==0){
   //On enregistre le prix total de tous les articles
   $prixtotal=montantpanier();
-  TraceDebug($prixtotal);
 
   $urlerreur="";
   $backgroudurl="";
@@ -72,7 +71,7 @@ if(!panierquantite()==0){
     }
   }
   if(isset($_SESSION['user']['id'])){
-    $idcommandearray=recupereIDcommandeBDD($_SESSION['user'][$idplus]);
+    $idcommandearray=recupereIDcommandeBDD($_SESSION['user']['id']);
     $idcommande=$idcommandearray[0]['id_commande'];
   }else{
     $idcommande="";
@@ -84,7 +83,7 @@ if(!panierquantite()==0){
 <header>
     <?php include 'config/template/nav.php'; ?>
 </header>
-<section class="sectionpanier">
+<section class="sectionar">
     <h1 class="text-center mt-5 mb-5">Page panier</h1>
     <?php if(panierquantite()==0){?>
       <p>Votre panier est vide</p>
