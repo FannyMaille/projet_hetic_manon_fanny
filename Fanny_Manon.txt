@@ -1,0 +1,17 @@
+URL : 
+
+URL backoffice : 
+	- login : 
+	- mdp : 
+
+FTP : 
+	- hôte : 
+	- user : 
+	- mdp : 
+	- port : 
+	
+
+Mysql : 
+	- url : 
+	- login :
+	- mdp : 
