@@ -1,17 +1,18 @@
-URL : 
+URL : http://projethetic.mailleweb.fr
 
 URL backoffice : 
-	- login : 
+	- login : fanny
 	- mdp : 
 
 FTP : 
-	- hôte : 
-	- user : 
-	- mdp : 
-	- port : 
+	- hôte : ftp.cluster023.hosting.ovh.net
+	- user : maillem
+	- mdp : UJYfSK6xSMFB
+	- port : 21
 	
 
 Mysql : 
-	- url : 
-	- login :
-	- mdp : 
+	- url : https://phpmyadmin.cluster023.hosting.ovh.net/
+	- adresse du serveur : maillem599.mysql.db
+	- login : maillem599
+	- mdp : VPJDk2JBvE6t
