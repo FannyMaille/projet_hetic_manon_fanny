@@ -719,6 +719,7 @@ function addNewProduct($nom, $description, $prix, $stock){
   return $erreur;
 }
 
+//___FONCTION___
 // ajouter les images du nouveau produit
 function addPictures($file, $newProductId){
   global $pdo;
@@ -738,6 +739,24 @@ function addPictures($file, $newProductId){
   }
   
   return $erreur;
+}
+
+//___FONCTION___
+// ajouter un dossier pour les images du nouveau produit
+function createDirForImages($newProductId, $files){
+  mkdir('asset/img/produits/produit' . $newProductId);
+  
+  // télécharger l'image
+  $uploaddir = 'asset/img/produits/produit' . $newProductId . '/';
+
+  if(isset($files)){
+  
+    foreach($files as $file){
+      $uploadfile = $uploaddir . basename($file['name']);
+      move_uploaded_file($file['tmp_name'], $uploadfile);
+      addPictures($uploadfile, $newProductId);
+    }
+  }
 }
 
 

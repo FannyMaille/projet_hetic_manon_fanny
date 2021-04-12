@@ -24,22 +24,10 @@ if(isset($_POST['add-new-produit'])){
 
   $produits = infosproduits(0);
   $newProduct = end($produits);
-
   $newProductId = $newProduct['id_produit'];
+  $files = $_FILES;
 
-  mkdir('asset/img/produits/produit' . $newProductId);
-  
-  // télécharger l'image
-  $uploaddir = 'asset/img/produits/produit' . $newProductId . '/';
-
-  if(isset($_FILES)){
-  
-    foreach($_FILES as $file){
-      $uploadfile = $uploaddir . basename($file['name']);
-      move_uploaded_file($file['tmp_name'], $uploadfile);
-      addPictures($uploadfile, $newProductId);
-    }
-  }
+  createDirForImages($newProductId, $files);
 }
 
 ?>
@@ -82,7 +70,7 @@ if(isset($_POST['add-new-produit'])){
         <!-- Drag and drop des images -->
         <div>
           <div class="drop-space">
-            <p class="drag-n-drop-text">Vous pouvez déposer vos images ici</p>
+            <p class="drag-n-drop-text">Vous pouvez déposer vos images ici (la première sera l'image principale du produit)</p>
             <div class="image-preview" id="image-preview"></div>
           </div>
         </div>
