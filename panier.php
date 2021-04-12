@@ -86,8 +86,8 @@ if(!panierquantite()==0){
 <section class="sectionar">
     <h1 class="text-center mt-5 mb-5">Page panier</h1>
     <?php if(panierquantite()==0){?>
-      <p>Votre panier est vide</p>
-      <a href="index.php#produits" class="btnclassique">Nos acticles</a> 
+      <p class="text-center">Votre panier est vide</p>
+      <a href="index.php#produits" class="btnclassique mr-auto ml-auto mb-4">Nos acticles</a> 
     <?php }else{?>
       <div <?=$backgroudurl?>><?=$urlerreur?></div>
       <div <?=$backgroudqt?>><?=$qterreur?></div>

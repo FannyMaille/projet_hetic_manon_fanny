@@ -360,6 +360,9 @@ input{
 }
 
 /*____________________Page panier_____________________________________*/
+.sectionar{
+  min-height: 60vh;
+}
 .panier-liste, .panier-total{
   width: 80%;
   margin: auto;
