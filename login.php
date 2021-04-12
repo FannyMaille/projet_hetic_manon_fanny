@@ -14,13 +14,21 @@ if(connecte()){
 //Si on envoie le formulaire on va vérifier quelques informations
 if(isset($_POST['connexion'])){
   extract($_POST);
-  //On regarde si le pseudo et le mdp saisis ne sont pas enregistrés dans notre base de donnée
-  if(!verificationlogin($pseudo,$mdp)){
-    //Si c'est le cas on affiche un message d'erreur
-    //Et la redirection n'est pas faite
+  $content = "";
+  $erreur=verifMdpIdentifiant($pseudo,$mdp,$content);
+  if($erreur == ""){
+    //On regarde si le pseudo et le mdp saisis ne sont pas enregistrés dans notre base de donnée
+    if(!verificationlogin($pseudo,$mdp)){
+      //Si c'est le cas on affiche un message d'erreur
+      //Et la redirection n'est pas faite
+      $content="Erreur de connexion";
+      $backgroud = 'style="background:tomato;padding:2%"';
+    };
+  } else{
     $content="Erreur de connexion";
     $backgroud = 'style="background:tomato;padding:2%"';
-  };
+  }
+  
 }
 
 ?>

@@ -287,18 +287,7 @@ function miseajourUneLigneCommandeBDD($commandeencours,$id){
 function erreurinscription($pseudo,$mdp,$mdpconfirmation,$telephone,$mail,$ville,$codepostal,$numrue,$rue){
   $content="";
   // on vérifie que le pseudo enregistré est bbien compris entre 2 et 255 caractères
-  // if(strlen($pseudo) < 2 || strlen($pseudo) > 255){
-  //   $content .= 'Votre pseudo doit contenir entre 2 et 255 caractères.</br>';
-  // }
-  if (1 !== preg_match('~^[a-zA-Z0-9- _-]{2,20}$~', $pseudo)){
-    $content .= 'Votre pseudo doit ne peut contenir que des minuscules, majuscules, - et chiffre (les espaces ou carctètes spéciaux ne sont pas autorisés).</br>';
-    $content .= 'Votre pseudo doit contenir entre 2 et 20 caractères.</br>';
-  }
-  // on vérifie que le mot de passe enregistré est bien compris entre 10 et 20 caractères, 
-  if (1 !== preg_match('~^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[$%?!]).{10,20}$~', $mdp)) {
-    $content .= 'Votre mot de passe doit contenir au minimum une majuscule, une minuscule, un chiffre et un carctère spéciale ($%?!).</br>';
-    $content .= 'Votre mot de passe doit être compris entre 10 et 20 caractères.</br>';
-  }
+  verifMdpIdentifiant($pseudo, $mdp, $content);
   // on vérifie que le mot de passe inscrit et le mot de passe de confirmation sont les mêmes
   if($mdp!=$mdpconfirmation){
     $content .= 'Votre mot de passe et sa confirmation ne correspondent pas.</br>';
@@ -325,8 +314,21 @@ function erreurinscription($pseudo,$mdp,$mdpconfirmation,$telephone,$mail,$ville
     $content .= 'Le numéro de rue est invalide.</br>';
   }
   // on vérifie que le nom de la rue enregistré est composé que de lettres
-  if (1 !== preg_match('~^[a-zA-Z- _-]{2,50}$~', $pseudo)){
+  if (1 !== preg_match('~^[a-zA-Z- _-]{2,50}$~', $rue)){
     $content .= 'Le nom de rue est invalide, il ne doit comporter que des lettres minuscules et majuscules.</br>';
+  }
+  return $content;
+}
+
+function verifMdpIdentifiant($pseudo, $mdp, $content){
+  if (1 !== preg_match('~^[a-zA-Z0-9- _-]{2,20}$~', $pseudo)){
+    $content .= 'Votre pseudo doit ne peut contenir que des minuscules, majuscules, - et chiffre (les espaces ou carctètes spéciaux ne sont pas autorisés).</br>';
+    $content .= 'Votre pseudo doit contenir entre 2 et 20 caractères.</br>';
+  }
+  // on vérifie que le mot de passe enregistré est bien compris entre 10 et 20 caractères, 
+  if (1 !== preg_match('~^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[$%?!]).{10,20}$~', $mdp)) {
+    $content .= 'Votre mot de passe doit contenir au minimum une majuscule, une minuscule, un chiffre et un carctère spéciale ($%?!).</br>';
+    $content .= 'Votre mot de passe doit être compris entre 10 et 20 caractères.</br>';
   }
   return $content;
 }

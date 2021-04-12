@@ -16,7 +16,7 @@ if(isset($_POST['inscription'])){
   extract($_POST);
   //On vérififie que toute les informations renseignées dans le formulaire n'on pas d'erreurs
   //Si il y a des erreurs un texte informatif est enregistré indiquant l'erreur
-  $erreur=erreurinscription($pseudo,$mdp,$mdpconfirmation,$telephone,$mail,$ville,$codepostal,$numrue,$nom);
+  $erreur=erreurinscription($pseudo,$mdp,$mdpconfirmation,$telephone,$mail,$ville,$codepostal,$numrue,$rue);
   //Pour afficher les erreurs en rouge
   $backgroud = 'style="background:tomato;padding:2%"';
   //Si il n'y a pas eu d'erreur dans la saisie des informations dans le formulaire alors on va pouvoir enregistrer les données dans la base de donnée
