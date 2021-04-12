@@ -1,12 +1,11 @@
 "use strict";
 
 // ------------------------ Profil.php
-const stockForm = document.getElementsByClassName('stock-form')[0];
 let previousElem;
 
 // functions
-function changeProfilElement(){
-  if(this.parentNode != stockForm){
+function changeElement(){
+  if(this.classList.contains('modify-user-profil')){
     civilCheck();
   }
   if(previousElem){
@@ -36,7 +35,7 @@ function civilCheck(){
   //element qui a le N° de la civilité dans sa value
   let numciv = document.getElementById('civnum');
   //Check la civilité qui a comme id civ eet le numéro de civilité
-  document.getElementById('civ'+numciv.value).checked=true;
+  document.getElementById('civ'+ numciv.value).checked=true;
 }
 
 

@@ -75,6 +75,9 @@ nav a span {
   text-decoration: underline;
   color: #ffd400;
 }
+.logout-icon{
+  vertical-align: baseline;
+}
 .nav-link:active {
   text-decoration: underline;
   color: #ffd400;
@@ -350,6 +353,10 @@ input{
 .image-preview{
   display: flex;
   justify-content: space-around;
+}
+.input-produit{
+  width: 100%;
+  margin: 0 0 20px;
 }
 
 /*____________________Page panier_____________________________________*/

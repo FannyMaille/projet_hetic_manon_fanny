@@ -7,5 +7,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const undoModify = document.getElementsByClassName('undo-modify');
 
   // Add the listeners
-  modifyProfilButtons.addEventListener("click", changeProfilElement);
+  modifyProfilButtons.addEventListener("click", changeElement);
 });

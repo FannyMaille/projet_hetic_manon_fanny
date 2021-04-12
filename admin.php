@@ -10,9 +10,9 @@ if(!connecte()){
 }
 
 //Si on envoie le formulaire de l'admin
-if(isset($_POST['changerstock'])){
+if(isset($_POST['modifierproduit'])){
   extract($_POST);
-  changestock(intval($idproduit), intval($stock));
+  changeProduit(intval($idproduit), intval($stock), $prix, $nomproduit);
 }
 
 // Liste des produits récupérés pour l'admin
@@ -38,18 +38,27 @@ if(isset($_POST['add-new-produit'])){
     <?php include 'config/template/nav.php'; ?>
 </header>
     <section class="admin-profil-part">
-      <h2 class="admin-titles">Gérer les stocks</h2>
+      <h2 class="admin-titles">Gérer les produits</h2>
       <div class="article-profil-parent">
       
         <?php for($k=0; $k<count($produits); $k++){ ?>
         <article class="admin-produit">
           <form action="admin.php" method="post" class="stock-form">
             <!-- // boucle des produits -->
-            <label><?php echo $produits[$k]['nom_produit'] ?></label>
-            <p>Stock actuel : <?php echo $produits[$k]['stock'] ?></p>
-            <input type="number" name="stock" class="hidden">
+            <div>
+              <label for="nomproduit"><?php echo $produits[$k]['nom_produit'] ?></label>
+              <input type="text" name="nomproduit" class="hidden input-produit" value="<?php echo $produits[$k]['nom_produit'] ?>">
+            </div>
+            <div>
+              <label for="stock">Stock actuel : <?php echo $produits[$k]['stock'] ?></label>
+              <input type="number" name="stock" class="hidden input-produit" value="<?php echo $produits[$k]['stock'] ?>">
+            </div>
+            <div>
+              <label for="prix">Prix actuel : <?php echo $produits[$k]['prix'] ?> euros</label>
+              <input type="float" name="prix" class="hidden input-produit" value="<?php echo $produits[$k]['prix'] ?>">
+            </div>
             <input type="hidden" name="idproduit" value="<?php echo $produits[$k]['id_produit'] ?>">
-            <input type="submit" name="changerstock" value="Changer les stocks" class='hidden'>
+            <input type="submit" name="modifierproduit" value="Changer les stocks" class='hidden'>
             <a class="hidden undo-modify">Annuler</a>
             <a class="modify-stock profil-element">Modifier</a>
           </form>
@@ -62,13 +71,13 @@ if(isset($_POST['add-new-produit'])){
       <h2 class="admin-titles">Ajouter un nouveau produit</h2>
       <form enctype="multipart/form-data" action="admin.php" method="post" class="add-produit-form">
         <label for="nouveaunom">Nom du produit :</label>
-        <input id="nouveaunom" type="text" name="nouveaunom">
+        <input id="nouveaunom" type="text" name="nouveaunom" required>
         <label for="nouveaustock">Stock :</label>
-        <input id="nouveaustock" type="number" name="nouveaustock">
+        <input id="nouveaustock" type="number" name="nouveaustock" required>
         <label for="nouveauprix">Prix :</label>
-        <input id="nouveauprix" type="float" name="nouveauprix">
+        <input id="nouveauprix" type="float" name="nouveauprix" required>
         <label for="nouveaudesc">Description du produit :</label>
-        <textarea id="nouveaudesc" name='nouveaudesc'></textarea>
+        <textarea id="nouveaudesc" name='nouveaudesc' required></textarea>
         <!-- Drag and drop des images -->
         <div>
           <div class="drop-space">
@@ -80,9 +89,6 @@ if(isset($_POST['add-new-produit'])){
         <input type="submit" name="add-new-produit" value="Ajouter le produit">
       </form>
     </section>
-
-    
-    <a href="index.php?session=destroy" class="btnclassique">Déconnexion</a>
 
     <!-- //https://www.w3schools.com/howto/howto_js_filter_lists.asp 
     if willing to make a search bar if multiple products -->

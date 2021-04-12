@@ -5,11 +5,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   // Add the listeners
   for(let i = 0 ; i < modifyStockButtons.length ; i++){
-    modifyStockButtons[i].addEventListener("click", changeProfilElement);
-    undoModify[i].addEventListener("click", changeProfilElement);
+    modifyStockButtons[i].addEventListener("click", changeElement);
+    undoModify[i].addEventListener("click", changeElement);
     event.preventDefault();
   }
 });
+
+
+// functions
 
 // Drag n Drop pictures
 const dropSpace = document.getElementsByClassName('drop-space')[0];
