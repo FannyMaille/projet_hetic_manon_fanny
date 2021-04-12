@@ -10,7 +10,7 @@ if(!panierquantite()==0){
 <section class="sectionpanier">
     <h1 class="text-center mt-5 mb-5">Page panier</h1>
       <p>Votre panier est vide</p>
-      <a href="index.php" class="btnclassique">Nos acticles</a>  
+      <a href="index.php#produits" class="btnclassique">Nos acticles</a>  
 </section>
 
 <?php include 'config/template/footer.php'; ?>

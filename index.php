@@ -31,7 +31,7 @@ $produit = infosproduits(0);
       <p>Prix : <?=$produit[$k]['prix']?> €</p>
       <p>Stock : <?=$produit[$k]['stock']?></p>
       <!-- modifier L'ID !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-      <a href="fiche_produit.php?id=<?=$produit[$k]['id_produit']?>" class="btnclassique">Voir l'article</a>
+      <a href="fiche_produit.php?id=id<?=$produit[$k]['id_produit']?>" class="btnclassique">Voir l'article</a>
     </article>
     <?php
       }

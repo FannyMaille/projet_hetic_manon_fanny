@@ -17,9 +17,10 @@ $qterreur="";
 if(isset($_GET['supprimer'])){
   //On vérifie qu'il y a un produit avec l'id demande enregistre dans session[panier]
   //C'est pour éviter que quelqu'un tape n'importe que dans l'url et qu'une eerreur appraraise
-  if(isset($_SESSION['panier'][$_GET['supprimer']])){
+  $idsupprimer=preg_replace('~\D~', '', $_GET['supprimer']);
+  if(isset($_SESSION['panier'][$idsupprimer])){
     //On appel la fonction supprimerpanier avec l'id du produit en question en paramètre
-    supprimerpanier($_GET['supprimer']);
+    supprimerpanier($idsupprimer);
     //on remet à jour le montant total
     $prixtotal=montantpanier();
   }
@@ -33,9 +34,10 @@ if(isset($_GET['supprimer'])){
 if(isset($_GET['moins'])){
   //On vérifie qu'il y a un produit avec l'id demande enregistre dans session[panier]
   //C'est pour éviter que quelqu'un tape n'importe que dans l'url et qu'une eerreur appraraise
-  if(isset($_SESSION['panier'][$_GET['moins']])){
+  $idmoins=preg_replace('~\D~', '', $_GET['moins']);
+  if(isset($_SESSION['panier'][$idmoins])){
     //On appel la fonction moins avec l'id du produit en question en paramètre
-    moins($_GET['moins']);
+    moins($idmoins);
     //on remet à jour le montant total
     $prixtotal=montantpanier();
   }
@@ -49,9 +51,10 @@ if(isset($_GET['moins'])){
 if(isset($_GET['plus'])){
   //On vérifie qu'il y a un produit avec l'id demande enregistre dans session[panier]
   //C'est pour éviter que quelqu'un tape n'importe que dans l'url et qu'une eerreur appraraise
-  if(isset($_SESSION['panier'][$_GET['plus']])){
+  $idplus=preg_replace('~\D~', '', $_GET['plus']);
+  if(isset($_SESSION['panier'][$idplus])){
     //On appel la fonction plus avec l'id du produit en question en paramètre
-    $resultat=plus($_GET['plus']);
+    $resultat=plus($idplus);
     //Si la fonction n'a rencontré aucune erreur => le nombre de produit demandé est inferieur au stock donc on peut ajouter ce produit au panier
     if($resultat==false){
       //on remet à jour le montant total
@@ -70,12 +73,13 @@ if(isset($_GET['plus'])){
     $backgroudurl="style='background:tomato;padding:2%'";
   }
 }
-
-$idcommande=recupereIDcommandeBDD($_SESSION['user']['id']);
-
-if(isset($_POST["acheter"])){
-  // payement();
+if(isset($_SESSION['user']['id'])){
+  $idcommandearray=recupereIDcommandeBDD($_SESSION['user']['id']);
+  $idcommande=$idcommandearray[0]['id_commande'];
+}else{
+  $idcommande="";
 }
+
 
 ?>
 <header>
@@ -92,10 +96,10 @@ if(isset($_POST["acheter"])){
                 <h2><?= $idproduit['nom'] ?></h2>
                 <p><?= $idproduit['prix'] ?> €</p>
                   <div class="panier-quantite">
-                  <a href="panier.php?plus=<?=$idproduit['id']?>" class="quantitemodif">+</a>
+                  <a href="panier.php?plus=id<?=$idproduit['id']?>" class="quantitemodif">+</a>
                     <p class="pr-2 pl-2"><?= $idproduit['quantite'] ?></p>
-                    <a href="panier.php?moins=<?=$idproduit['id']?>" class="quantitemodif">-</a>
-                    <a href="panier.php?supprimer=<?=$idproduit['id']?>" class="supression_produit btnclassique">Supprimer</a>
+                    <a href="panier.php?moins=id<?=$idproduit['id']?>" class="quantitemodif">-</a>
+                    <a href="panier.php?supprimer=id<?=$idproduit['id']?>" class="supression_produit btnclassique">Supprimer</a>
                   </div>
             </div>
             <img src="<?= $idproduit['photo']?>" alt="<?= $idproduit['nom']?>">
@@ -108,7 +112,7 @@ if(isset($_POST["acheter"])){
             <p>Prix total :</p>
             <p><?= $prixtotal ?> €</p>
         </div>
-        <form action="payement.php?id=<?=$idcommande[0]['id_commande']?>" method='post'>
+        <form action="payement.php?id=idcommande<?=$idcommande?>" method='post'>
             <input class="w-100" type="submit" name="acheter" value="Passer à l'achat">
         </form>
     </div>

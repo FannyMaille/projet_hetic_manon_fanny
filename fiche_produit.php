@@ -2,7 +2,8 @@
 <?php include 'config/template/head.php';
 
 //On récupère l'id du produit qu'on a mis dans l'url
-$id = $_GET['id'];
+$idurl = $_GET['id'];
+$id= preg_replace('~\D~', '', $idurl);
 
 //Définition des variables contenent les erreurs comme étant vide au départ
 $content="";
@@ -44,7 +45,7 @@ if(isset($_POST['ajout_panier'])){
         <p>Stock : <?=$unproduit[0]['stock']?></p>
         <h2>Description</h2>
         <p><?=$unproduit[0]['description_produit']?></p>
-        <form action="fiche_produit.php?id=<?=$id?>" method="post">
+        <form action="fiche_produit.php?id=id<?=$id?>" method="post">
           <div <?=$backgroud?>><?=$content?></div>
           <input type="submit" value="Ajouter au panier" name="ajout_panier">
         </form>

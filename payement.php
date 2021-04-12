@@ -1,5 +1,6 @@
 <?php include 'config/template/head.php'; 
-$idcommande =$_GET['id'];
+$idcommandurl =$_GET['id'];
+$idcommande=preg_replace('~\D~', '', $idcommandurl);
 $prixtotal=montantfinal($idcommande);
 $commande=payement($idcommande);
 $usercommande =personnecommande($idcommande);
