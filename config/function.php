@@ -284,7 +284,7 @@ function miseajourUneLigneCommandeBDD($commandeencours,$id){
 
 //___FONCTION___
 // Traitement si il ya des erreurs dans le renseignement des champs
-function erreurinscription($pseudo,$mdp,$mdpconfirmation,$telephone,$mail,$ville){
+function erreurinscription($pseudo,$mdp,$mdpconfirmation,$telephone,$mail,$ville,$codepostal,$numrue,$rue){
   $content="";
   // on vérifie que le pseudo enregistré est bbien compris entre 2 et 255 caractères
   // if(strlen($pseudo) < 2 || strlen($pseudo) > 255){
@@ -315,6 +315,18 @@ function erreurinscription($pseudo,$mdp,$mdpconfirmation,$telephone,$mail,$ville
   // ^[a-zA-Z- _-]{3,30}$
   if (1 !== preg_match('~^[a-zA-Z- _-]{3,30}$~', $ville)) {
     $content .= 'Le nom de la ville n\'est pas valide. Les chiffres et les caractères spéciaux ne sont pas acceptés.</br>';
+  }
+  // on vérifie que le code postal comporte bien 5 chiffres uniquement
+  if (1 !== preg_match('~^[0-9]{5}$~', $codepostal)) {
+    $content .= 'Le code postal doit comporter 5 chiffres.</br>';
+  }
+  // on vérifie que le numéro de chiffres comporte bien des chiffres uniquement
+  if (1 !== preg_match('~^[0-9]{1,3}$~', $numrue)) {
+    $content .= 'Le numéro de rue est invalide.</br>';
+  }
+  // on vérifie que le nom de la rue enregistré est composé que de lettres
+  if (1 !== preg_match('~^[a-zA-Z- _-]{2,50}$~', $pseudo)){
+    $content .= 'Le nom de rue est invalide, il ne doit comporter que des lettres minuscules et majuscules.</br>';
   }
   return $content;
 }
