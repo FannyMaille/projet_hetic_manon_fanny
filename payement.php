@@ -1,10 +1,18 @@
 <?php include 'config/template/head.php';
-if(!isset($_SESSION['commande'])){
+//Si on arrive sur cette page pour la première fois
+if(!isset($_SESSION['commande']) AND isset($_POST['idcommande'])){
   $idcommandepost=$_POST['idcommande'];
   $_SESSION['commande'] = $idcommandepost;
   $idcommande = $_SESSION['commande'];
-}else{
+}
+//Si on actualise la page
+else{
   $idcommande = $_SESSION['commande'];
+}
+//Si on touche l'url
+if(!isset($_SESSION['commande'])){
+  header("location:panier.php");
+  die();
 }
 
 $prixtotal=montantfinal($idcommande);
