@@ -9,7 +9,10 @@ if(!connecte()){
   header("location:login.php");
   die();
 }
-
+if($_SESSION['user']['statut'] != 'admin'){
+  header("location:login.php");
+  die();
+}
 
 // Si on supprime un produit
 if(isset($_POST['supprimerproduit'])){
