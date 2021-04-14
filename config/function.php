@@ -968,6 +968,22 @@ function payement($idcommande){
     die();
   }
 }
+//___FONCTION___
+//pour que l'utilisateur n'est acces que a ses commandes si il traffic le code
+function verifidcommande($idcommandepost){
+  global $pdo;
+  $querySelect = "SELECT id_user FROM hetic21_commande WHERE id_user = :iduser AND id_commande = :idcommande";
+  $req = $pdo->prepare($querySelect);
+  $req->execute(
+    [
+      'iduser' => $_SESSION["user"]['id'],
+      'idcommande'=> $idcommandepost 
+    ]
+  );
+  $idcommandeok= $req->fetch(PDO::FETCH_ASSOC);
+  return $idcommandeok;
+}
+
 
 //___FONCTION___
 function montantfinal($idcommande){

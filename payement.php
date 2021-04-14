@@ -2,6 +2,12 @@
 //Si on arrive sur cette page pour la première fois
 if(!isset($_SESSION['commande']) AND isset($_POST['idcommande'])){
   $idcommandepost=$_POST['idcommande'];
+  $idcommandeok=verifidcommande($idcommandepost);
+  if(!isset($idcommandeok['id_user'])){
+    header("location:panier.php");
+    print_r($idcommandeok);
+    die();
+  }
   $_SESSION['commande'] = $idcommandepost;
   $idcommande = $_SESSION['commande'];
 }
