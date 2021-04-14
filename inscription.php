@@ -45,15 +45,15 @@ if(isset($_POST['inscription'])){
       <div class="deuxparties">
         <div class="partiesformulaire premierepartie">
           <label for="pseudo"></label>
-          <input type="text" name="pseudo" id="pseudo" class="filter" placeholder="Pseudo *">
+          <input type="text" name="pseudo" id="pseudo" class="filter" placeholder="Pseudo *" value="<?php if(isset($pseudo)){ echo $pseudo; } ?>">
           <label for="telephone"></label>
-          <input type="tel" name="telephone" id="telephone" class="filter" placeholder="Téléphone *">
+          <input type="tel" name="telephone" id="telephone" class="filter" placeholder="Téléphone *" value="<?php if(isset($telephone)){ echo $telephone; } ?>">
           <label for="numrue"></label>
-          <input type="number" name="numrue" id="numrue" class="filter" placeholder="Numéro de rue *">
+          <input type="number" name="numrue" id="numrue" class="filter" placeholder="Numéro de rue *" value="<?php if(isset($numrue)){ echo $numrue; } ?>">
           <label for="codepostal"></label>
-          <input type="number" name="codepostal" id="codepostal" class="filter" placeholder="Code Postal *">
+          <input type="number" name="codepostal" id="codepostal" class="filter" placeholder="Code Postal *" value="<?php if(isset($codepostal)){ echo $codepostal; } ?>">
           <label for="ville"></label>
-          <input type="text" name="ville" id="ville" class="filter" placeholder="Ville *">
+          <input type="text" name="ville" id="ville" class="filter" placeholder="Ville *" value="<?php if(isset($ville)){ echo $ville; } ?>">
         </div>
         <div class="partiesformulaire deuxiemepartie">
           <label for="mdp"></label>
@@ -61,9 +61,9 @@ if(isset($_POST['inscription'])){
           <label for="mdpconfirmation"></label>
           <input type="password" name="mdpconfirmation" id="mdpconfirmation" class="filter" placeholder="Confirmation du mot de passe *">
           <label for="mail"></label>
-          <input type="email" name="mail" id="mail" class="filter" placeholder="Email *">
+          <input type="email" name="mail" id="mail" class="filter" placeholder="Email *" value="<?php if(isset($mail)){ echo $mail; } ?>">
           <label for="rue"></label>
-          <input type="text" name="rue" id="rue" class="filter" placeholder="Nom de rue *">
+          <input type="text" name="rue" id="rue" class="filter" placeholder="Nom de rue *" value="<?php if(isset($rue)){ echo $rue; } ?>">
           <div class="divcivilite">
           <p class="civilite">Civilité :</p>
           <div class="btnradio">
