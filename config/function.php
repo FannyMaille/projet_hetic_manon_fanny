@@ -489,11 +489,12 @@ function setsession($result){
 function recupereIDcommandeBDD($userid){
   global $pdo;
   //on recupère id_commande de la table hetic21_commande lorsque l'on trouve un ligne pour lequelle id-user correespond à la personne connectée + que la commande n'a pas été finalisée
-    $querySelect = "SELECT id_commande FROM hetic21_commande WHERE id_user = :iduser AND type = 0";
+    $querySelect = "SELECT id_commande FROM hetic21_commande WHERE id_user = :iduser AND type = :typecommande";
     $req = $pdo->prepare($querySelect);
     $req->execute(
       [
-        'iduser'=> $userid
+        'iduser'=> $userid,
+        'typecommande'=> 0
       ]
     );
     $commandeencours= $req->fetchAll(PDO::FETCH_ASSOC);
@@ -938,10 +939,11 @@ function payement($idcommande){
     $commaneeffectueee= $req->fetchAll(PDO::FETCH_ASSOC);
 
     //On mets à jour le type dans la table commande pour informer que cettte commande à été réglée
-    $queryUpdate = "UPDATE hetic21_commande SET type = 1 WHERE id_commande = :idcommande AND id_user = :iduser";
+    $queryUpdate = "UPDATE hetic21_commande SET type = :typecommande WHERE id_commande = :idcommande AND id_user = :iduser";
     $reqPrep = $pdo->prepare($queryUpdate);
     $reqPrep->execute(
       [
+        'typecommande' => 1,
         'idcommande' => $idcommande,
         'iduser' => $_SESSION["user"]['id']
       ]
